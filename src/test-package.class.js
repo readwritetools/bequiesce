@@ -59,7 +59,7 @@ export default class TestPackage {
 	    		this.addJavascript(obj);
 	    	}
 	    	else {
-	    		log.abnormal(`Unable to parse this line: "${sourceline}"`);
+	    		log.hopelessHalt();
 	    	}
     	}
     	tr.close();
