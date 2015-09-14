@@ -1,0 +1,27 @@
+{
+  "name": "Bequiesce",
+  "version": "1.0.0",
+  "description": "Be Quiet",
+  "author": "Joe Honton",
+  "private": true,
+  "license": "CC-BY-NC-ND-4.0",
+  "main": "main.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "babel": "^5.8.21"
+  },
+  "scripts": {
+    "buildlib": "npm run compilelib && npm run runlib",
+    "compilelib": "babel --out-dir=lib --source-maps --extensions=\".js\" src",
+    "runlib": "node examples/05-spherical-coordinates/test-suite.js",
+    "build05": "npm run compilelib && npm run compile05 && npm run run05",
+    "compile05": "babel --out-file=examples/05-spherical-coordinates/test-suite.js examples/05-spherical-coordinates/test-suite-es2015.js",
+    "run05": "node examples/05-spherical-coordinates/test-suite.js"
+  },
+  "#": "These are babel command line options",
+  "babel": {
+    "modules": "common",
+    "sourceMaps": true
+  }
+}
