@@ -66,11 +66,11 @@ export default class Bequiesce {
     	return this;
 	}
 
-	execute() {
+	runTests() {
 		for (let pkg of this._testPackages) { 
 			log.trace(`Parsing ${pkg.filename}`);
 			if (pkg.parse())
-				pkg.executeSections();
+				pkg.runTests();
 		}
 		log.exit(100, "Done");
 	}

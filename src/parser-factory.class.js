@@ -36,27 +36,32 @@ export default class ParserFactory {
     parseLine(sourceline, lineNumber) {
     	log.expect(sourceline, 'String');
     	log.expect(lineNumber, 'Number');
-    	
-    	// log.trace(lineNumber, sourceline);
-    	
+
     	if (sourceline.indexOf("// using") != -1) {
     		this.parsingState = 1;
-    		var description = sourceline.substr("// using".length);
+    		var description = sourceline.substr("// using".length).trim();
     		return new CodeSection(description, this.packageNumber, lineNumber);
     	}
     	else if (sourceline.indexOf("// testing") != -1) {
     		this.parsingState = 2;
-    		var description = sourceline.substr("// testing".length);
+    		var description = sourceline.substr("// testing".length).trim();
     		return new TestGroup(description, this.packageNumber, lineNumber);
     	}
-    	else if (sourceline.indexOf("//") != -1 || sourceline.length == 0) {
+    	else if (sourceline.indexOf("//") == 0 || sourceline.length == 0) {
     		return null;
     	}
     	else if (this.inCodeSection()) {
     		return sourceline;
     	}
     	else if (this.inTestSection()) {
-    		return new TestCase(sourceline, this.packageNumber, lineNumber);		// TODO split at ;;
+    		var commentAt = sourceline.lastIndexOf("//");
+    		if (commentAt != -1) {
+    			sourceline = sourceline.substr(0, commentAt);
+    		} 
+    		var parts = sourceline.split(';;');
+    		var proposition = parts[0];
+    		var truth = (parts.length == 0) ? "" : parts[1];
+    		return new TestCase(proposition, truth, this.packageNumber, lineNumber);
     	}
     	else {
     		log.abnormal(`Is this code or test? "${sourceline}"`);

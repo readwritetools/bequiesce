@@ -23,4 +23,9 @@ export default class TestCase {
     	this.lineNumber = lineNumber;			// current 1-based line number where the "// testing" occurs 
     	Object.seal(this);
     }
+    
+    runTests() {
+//    	log.trace(`        P ${this.proposition}`);
+//    	log.trace(`        T ${this.truth}`);
+    }
 }
