@@ -27,5 +27,6 @@ export default class TestCase {
     runTests() {
 //    	log.trace(`        P ${this.proposition}`);
 //    	log.trace(`        T ${this.truth}`);
+    	jot.trace(this, `${this.proposition} ---> ${this.truth}`);
     }
 }

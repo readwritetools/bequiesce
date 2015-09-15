@@ -17,7 +17,6 @@ import CodeSection from "./code-section.class";
 import TestGroup from "./test-group.class";
 import TestCase from "./test-case.class";
 
-
 export default class TestPackage {
 	
     constructor(pfile, packageNumber) {
@@ -27,8 +26,8 @@ export default class TestPackage {
     	this.pfile = pfile;						// the user's test case file
     	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array for this TestPackage
     	this.sections = new Array();			// an array of CodeSections identified by '// using'
-    	this.lineNumber = 1;					// current 1-based line number of the user's test case file being parsed 
-    	this.sectionIndex = null;				// current index into the array of CodeSections
+    	this.lineNumber = 1;					// 1-based line number of the user's test case file currently being parsed 
+    	this.sectionIndex = null;				// 0-based index into the array of CodeSections of the user's test case file currently being parsed 
     	Object.seal(this);
     }
     
@@ -100,7 +99,8 @@ export default class TestPackage {
    
     runTests() {
     	for (let section of this.sections) {
-    		log.trace(`${section.description}`);
+    		//log.trace(`${section.description}`);
+    		//NO jot.trace(this, `${section.description}`);
     		section.runTests();
     	}
     }

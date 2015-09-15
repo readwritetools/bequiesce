@@ -33,7 +33,8 @@ export default class TestGroup {
     }
 
     runTests() {
-		log.trace(`${this.cases.length} test cases`);
+		// log.trace(`${this.cases.length} test cases`);
+    	jot.trace(this, `TEST GROUP ${this.description}`);
     	for (let i = 0; i < this.cases.length; i++) {
     		//log.trace(`        case ${i}`);
     		this.cases[i].runTests();
