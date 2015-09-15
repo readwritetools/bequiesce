@@ -14,6 +14,9 @@ import Pfile from "./pfile.class";
 import TextReader from "./text-reader.class";
 import ParserFactory from "./parser-factory.class";
 import CodeSection from "./code-section.class";
+import TestGroup from "./test-group.class";
+import TestCase from "./test-case.class";
+
 
 export default class TestPackage {
 	
@@ -25,7 +28,7 @@ export default class TestPackage {
     	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array for this TestPackage
     	this.sections = new Array();			// an array of CodeSections identified by '// using'
     	this.lineNumber = 1;					// current 1-based line number of the user's test case file being parsed 
-    	this.sectionIndex = null;				// current index into the array of Sections
+    	this.sectionIndex = null;				// current index into the array of CodeSections
     	Object.seal(this);
     }
     
@@ -42,27 +45,28 @@ export default class TestPackage {
     	var sourceline = null;
 		while ((sourceline = tr.getline()) != null) {
 			var obj = pf.parseLine(sourceline, this.lineNumber++);
-	    	
+			
 			if (obj == null){
 				// no-op
 			}
-			else if (obj instanceof CodeSection) {
+			else if (obj.constructor.name =='CodeSection') {
 	    		this.addCodeSection(obj);
 	    	}
-	    	else if (obj instanceof TestGroup) {
+	    	else if (obj.constructor.name == 'TestGroup') {
 	    		this.addTestGroup(obj);
 	    	}
-	    	else if (obj instanceof TestCase) {
+	    	else if (obj.constructor.name == 'TestCase') {
 	    		this.addTestCase(obj);
 	    	}
-	    	else if (obj instanceof String) {
+	    	else if (obj.constructor.name == 'String') {
 	    		this.addJavascript(obj);
 	    	}
 	    	else {
-	    		log.hopelessHalt();
+	    		log.hopelessHalt(`Encountered ${obj.constructor.name}`);
 	    	}
     	}
     	tr.close();
+    	return true;
     }
     
     addCodeSection(cs) {
@@ -74,7 +78,7 @@ export default class TestPackage {
     currentCodeSection() {
     	if (this.sectionIndex == null) {
     		log.abnormal("Adding a default CodeSection because none found");
-    		this.addCodeSection( new CodeSection() );
+    		this.addCodeSection( new CodeSection("auto", this.packageNumber, this.lineNumber) );
     	}    		
     	return this.sections[this.sectionIndex];
     }
@@ -94,11 +98,10 @@ export default class TestPackage {
     	this.currentCodeSection().addJavascript(js);
     }
    
-    executeSections() {
-    	// loop on this.sections
-    	for (section in this.sections) {
-    		log.trace(`executing ${section.description}`);
+    runTests() {
+    	for (let section of this.sections) {
+    		log.trace(`${section.description}`);
+    		section.runTests();
     	}
-    	trace.todo();
     }
 }

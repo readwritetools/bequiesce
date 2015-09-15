@@ -20,30 +20,47 @@ export default class CodeSection {
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');
     	
-    	this.description = description;			// the text that immediately follows "// using"
+    	this.description = description.trim();	// the text that immediately follows "// using"
+    	if (this.description.length == 0)
+    		this.description = "[unnamed code section]";
+    	
+    	this.javascript = "";					// a multi-line string containing this Test Group's common Javascript code
     	this.groups = new Array();				// an array of TestGroups identified by '// testing'
     	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
     	this.lineNumber = lineNumber;			// current 1-based line number where the "// using" occurs 
-    	this.sectionIndex = null;				// current index into the array of Sections
+    	this.groupIndex = null;					// current index into the array of TestGroups
     	Object.seal(this);
     }
 
     addTestGroup(tg) {
     	log.expect(tg, 'TestGroup');
-    	
-    	log.todo();
+    	this.groups.push(tg);
+		this.groupIndex = this.groups.length-1;
     }
     
+    currentTestGroup() {
+    	if (this.groupIndex == null) {
+    		log.abnormal("Adding a default TestGroup because none found");
+    		this.addTestGroup( new TestGroup("auto", this.packageNumber, this.lineNumber) );
+    	}    		
+    	return this.groups[this.groupIndex];
+    }
+
     addTestCase(tc) {
     	log.expect(tc, 'TestCase');
-    	
-    	log.todo();
+    	this.currentTestGroup().addTestCase(tc);
     }
 
     addJavascript(js) {
     	log.expect(js, 'String');
-
-    	log.todo();
+    	this.javascript += (js + "\n");
     }
-   
+    
+    runTests() {
+    	log.trace("\n" + this.javascript);
+    	for (let group of this.groups) {
+    		log.trace(`${group.description}`);
+    		group.runTests();
+    	}
+    }
 }

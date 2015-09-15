@@ -40,8 +40,10 @@ dms = sc.asDegreesMinutesSeconds();
 dh  = sc.asDecimalHours();
 hms = sc.asHoursMinutesSeconds();
 
-// testing
+// testing where radians is undefined
 radians = undefined;				;; rad == 0.0 		&& dd.fe(0.0)			&& cu.degrees.fe(0) 	&& cu.arcminutes.fe(0.0)		&& dms.degrees == 0   && dms.arcminutes == 0  && dms.arcseconds == 0	&& dh.fe(0.0)		&& hms.hours == 0  && hms.minutes == 0  && hms.seconds == 0
+
+// testing where radians is between 0 and 2 PI
 radians = 1.0;						;; rad == 1.0 		&& dd.fe(57.2957795)	&& cu.degrees.fe(57)	&& cu.arcminutes.fe(17.74677)	&& dms.degrees == 57  && dms.arcminutes == 17 && dms.arcseconds == 45	&& dh.fe(3.819719)	&& hms.hours == 3  && hms.minutes == 49 && hms.seconds == 11
 radians = 2.0;						;; rad == 2.0 		&& dd.fe(114.591559)	&& cu.degrees.fe(114)	&& cu.arcminutes.fe(35.49354)	&& dms.degrees == 114 && dms.arcminutes == 35 && dms.arcseconds == 30	&& dh.fe(7.639437)	&& hms.hours == 7  && hms.minutes == 38 && hms.seconds == 22
 radians = 3.0;						;; rad == 3.0 		&& dd.fe(171.8873385)	&& cu.degrees.fe(171)	&& cu.arcminutes.fe(53.24031)	&& dms.degrees == 171 && dms.arcminutes == 53 && dms.arcseconds == 14	&& dh.fe(11.459156)	&& hms.hours == 11 && hms.minutes == 27 && hms.seconds == 33
@@ -51,13 +53,17 @@ radians = 5.0;						;; rad == 5.0 		&& dd.fe(286.4788976)	&& cu.degrees.fe(286)	
 radians = 6.0;						;; rad == 6.0 		&& dd.fe(343.774677)	&& cu.degrees.fe(343)	&& cu.arcminutes.fe(46.48062)	&& dms.degrees == 343 && dms.arcminutes == 46 && dms.arcseconds == 29	&& dh.fe(22.918312)	&& hms.hours == 22 && hms.minutes == 55 && hms.seconds == 6
 radians = 2*Math.PI;				;; rad == 2*Math.PI	&& dd.fe(360.0)			&& cu.degrees.fe(360)	&& cu.arcminutes.fe(0.0)		&& dms.degrees == 360 && dms.arcminutes == 0  && dms.arcseconds == 0	&& dh.fe(24.0)		&& hms.hours == 24 && hms.minutes == 0  && hms.seconds == 0
 
+// testing where radians is in excess of 2 PI
+radians = 3*Math.PI;				;; rad == Math.PI 	&& dd.fe(180.0)			&& cu.degrees.fe(180)	&& cu.arcminutes.fe(0.0)		&& dms.degrees == 180 && dms.arcminutes == 0  && dms.arcseconds == 0	&& dh.fe(12.0)		&& hms.hours == 12 && hms.minutes == 0  && hms.seconds == 0
+radians = 4*Math.PI;				;; rad == 2*Math.PI	&& dd.fe(360.0)			&& cu.degrees.fe(360)	&& cu.arcminutes.fe(0.0)		&& dms.degrees == 360 && dms.arcminutes == 0  && dms.arcseconds == 0	&& dh.fe(24.0)		&& hms.hours == 24 && hms.minutes == 0  && hms.seconds == 0
+
 //-------------------------------------
 // using decimal degrees
 sc = new cc.SpheriCoords();
 sc.fromDecimalDegrees(dd1);
 dd2 = sc.asDecimalDegrees();
 
-// testing
+// testing from 0 to 360 degrees
 dd1 = 0.0;							;; dd2 == dd1
 dd1 = 0.01;							;; dd2 == dd1
 dd1 = 0.001;						;; dd2 == dd1
@@ -71,6 +77,8 @@ dd1 = 225.0;						;; dd2 == dd1
 dd1 = 270.0;						;; dd2 == dd1
 dd1 = 315.0;						;; dd2 == dd1
 dd1 = 360.0;						;; dd2 == dd1
+
+// testing in excess of 360 degrees
 dd1 = 540.0;						;; dd2 == dd1
 dd1 = 720.0;						;; dd2 == dd1
 dd1 = -180.0;						;; dd2 == dd1
@@ -84,7 +92,7 @@ sc = new cc.SpheriCoords();
 sc.fromCelestialUnits(degrees, arcminutes);
 cu = sc.asCelestialUnits();
 
-// testing
+// testing celestial units with high precision
 degrees = 0; arcminutes = 0.0;			;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = 0; arcminutes = 1.0;			;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = 0; arcminutes = 0.1;			;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
@@ -94,14 +102,22 @@ degrees = 0; arcminutes = 0.99;			;; degrees == cu.degrees && cu.arcminutes.fe(a
 degrees = 0; arcminutes = 0.999;		;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = 0; arcminutes = 0.9999;		;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = 0; arcminutes = 0.99999;		;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
+
+// testing celestial units with circular overflow/underflow
 degrees = 0; arcminutes = 60.0;			;; cu.degrees == 1  && cu.arcminutes.fe(0.0)			// overflow
 degrees = 0; arcminutes = -1.0;			;; cu.degrees == -1 && cu.arcminutes.fe(59.0)			// underflow
+
+// testing typical
 degrees = 45; arcminutes = 10.0;		;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = 90; arcminutes = 20.0;		;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = 180; arcminutes = 30.0;		;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
+
+// testing beyond 360
 degrees = 360; arcminutes = 40.00001;	;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = 720; arcminutes = 50.12345;	;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = 1080; arcminutes = 59.99999;	;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
+
+// testing negatives
 degrees = -45; arcminutes = 0.0;		;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 degrees = -90; arcminutes = 0.0;		;; degrees == cu.degrees && cu.arcminutes.fe(arcminutes)
 
