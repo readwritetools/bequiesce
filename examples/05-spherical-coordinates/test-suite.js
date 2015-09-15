@@ -6,7 +6,7 @@ var _libBequiesceClass = require('../../lib/bequiesce.class');
 
 var _libBequiesceClass2 = _interopRequireDefault(_libBequiesceClass);
 
-var b = new _libBequiesceClass2["default"]();
+var b = _libBequiesceClass2["default"].getInstance();
 
 var rc = b
 //		.testPackage("./test/case/sphericoords.1.test.js")

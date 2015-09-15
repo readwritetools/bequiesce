@@ -11,6 +11,7 @@
 
 import Pfile from "./pfile.class";
 import Log from "./log.class";
+import Jot from "./jot.class";
 import TestPackage from "./test-package.class";
 
 export default class Bequiesce {
@@ -23,6 +24,14 @@ export default class Bequiesce {
     	this._shuntReportsTo = "stdout";			// the keyword "stdout" or a Pfile
     	this.initialize();
     	Object.seal(this);
+    }
+    
+    //^ singleton
+    static getInstance() {
+    	if (_bequiesce == null) {
+    		_bequiesce = new Bequiesce();
+    	}
+   		return _bequiesce;
     }
     
     //^ capture the path to the user's test suite script file
@@ -68,17 +77,30 @@ export default class Bequiesce {
 
 	runTests() {
 		for (let pkg of this._testPackages) { 
-			log.trace(`Parsing ${pkg.filename}`);
+//			log.trace(`Parsing ${pkg.filename}`);
 			if (pkg.parse())
 				pkg.runTests();
 		}
 		log.exit(100, "Done");
 	}
+	
+	//^ Get the filename of the package at the given index
+	packageNameFromIndex(packageNumber) {
+		log.expect(packageNumber, 'Number');
+		
+		if (packageNumber >= this._testPackages.length) {
+			log.invalid(`Invalid packageNumber ${packageNumber}`);
+			return '';
+			}
+		
+		return this._testPackages[packageNumber].pfile.getFilename();
+	}
 }
 
 //The only globals
 global.log = new Log();
-
+global.jot = new Jot();
+global._bequiesce = null;
 
 
 

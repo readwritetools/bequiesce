@@ -57,9 +57,10 @@ export default class CodeSection {
     }
     
     runTests() {
-    	log.trace("\n" + this.javascript);
+    	// log.trace("\n" + this.javascript);
+    	jot.trace(this, `TEST SECTION ${this.description}`);
     	for (let group of this.groups) {
-    		log.trace(`${group.description}`);
+    		//log.trace(`${group.description}`);
     		group.runTests();
     	}
     }

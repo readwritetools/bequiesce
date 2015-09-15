@@ -1,6 +1,6 @@
 import Bequiesce from '../../lib/bequiesce.class';
 
-var b = new Bequiesce();
+var b = Bequiesce.getInstance();
 
 var rc = b
 //		.testPackage("./test/case/sphericoords.1.test.js")
