@@ -71,15 +71,16 @@ export default class Bequiesce {
 	
 	shuntReportsTo(filename) {
     	log.expect(filename, 'String');
-		this._shuntReportsTo = new Pfile(filename);
+		this._shuntReportsTo = new Pfile(filename).getFQN();
     	return this;
 	}
 
 	runTests() {
 		for (let pkg of this._testPackages) { 
-//			log.trace(`Parsing ${pkg.filename}`);
-			if (pkg.parse())
+			if (pkg.parse()) {
 				pkg.runTests();
+				pkg.reportResults("", this._reportLineByLine, this._reportSummary, this._shuntReportsTo);
+			}
 		}
 		log.exit(100, "Done");
 	}
@@ -93,7 +94,7 @@ export default class Bequiesce {
 			return '';
 			}
 		
-		return this._testPackages[packageNumber].pfile.getFilename();
+		return this._testPackages[packageNumber].pfile.getStem();
 	}
 }
 

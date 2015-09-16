@@ -10,6 +10,9 @@
 //
 //=============================================================================
 
+import StatsRecoder from './stats-recorder.class';
+import Jot from './jot.class';
+
 export default class TestGroup {
 	
     constructor(description = '', packageNumber, lineNumber) {
@@ -21,9 +24,10 @@ export default class TestGroup {
     	if (this.description.length == 0)
     		this.description = "[unnamed test group]";
 
-    	this.cases = new Array();				// an array of one-line TestCases
-    	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
-    	this.lineNumber = lineNumber;			// current 1-based line number where the "// testing" occurs 
+    	this.cases = new Array();					// an array of one-line TestCases
+    	this.statsRecorder = new StatsRecoder();	// successes and failures
+    	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
+    	this.lineNumber = lineNumber;				// current 1-based line number where the "// testing" occurs 
     	Object.seal(this);
     }
     
@@ -33,11 +37,28 @@ export default class TestGroup {
     }
 
     runTests() {
-		// log.trace(`${this.cases.length} test cases`);
-    	jot.trace(this, `TEST GROUP ${this.description}`);
+//    	jot.trace(this, `TEST GROUP ${this.description}`);
     	for (let i = 0; i < this.cases.length; i++) {
-    		//log.trace(`        case ${i}`);
-    		this.cases[i].runTests();
+    		
+    		if (this.cases[i].runTests() == true)
+    			this.statsRecorder.incrementSuccess();
+    		else
+    			this.statsRecorder.incrementFailure();
     	}
     }
+
+    reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo) {
+		log.expect(prefix, 'String');
+		log.expect(reportLineByLine, 'Boolean');
+		log.expect(reportSummary, 'Boolean');
+		log.expect(shuntReportsTo, 'String');
+		
+//    	jot.trace(this, `TEST GROUP ${this.description}`);
+		var passCount = Jot.rightJustify( this.statsRecorder.success.toString(), 3);
+		var failCount = Jot.rightJustify( this.statsRecorder.failure.toString(), 3);
+		var prefix = Jot.rightJustify( prefix, 40);
+		var description = this.description;
+   		var s = `Pass:${passCount}  Fail:${failCount} ${prefix} -> ${description}`;
+   		jot.trace(this, s);
+	}
 }
