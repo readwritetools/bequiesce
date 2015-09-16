@@ -11,23 +11,28 @@
 
 export default class TestCase {
 	
-    constructor(proposition, truth, packageNumber, lineNumber) {
-    	log.expect(proposition, 'String');
-    	log.expect(truth, 'String');
+    constructor(propositionJS, proofJS, codeSection, packageNumber, lineNumber) {
+    	log.expect(propositionJS, 'String');
+    	log.expect(proofJS, 'String');
+    	log.expect(codeSection, 'CodeSection');
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');
     	
-    	this.proposition = proposition;			// the first half of the line, that contains context and values
-    	this.truth = truth;						// the second half of the line, that contains assertion about the proposition
+    	this.propositionJS = propositionJS;		// the first half of the line, that contains context and values
+    	this.proofJS = proofJS;					// the second half of the line, that contains assertion about the proposition
+    	this.codeSection = codeSection;			// the codeSection that contains the situationJS for this case
     	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
     	this.lineNumber = lineNumber;			// current 1-based line number where the "// testing" occurs 
     	Object.seal(this);
     }
     
     runTests() {
-//    	jot.trace(this, `${this.proposition} ---> ${this.truth}`);
+    	jot.trace("===================================");
+    	jot.trace( this.propositionJS );
+    	jot.trace( this.codeSection.situationJS );
+    	jot.trace( this.proofJS );
     	
-    	if (this.proposition.length % 3 == 0)
+    	if (this.propositionJS.length % 3 == 0)
     		return false;
     	else
     		return true;

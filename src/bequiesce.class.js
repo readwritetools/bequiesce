@@ -16,24 +16,30 @@ import TestPackage from "./test-package.class";
 
 export default class Bequiesce {
 	
+	static _instance;
+
     constructor() {
+    	if (Bequiesce._instance !== undefined)
+    		return Bequiesce._instance;
+    	
     	this._rootPath = null;						// absolute path to the project; dynamically determined upon initialization
     	this._testPackages = new Array();			// an array of TestPackage(testfilename, success count, fail count, Array(line number of failures))
     	this._reportLineByLine = false;
     	this._reportSummary = false;
     	this._shuntReportsTo = "stdout";			// the keyword "stdout" or a Pfile
     	this.initialize();
+    	Bequiesce._instance = this;					// singleton
     	Object.seal(this);
     }
     
     //^ singleton
     static getInstance() {
-    	if (_bequiesce == null) {
-    		_bequiesce = new Bequiesce();
+    	if (Bequiesce._instance === undefined) {
+    		return new Bequiesce();
     	}
-   		return _bequiesce;
+   		return Bequiesce._instance;
     }
-    
+
     //^ capture the path to the user's test suite script file
     initialize() {
     	if (process.argv.length < 1)
@@ -41,7 +47,6 @@ export default class Bequiesce {
     	var usersScriptFile = process.argv[1];
     	log.expect(usersScriptFile, 'String');
     	this._rootPath = new Pfile(usersScriptFile).getPath();
-    	log.trace(this._rootPath);    	
     }
     
     testPackage(filename) {
@@ -98,10 +103,9 @@ export default class Bequiesce {
 	}
 }
 
-//The only globals
+// The only globals
 global.log = new Log();
 global.jot = new Jot();
-global._bequiesce = null;
 
 
 
