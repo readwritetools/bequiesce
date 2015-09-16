@@ -37,7 +37,6 @@ export default class TestGroup {
     }
 
     runTests() {
-//    	jot.trace(this, `TEST GROUP ${this.description}`);
     	for (let i = 0; i < this.cases.length; i++) {
     		
     		if (this.cases[i].runTests() == true)
@@ -53,12 +52,11 @@ export default class TestGroup {
 		log.expect(reportSummary, 'Boolean');
 		log.expect(shuntReportsTo, 'String');
 		
-//    	jot.trace(this, `TEST GROUP ${this.description}`);
 		var passCount = Jot.rightJustify( this.statsRecorder.success.toString(), 3);
 		var failCount = Jot.rightJustify( this.statsRecorder.failure.toString(), 3);
-		var prefix = Jot.rightJustify( prefix, 40);
+		var prefix = Jot.rightJustify( prefix, 45);
 		var description = this.description;
-   		var s = `Pass:${passCount}  Fail:${failCount} ${prefix} -> ${description}`;
+   		var s = `  Pass ${passCount}    Fail ${failCount} ${prefix} -> ${description}`;
    		jot.trace(this, s);
 	}
 }

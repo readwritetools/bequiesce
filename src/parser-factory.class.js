@@ -19,6 +19,7 @@ export default class ParserFactory {
     	log.expect(packageNumber, 'Number');
     	
     	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array currently being parsed
+    	this.currentCodeSection = null;			// the current codeSection being parsed
     	this.parsingState = 0;					// 0 uninitialized; 1 inside "using"; 2 inside "testing"
     	Object.seal(this);
     }
@@ -40,7 +41,9 @@ export default class ParserFactory {
     	if (sourceline.indexOf("// using") != -1) {
     		this.parsingState = 1;
     		var description = sourceline.substr("// using".length).trim();
-    		return new CodeSection(description, this.packageNumber, lineNumber);
+    		var cs = new CodeSection(description, this.packageNumber, lineNumber);
+    		this.currentCodeSection = cs;
+    		return cs;
     	}
     	else if (sourceline.indexOf("// testing") != -1) {
     		this.parsingState = 2;
@@ -51,17 +54,19 @@ export default class ParserFactory {
     		return null;
     	}
     	else if (this.inCodeSection()) {
+    		// this is situationJS
     		return sourceline;
     	}
     	else if (this.inTestSection()) {
     		var commentAt = sourceline.lastIndexOf("//");
     		if (commentAt != -1) {
     			sourceline = sourceline.substr(0, commentAt);
-    		} 
+    		}
+    		// split the JavaScript into a proposition and a proof
     		var parts = sourceline.split(';;');
-    		var proposition = parts[0];
-    		var truth = (parts.length == 0) ? "" : parts[1];
-    		return new TestCase(proposition, truth, this.packageNumber, lineNumber);
+    		var propositionJS = parts[0].trim();
+    		var proofJS = (parts.length == 0) ? "" : parts[1].trim();
+    		return new TestCase(propositionJS, proofJS, this.currentCodeSection, this.packageNumber, lineNumber);
     	}
     	else {
     		log.abnormal(`Is this code or test? "${sourceline}"`);

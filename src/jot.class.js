@@ -24,10 +24,10 @@ export default class Jot {
     		var packageNumber = obj.packageNumber;
     		var filename = Bequiesce.getInstance().packageNameFromIndex(packageNumber);
     			
-    		this.stdout(`[${filename}:${lineNumber}] ${message}`);
+    		this.stdout(`[${filename} ${lineNumber}] ${message}`);
     	}
     	else
-    		this.stdout(message);
+    		this.stdout(obj.toString());
     }
     
     //^ Send message to stdout
@@ -36,16 +36,21 @@ export default class Jot {
     }
     
     
-    //> string to pad
-    //> fixed length to achieve
-    static rightJustify(sIn, fixedLen) {
+    //^ Right justify the given string, padding with spaces.
+    //> sIn is the string to pad
+    //> fixedLen is the desired length
+    //> clip anything longer than the fixed length
+    static rightJustify(sIn, fixedLen, clip=true) {
     	log.expect(sIn, 'String');
     	log.expect(fixedLen, 'Number');
+    	log.expect(clip, 'Boolean');
     	
-    	sIn = sIn.substr(0, fixedLen);
-    	if (sIn.length == fixedLen)
+    	if (clip == true)
+    		sIn = sIn.substr(0, fixedLen);
+    	
+    	if (sIn.length >= fixedLen)
     		return sIn;
     	else
-    		return "                           ".substr(0, fixedLen - sIn.length) + sIn;		// s/b " ".repeat(...)
+    		return "                               ".substr(0, fixedLen - sIn.length) + sIn;		// s/b " ".repeat(...)
     }
 }

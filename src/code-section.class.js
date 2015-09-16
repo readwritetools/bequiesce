@@ -24,7 +24,7 @@ export default class CodeSection {
     	if (this.description.length == 0)
     		this.description = "[unnamed code section]";
     	
-    	this.javascript = "";					// a multi-line string containing this Test Group's common Javascript code
+    	this.situationJS = "";					// a multi-line string containing this Test Group's common Javascript code
     	this.groups = new Array();				// an array of TestGroups identified by '// testing'
     	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
     	this.lineNumber = lineNumber;			// current 1-based line number where the "// using" occurs 
@@ -53,11 +53,14 @@ export default class CodeSection {
 
     addJavascript(js) {
     	log.expect(js, 'String');
-    	this.javascript += (js + "\n");
+    	
+    	if (this.situationJS.length == 0)
+    		this.situationJS = js;
+    	else
+    		this.situationJS += "\n" + js;
     }
     
     runTests() {
-//    	jot.trace(this, `TEST SECTION ${this.description}`);
     	for (let group of this.groups) {
     		group.runTests();
     	}
@@ -69,7 +72,6 @@ export default class CodeSection {
 		log.expect(reportSummary, 'Boolean');
 		log.expect(shuntReportsTo, 'String');
 		
-//    	jot.trace(this, `TEST SECTION ${this.description}`);
 		prefix += (" " + this.description);
     	for (let group of this.groups) {
     		group.reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo);
