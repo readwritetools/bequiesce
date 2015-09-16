@@ -99,9 +99,20 @@ export default class TestPackage {
    
     runTests() {
     	for (let section of this.sections) {
-    		//log.trace(`${section.description}`);
-    		//NO jot.trace(this, `${section.description}`);
     		section.runTests();
     	}
     }
+    
+	reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo) {
+		log.expect(prefix, 'String');
+		log.expect(reportLineByLine, 'Boolean');
+		log.expect(reportSummary, 'Boolean');
+		log.expect(shuntReportsTo, 'String');
+		
+		prefix += " "; 
+    	for (let section of this.sections) {
+    		section.reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo);
+    	}
+	}
+
 }

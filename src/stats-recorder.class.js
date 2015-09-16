@@ -17,4 +17,12 @@ export default class StatsRecorder {
     	this.failedObjects = new Array();		// an array of indexes to failures 
     	Object.seal(this);
     }
+    
+    incrementSuccess() {
+    	this.success++;
+    }
+    
+    incrementFailure() {
+    	this.failure++;
+    }
 }

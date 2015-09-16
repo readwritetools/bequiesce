@@ -20,11 +20,11 @@ export default class Jot {
     trace(obj, message='') {
     	if (obj.hasOwnProperty('packageNumber') && obj.hasOwnProperty('lineNumber')) {
     		
-    		var lineNumber = obj.lineNumber;
+    		var lineNumber = Jot.rightJustify( obj.lineNumber.toString(), 4);
     		var packageNumber = obj.packageNumber;
     		var filename = Bequiesce.getInstance().packageNameFromIndex(packageNumber);
     			
-    		this.stdout(`[${filename} : ${lineNumber}] ${message}`);
+    		this.stdout(`[${filename}:${lineNumber}] ${message}`);
     	}
     	else
     		this.stdout(message);
@@ -32,6 +32,20 @@ export default class Jot {
     
     //^ Send message to stdout
     stdout(s) {
-    	process.stdout.write(`     [JOT]${s}\n`);
+    	process.stdout.write(`${s}\n`);
+    }
+    
+    
+    //> string to pad
+    //> fixed length to achieve
+    static rightJustify(sIn, fixedLen) {
+    	log.expect(sIn, 'String');
+    	log.expect(fixedLen, 'Number');
+    	
+    	sIn = sIn.substr(0, fixedLen);
+    	if (sIn.length == fixedLen)
+    		return sIn;
+    	else
+    		return "                           ".substr(0, fixedLen - sIn.length) + sIn;		// s/b " ".repeat(...)
     }
 }

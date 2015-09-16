@@ -57,11 +57,22 @@ export default class CodeSection {
     }
     
     runTests() {
-    	// log.trace("\n" + this.javascript);
-    	jot.trace(this, `TEST SECTION ${this.description}`);
+//    	jot.trace(this, `TEST SECTION ${this.description}`);
     	for (let group of this.groups) {
-    		//log.trace(`${group.description}`);
     		group.runTests();
     	}
     }
+    
+	reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo) {
+		log.expect(prefix, 'String');
+		log.expect(reportLineByLine, 'Boolean');
+		log.expect(reportSummary, 'Boolean');
+		log.expect(shuntReportsTo, 'String');
+		
+//    	jot.trace(this, `TEST SECTION ${this.description}`);
+		prefix += (" " + this.description);
+    	for (let group of this.groups) {
+    		group.reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo);
+    	}
+	}
 }
