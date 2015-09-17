@@ -9,6 +9,8 @@
 //
 //=============================================================================
 
+import FS from 'fs';
+
 export default class TestCase {
 	
     constructor(propositionJS, proofJS, codeSection, packageNumber, lineNumber) {
@@ -26,15 +28,40 @@ export default class TestCase {
     	Object.seal(this);
     }
     
+    //< return true if the proof succeeds
+    //< return false if the proof fails
     runTests() {
+    	var proofs = this.proofJS.split('&&');
+    	for (let oneProof of proofs) {
+          	var b = this.evaluate(this.propositionJS, this.codeSection.situationJS, oneProof.trim());		// HERE deal with multiple &&
+          	
+          	if (b)
+          		jot.trace("pass:" + oneProof);
+          	else
+          		jot.trace("fail:" + oneProof);
+    	}
+    }
+    
+    //^ evaluate the JavaScript
+    //> propositionJS
+    //> situationJS
+    //> proofJS
+    //< return true if the proof succeeds
+    //< return false if the proof fails
+    evaluate(propositionJS, situationJS, proofJS) {
+    	log.expect(propositionJS, 'String');
+    	log.expect(situationJS, 'String');
+    	log.expect(proofJS, 'String');
+
+    	var code = `${propositionJS}\n${situationJS}\nglobal.__b = (${proofJS});`
+
     	jot.trace("===================================");
-    	jot.trace( this.propositionJS );
-    	jot.trace( this.codeSection.situationJS );
-    	jot.trace( this.proofJS );
+    	jot.trace(code);
     	
-    	if (this.propositionJS.length % 3 == 0)
-    		return false;
-    	else
-    		return true;
+    	var js1 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/sphericoords.js");
+    	var js2 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/remquo.js");
+    	var js3 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/number.js");
+    	eval( js1 + js2 + js3 + code);
+    	return global.__b;
     }
 }
