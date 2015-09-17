@@ -21,6 +21,7 @@ export default class ParserFactory {
     	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array currently being parsed
     	this.currentCodeSection = null;			// the current codeSection being parsed
     	this.parsingState = 0;					// 0 uninitialized; 1 inside "using"; 2 inside "testing"
+    	this.multiLineComment = 0;				// 0 outside comment; 1 inside comment
     	Object.seal(this);
     }
         
@@ -38,19 +39,48 @@ export default class ParserFactory {
     	log.expect(sourceline, 'String');
     	log.expect(lineNumber, 'Number');
 
-    	if (sourceline.indexOf("// using") != -1) {
+    	// strip embedded comments
+    	while (sourceline.indexOf("/*") != -1 && sourceline.indexOf("*/") != -1) {
+    		var open = sourceline.indexOf("/*");
+    		var close = sourceline.indexOf("*/", open+2);
+    		var before = sourceline.substr(0, open); 
+    		var after = sourceline.substr(close+2);
+    		sourceline = before + after;
+    	}
+    	
+    	// exiting multiline comment
+    	if (sourceline.indexOf("*/") != -1) {
+    		var close = sourceline.indexOf("*/");
+    		sourceline = sourceline.substr(close+2); 
+    		this.multiLineComment = 0;
+    	}
+    	
+    	// if still inside a multiline comment, skip
+    	if (this.multiLineComment == 1) {
+    		return null;
+    	}
+
+    	// entering multiline comment
+    	if (sourceline.indexOf("/*") != -1) {
+    		var open = sourceline.indexOf("/*");
+    		sourceline = sourceline.substr(0, open); 
+    		this.multiLineComment = 1;
+    	}
+    	
+    	if (sourceline.indexOf("// using") != -1 || sourceline.indexOf("//using") != -1) {
     		this.parsingState = 1;
     		var description = sourceline.substr("// using".length).trim();
     		var cs = new CodeSection(description, this.packageNumber, lineNumber);
     		this.currentCodeSection = cs;
     		return cs;
     	}
-    	else if (sourceline.indexOf("// testing") != -1) {
+    	else if (sourceline.indexOf("// testing") != -1|| sourceline.indexOf("//testing") != -1) {
     		this.parsingState = 2;
     		var description = sourceline.substr("// testing".length).trim();
     		return new TestGroup(description, this.packageNumber, lineNumber);
     	}
     	else if (sourceline.indexOf("//") == 0 || sourceline.length == 0) {
+        	// skip C++ style comment lines and blank lines
     		return null;
     	}
     	else if (this.inCodeSection()) {
@@ -65,7 +95,7 @@ export default class ParserFactory {
     		// split the JavaScript into a proposition and a proof
     		var parts = sourceline.split(';;');
     		var propositionJS = parts[0].trim();
-    		var proofJS = (parts.length == 0) ? "" : parts[1].trim();
+    		var proofJS = (parts.length < 2) ? "" : parts[1].trim();
     		return new TestCase(propositionJS, proofJS, this.currentCodeSection, this.packageNumber, lineNumber);
     	}
     	else {

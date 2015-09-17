@@ -19,4 +19,6 @@ var _libBequiesceClass2 = _interopRequireDefault(_libBequiesceClass);
 
 var bequiesce = new _libBequiesceClass2["default"]();
 
-bequiesce.testPackage("./test/case/sphericoords.1.test.js").testPackage("./test/case/sphericoords.2.test.js").reportLineByLine().reportSummary().shuntReportsTo("./test/case/results/05-results.txt").runTests();
+bequiesce.testPackage("./test/case/sphericoords.1.test.js")
+//	.testPackage("./test/case/sphericoords.2.test.js")
+.reportLineByLine().reportSummary().shuntReportsTo("./test/case/results/05-results.txt").runTests();
