@@ -10,6 +10,7 @@
 //=============================================================================
 
 import FS from 'fs';
+import StatsRecoder from './stats-recorder.class';
 
 export default class TestCase {
 	
@@ -20,25 +21,37 @@ export default class TestCase {
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');
     	
-    	this.propositionJS = propositionJS;		// the first half of the line, that contains context and values
-    	this.proofJS = proofJS;					// the second half of the line, that contains assertion about the proposition
-    	this.codeSection = codeSection;			// the codeSection that contains the situationJS for this case
-    	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
-    	this.lineNumber = lineNumber;			// current 1-based line number where the "// testing" occurs 
+    	this.propositionJS = propositionJS;			// the first half of the line, that contains context and values
+    	this.proofJS = proofJS;						// the second half of the line, that contains assertions about the proposition
+    	this.snippetsJS = new Array();				// the parts of the proofJS (separated by '&&') that are to be individually tested
+    	this.codeSection = codeSection;				// the codeSection that contains the situationJS for this case
+    	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
+    	this.lineNumber = lineNumber;				// current 1-based line number where the "// testing" occurs
+    	this.statsRecorder = new StatsRecoder();	// successes and failures
+    	this.initialize();
     	Object.seal(this);
     }
+
+    initialize() {
+    	var pieces = this.proofJS.split('&&');
+    	for (let snippet of pieces) {
+    		snippet = snippet.trim();
+    		if (snippet.length > 0)
+    			this.snippetsJS.push(snippet);
+    	}
+    }
     
-    //< return true if the proof succeeds
-    //< return false if the proof fails
     runTests() {
-    	var proofs = this.proofJS.split('&&');
-    	for (let oneProof of proofs) {
-          	var b = this.evaluate(this.propositionJS, this.codeSection.situationJS, oneProof.trim());		// HERE deal with multiple &&
-          	
-          	if (b)
-          		jot.trace("pass:" + oneProof);
-          	else
-          		jot.trace("fail:" + oneProof);
+    	for (let snippetJS of this.snippetsJS) {
+         	var b = this.evaluate(this.propositionJS, this.codeSection.situationJS, snippetJS);
+          	if (b) {
+          		this.statsRecorder.incrementSuccess();
+          		jot.trace("pass: " + snippetJS);
+          	}
+          	else {
+          		this.statsRecorder.incrementFailure();
+          		jot.trace("fail: " + snippetJS);
+          	}
     	}
     }
     

@@ -16,6 +16,7 @@ import ParserFactory from "./parser-factory.class";
 import CodeSection from "./code-section.class";
 import TestGroup from "./test-group.class";
 import TestCase from "./test-case.class";
+import StatsRecoder from './stats-recorder.class';
 
 export default class TestPackage {
 	
@@ -23,11 +24,12 @@ export default class TestPackage {
     	log.expect(pfile, 'Pfile');
     	log.expect(packageNumber, 'Number');
     	
-    	this.pfile = pfile;						// the user's test case file
-    	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array for this TestPackage
-    	this.sections = new Array();			// an array of CodeSections identified by '// using'
-    	this.lineNumber = 1;					// 1-based line number of the user's test case file currently being parsed 
-    	this.sectionIndex = null;				// 0-based index into the array of CodeSections of the user's test case file currently being parsed 
+    	this.pfile = pfile;							// the user's test case file
+    	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this TestPackage
+    	this.sections = new Array();				// an array of CodeSections identified by '// using'
+    	this.statsRecorder = new StatsRecoder();	// successes and failures
+    	this.lineNumber = 1;						// 1-based line number of the user's test case file currently being parsed 
+    	this.sectionIndex = null;					// 0-based index into the array of CodeSections of the user's test case file currently being parsed 
     	Object.seal(this);
     }
     
@@ -99,7 +101,10 @@ export default class TestPackage {
    
     runTests() {
     	for (let section of this.sections) {
+
     		section.runTests();
+    		this.statsRecorder.incrementSuccess( section.statsRecorder.passCount );
+   			this.statsRecorder.incrementFailure( section.statsRecorder.failCount );
     	}
     }
     
@@ -113,6 +118,10 @@ export default class TestPackage {
     	for (let section of this.sections) {
     		section.reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo);
     	}
+    	
+    	jot.trace(`------- Summary for ${this.pfile.getFQN()} -------`);
+    	jot.trace(`Pass: ${this.statsRecorder.passCount}`);
+       	jot.trace(`Fail: ${this.statsRecorder.failCount}`);
 	}
 
 }

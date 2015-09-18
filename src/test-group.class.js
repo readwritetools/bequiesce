@@ -38,11 +38,12 @@ export default class TestGroup {
 
     runTests() {
     	for (let i = 0; i < this.cases.length; i++) {
+
+    		var testCase = this.cases[i];
+    		testCase.runTests();
     		
-    		if (this.cases[i].runTests() == true)
-    			this.statsRecorder.incrementSuccess();
-    		else
-    			this.statsRecorder.incrementFailure();
+   			this.statsRecorder.incrementSuccess( testCase.statsRecorder.passCount );
+   			this.statsRecorder.incrementFailure( testCase.statsRecorder.failCount );
     	}
     }
 
