@@ -5,8 +5,9 @@
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
 // Initial date: Sep 13, 2015
-// Contents:     A section of a test package that begins with the keyphrase "// using"
-//               and contains lines of JavaScript,and one or more "// testing" groups
+// Contents:     A section of a test package that begins with the annotation
+//               "@using" and which contains lines of JavaScript to be
+//               evaluated, plus one or more "@testing" groups.
 //
 //=============================================================================
 
@@ -21,15 +22,15 @@ export default class CodeSection {
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');
     	
-    	this.description = description.trim();	// the text that immediately follows "// using"
+    	this.description = description.trim();		// the text that immediately follows "@using"
     	if (this.description.length == 0)
     		this.description = "[unnamed code section]";
     	
-    	this.situationJS = "";						// a multi-line string containing this Test Group's common Javascript code
-    	this.groups = new Array();					// an array of TestGroups identified by '// testing'
+    	this.situationJS = "";						// a multi-line string containing this code section's JavaScript to be evaled
+    	this.groups = new Array();					// an array of child TestGroups identified by '@testing'
     	this.statsRecorder = new StatsRecoder();	// successes and failures
     	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
-    	this.lineNumber = lineNumber;				// current 1-based line number where the "// using" occurs 
+    	this.lineNumber = lineNumber;				// current 1-based line number where the "@using" occurs 
     	this.groupIndex = null;						// current index into the array of TestGroups
     	Object.seal(this);
     }

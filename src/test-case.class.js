@@ -5,7 +5,9 @@
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
 // Initial date: Sep 14, 2015
-// Contents:     A single line of a TestGroup that contains a proposition and its truth
+// Contents:     A single line of a TestGroup that contains a proposition and
+//               a proof, where the pair is separated by ";;"
+//               Each proof may contain one or more snippets to be asserted.
 //
 //=============================================================================
 
