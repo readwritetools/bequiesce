@@ -20,6 +20,7 @@ export default class ParserFactory {
     	
     	this.packageNumber = packageNumber;		// the 0-based index into the BeQuiesce._testPackages array currently being parsed
     	this.currentCodeSection = null;			// the current codeSection being parsed
+    	this.currentTestGroup = null;			// the current testGroup being parsed
     	this.parsingState = 0;					// 0 uninitialized; 1 inside "using"; 2 inside "testing"
     	this.multiLineComment = 0;				// 0 outside comment; 1 inside comment
     	Object.seal(this);
@@ -67,17 +68,23 @@ export default class ParserFactory {
     		this.multiLineComment = 1;
     	}
     	
-    	if (sourceline.indexOf("// using") != -1 || sourceline.indexOf("//using") != -1) {
+    	var doubleSolidus = sourceline.indexOf("//");
+    	var atUsing = sourceline.indexOf("@using", doubleSolidus);
+    	var atTesting = sourceline.indexOf("@testing", doubleSolidus);
+
+    	if (doubleSolidus != -1 && atUsing != -1) {
     		this.parsingState = 1;
-    		var description = sourceline.substr("// using".length).trim();
+    		var description = sourceline.substr(atUsing + "@using".length).trim();
     		var cs = new CodeSection(description, this.packageNumber, lineNumber);
     		this.currentCodeSection = cs;
     		return cs;
     	}
-    	else if (sourceline.indexOf("// testing") != -1|| sourceline.indexOf("//testing") != -1) {
+    	else if (doubleSolidus != -1 && atTesting != -1) {
     		this.parsingState = 2;
-    		var description = sourceline.substr("// testing".length).trim();
-    		return new TestGroup(description, this.packageNumber, lineNumber);
+    		var description = sourceline.substr(atTesting + "@testing".length).trim();
+    		var cg = new TestGroup(description, this.packageNumber, lineNumber);
+    		this.currentTestGroup = cg;
+    		return cg;
     	}
     	else if (sourceline.indexOf("//") == 0 || sourceline.length == 0) {
         	// skip C++ style comment lines and blank lines
@@ -96,7 +103,7 @@ export default class ParserFactory {
     		var parts = sourceline.split(';;');
     		var propositionJS = parts[0].trim();
     		var proofJS = (parts.length < 2) ? "" : parts[1].trim();
-    		return new TestCase(propositionJS, proofJS, this.currentCodeSection, this.packageNumber, lineNumber);
+    		return new TestCase(propositionJS, proofJS, this.currentCodeSection, this.currentTestGroup, this.packageNumber, lineNumber);
     	}
     	else {
     		log.abnormal(`Is this code or test? "${sourceline}"`);

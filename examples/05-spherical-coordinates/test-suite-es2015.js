@@ -11,12 +11,8 @@
 
 import Bequiesce from '../../lib/bequiesce.class';
 
-var bequiesce = new Bequiesce();
-
-bequiesce
+Bequiesce.getInstance()
 	.testPackage("./test/case/sphericoords.1.test.js")
-//	.testPackage("./test/case/sphericoords.2.test.js")
-	.reportLineByLine()
-	.reportSummary()
+	.testPackage("./test/case/sphericoords.2.test.js")
 	.shuntReportsTo("./test/case/results/05-results.txt")
 	.runTests();
