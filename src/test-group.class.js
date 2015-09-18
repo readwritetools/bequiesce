@@ -5,8 +5,8 @@
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
 // Initial date: Sep 14, 2015
-// Contents:     A section of a test package that begins with the keyphrase "// testing"
-//               followed by test cases.
+// Contents:     A section of a test package that begins with the annotation
+//               "@testing" followed by one-line test cases.
 //
 //=============================================================================
 
@@ -20,7 +20,7 @@ export default class TestGroup {
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');
     	
-    	this.description = description.trim();	// the text that immediately follows "// testing"
+    	this.description = description.trim();		// the text that immediately follows "@testing"
     	if (this.description.length == 0)
     		this.description = "[unnamed test group]";
 

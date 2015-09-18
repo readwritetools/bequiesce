@@ -1,4 +1,10 @@
 //-------------------------------------
+// @common
+import A from './examples/05-spherical-coordinates/codebase/sphericoords';
+import B from './examples/05-spherical-coordinates/codebase/remquo';
+import C from './examples/05-spherical-coordinates/codebase/number';
+
+//-------------------------------------
 // @using cc.SpheriCoords
 var sc = new cc.SpheriCoords( radians );
 var rad = sc.asRadians();
