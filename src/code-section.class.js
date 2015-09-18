@@ -64,22 +64,19 @@ export default class CodeSection {
     
     runTests() {
     	for (let group of this.groups) {
-    		
     		group.runTests();
     		this.statsRecorder.incrementSuccess( group.statsRecorder.passCount );
    			this.statsRecorder.incrementFailure( group.statsRecorder.failCount );
     	}
     }
     
-	reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo) {
+	reportResults(prefix, shuntReportsTo) {
 		log.expect(prefix, 'String');
-		log.expect(reportLineByLine, 'Boolean');
-		log.expect(reportSummary, 'Boolean');
 		log.expect(shuntReportsTo, 'String');
 		
 		prefix += (" " + this.description);
     	for (let group of this.groups) {
-    		group.reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo);
+    		group.reportResults(prefix, shuntReportsTo);
     	}
 	}
 }

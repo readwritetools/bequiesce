@@ -108,20 +108,22 @@ export default class TestPackage {
     	}
     }
     
-	reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo) {
+	reportResults(prefix, shuntReportsTo) {
 		log.expect(prefix, 'String');
-		log.expect(reportLineByLine, 'Boolean');
-		log.expect(reportSummary, 'Boolean');
 		log.expect(shuntReportsTo, 'String');
 		
+    	jot.trace("");
+    	jot.trace("==== Results ======================");
 		prefix += " "; 
     	for (let section of this.sections) {
-    		section.reportResults(prefix, reportLineByLine, reportSummary, shuntReportsTo);
+    		section.reportResults(prefix, shuntReportsTo);
     	}
     	
-    	jot.trace(`------- Summary for ${this.pfile.getFQN()} -------`);
-    	jot.trace(`Pass: ${this.statsRecorder.passCount}`);
-       	jot.trace(`Fail: ${this.statsRecorder.failCount}`);
+    	jot.trace("");
+    	jot.trace("==== Summary ======================");
+    	jot.trace(`Package: ${this.pfile.getFQN()}`);
+    	jot.trace(`Pass:    ${this.statsRecorder.passCount}`);
+       	jot.trace(`Fail:    ${this.statsRecorder.failCount}`);
 	}
 
 }

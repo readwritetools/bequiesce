@@ -14,10 +14,11 @@ import StatsRecoder from './stats-recorder.class';
 
 export default class TestCase {
 	
-    constructor(propositionJS, proofJS, codeSection, packageNumber, lineNumber) {
+    constructor(propositionJS, proofJS, codeSection, testGroup, packageNumber, lineNumber) {
     	log.expect(propositionJS, 'String');
     	log.expect(proofJS, 'String');
     	log.expect(codeSection, 'CodeSection');
+    	log.expect(testGroup, 'TestGroup');
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');
     	
@@ -25,6 +26,7 @@ export default class TestCase {
     	this.proofJS = proofJS;						// the second half of the line, that contains assertions about the proposition
     	this.snippetsJS = new Array();				// the parts of the proofJS (separated by '&&') that are to be individually tested
     	this.codeSection = codeSection;				// the codeSection that contains the situationJS for this case
+    	this.testGroup = testGroup;					// the testGroup that contains this testCase
     	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
     	this.lineNumber = lineNumber;				// current 1-based line number where the "// testing" occurs
     	this.statsRecorder = new StatsRecoder();	// successes and failures
@@ -46,13 +48,29 @@ export default class TestCase {
          	var b = this.evaluate(this.propositionJS, this.codeSection.situationJS, snippetJS);
           	if (b) {
           		this.statsRecorder.incrementSuccess();
-          		jot.trace("pass: " + snippetJS);
+          		//jot.trace("pass: " + snippetJS);
           	}
           	else {
           		this.statsRecorder.incrementFailure();
-          		jot.trace("fail: " + snippetJS);
+          		this.printDetails(this.propositionJS, this.codeSection.situationJS, snippetJS);
           	}
     	}
+    }
+    
+    //^ suitable for failures
+    printDetails(propositionJS, situationJS, proofJS) {
+    	log.expect(propositionJS, 'String');
+    	log.expect(situationJS, 'String');
+    	log.expect(proofJS, 'String');
+
+    	jot.trace("");
+    	jot.trace("==== Test Case =====================");
+    	jot.trace(this.codeSection, ` Section:     ${this.codeSection.description}`);
+    	jot.trace(this.testGroup,   ` Group:       ${this.testGroup.description}`);
+    	jot.trace(this, ` Proposition: ${propositionJS}`);
+    	jot.trace(this, ` Proof:       ${proofJS} <-- FAILED`);
+    	jot.trace(this.codeSection, " Situation:");
+       	jot.trace(situationJS);
     }
     
     //^ evaluate the JavaScript
@@ -68,9 +86,6 @@ export default class TestCase {
 
     	var code = `${propositionJS}\n${situationJS}\nglobal.__b = (${proofJS});`
 
-    	jot.trace("===================================");
-    	jot.trace(code);
-    	
     	var js1 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/sphericoords.js");
     	var js2 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/remquo.js");
     	var js3 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/number.js");
