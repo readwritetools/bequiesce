@@ -13,7 +13,7 @@
 
 import FS from 'fs';
 
-export default class CodeSection {
+export default class CommonSection {
 	
     constructor(description = '', packageNumber, lineNumber) {
     	log.expect(description, 'String');
@@ -24,12 +24,16 @@ export default class CodeSection {
     	if (this.description.length == 0)
     		this.description = "[unnamed common section]";
     	
-    	this.commonJS = "";							// a multi-line string containing this section's ommon JavaScript code
-    	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
-    	this.lineNumber = lineNumber;				// current 1-based line number where the "// using" occurs 
+    	this.commonJS = "";							// a multi-line string containing this section's common JavaScript code
+    	this.packageNumber = packageNumber;			// the 0-based index into the Bequiesce._testPackages array for this object's containing TestPackage
+    	this.lineNumber = lineNumber;				// current 1-based line number where the "@common" occurs 
     	Object.seal(this);
     }
 
+    isValid() {
+    	return (this.description != '[auto]');
+    }
+    
     addJavascript(js) {
     	log.expect(js, 'String');
     	

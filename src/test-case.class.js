@@ -16,10 +16,10 @@ import StatsRecoder from './stats-recorder.class';
 
 export default class TestCase {
 	
-    constructor(propositionJS, proofJS, codeSection, testGroup, packageNumber, lineNumber) {
+    constructor(propositionJS, proofJS, situationSection, testGroup, packageNumber, lineNumber) {
     	log.expect(propositionJS, 'String');
     	log.expect(proofJS, 'String');
-    	log.expect(codeSection, 'CodeSection');
+    	log.expect(situationSection, 'SituationSection');
     	log.expect(testGroup, 'TestGroup');
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');
@@ -27,9 +27,9 @@ export default class TestCase {
     	this.propositionJS = propositionJS;			// the first half of the line, that contains context and values
     	this.proofJS = proofJS;						// the second half of the line, that contains assertions about the proposition
     	this.snippetsJS = new Array();				// the parts of the proofJS (separated by '&&') that are to be individually tested
-    	this.codeSection = codeSection;				// the codeSection that contains the situationJS for this case
+    	this.situationSection = situationSection;	// the SituationSection that contains the situationJS for this case
     	this.testGroup = testGroup;					// the testGroup that contains this testCase
-    	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
+    	this.packageNumber = packageNumber;			// the 0-based index into the Bequiesce._testPackages array for this object's containing TestPackage
     	this.lineNumber = lineNumber;				// current 1-based line number where the "// testing" occurs
     	this.statsRecorder = new StatsRecoder();	// successes and failures
     	this.initialize();
@@ -47,14 +47,13 @@ export default class TestCase {
     
     runTests() {
     	for (let snippetJS of this.snippetsJS) {
-         	var b = this.evaluate(this.propositionJS, this.codeSection.situationJS, snippetJS);
+         	var b = this.evaluate(this.propositionJS, this.situationSection.situationJS, snippetJS);
           	if (b) {
           		this.statsRecorder.incrementSuccess();
-          		//jot.trace("pass: " + snippetJS);
           	}
           	else {
           		this.statsRecorder.incrementFailure();
-          		this.printDetails(this.propositionJS, this.codeSection.situationJS, snippetJS);
+          		this.printDetails(this.propositionJS, this.situationSection.situationJS, snippetJS);
           	}
     	}
     }
@@ -67,11 +66,11 @@ export default class TestCase {
 
     	jot.trace("");
     	jot.trace("==== Test Case =====================");
-    	jot.trace(this.codeSection, ` Section:     ${this.codeSection.description}`);
+    	jot.trace(this.situationSection, ` Section:     ${this.situationSection.description}`);
     	jot.trace(this.testGroup,   ` Group:       ${this.testGroup.description}`);
     	jot.trace(this, ` Proposition: ${propositionJS}`);
     	jot.trace(this, ` Proof:       ${proofJS} <-- FAILED`);
-    	jot.trace(this.codeSection, " Situation:");
+    	jot.trace(this.situationSection, " Situation:");
        	jot.trace(situationJS);
     }
     
