@@ -18,11 +18,20 @@ export default class StatsRecorder {
     	Object.seal(this);
     }
     
-    incrementSuccess() {
-    	this.success++;
+    get passCount() {
+    	return this.success;
     }
     
-    incrementFailure() {
-    	this.failure++;
+    get failCount() {
+    	return this.failure;
     }
+
+    incrementSuccess(num=1) {
+    	this.success += num;
+    }
+    
+    incrementFailure(num=1) {
+    	this.failure += num;
+    }
+    
 }
