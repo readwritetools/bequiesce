@@ -26,7 +26,7 @@ export default class TestGroup {
 
     	this.cases = new Array();					// an array of one-line TestCases
     	this.statsRecorder = new StatsRecoder();	// successes and failures
-    	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this object's containing TestPackage
+    	this.packageNumber = packageNumber;			// the 0-based index into the Bequiesce._testPackages array for this object's containing TestPackage
     	this.lineNumber = lineNumber;				// current 1-based line number where the "// testing" occurs 
     	Object.seal(this);
     }

@@ -15,7 +15,7 @@ import TestGroup from "./test-group.class";
 import TestCase from "./test-case.class";
 import StatsRecoder from './stats-recorder.class';
 
-export default class CodeSection {
+export default class SituationSection {
 	
     constructor(description = '', packageNumber, lineNumber) {
     	log.expect(description, 'String');
@@ -44,7 +44,7 @@ export default class CodeSection {
     currentTestGroup() {
     	if (this.groupIndex == null) {
     		log.abnormal("Adding a default TestGroup because none found");
-    		this.addTestGroup( new TestGroup("auto", this.packageNumber, this.lineNumber) );
+    		this.addTestGroup( new TestGroup("[auto]", this.packageNumber, this.lineNumber) );
     	}    		
     	return this.groups[this.groupIndex];
     }

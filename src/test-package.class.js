@@ -10,12 +10,17 @@
 //
 //=============================================================================
 
-import Pfile from "./pfile.class";
-import TextReader from "./text-reader.class";
-import ParserFactory from "./parser-factory.class";
-import CodeSection from "./code-section.class";
-import TestGroup from "./test-group.class";
-import TestCase from "./test-case.class";
+import Pfile from './pfile.class';
+import TextReader from './text-reader.class';
+import ParserFactory from './parser-factory.class';
+
+import CommonSection from './common-section.class';
+import CommonCode from './common-code.class';
+import SituationSection from './situation-section.class';
+import SituationCode from './situation-code.class';
+
+import TestGroup from './test-group.class';
+import TestCase from './test-case.class';
 import StatsRecoder from './stats-recorder.class';
 
 export default class TestPackage {
@@ -25,11 +30,12 @@ export default class TestPackage {
     	log.expect(packageNumber, 'Number');
     	
     	this.pfile = pfile;							// the user's test case file
-    	this.packageNumber = packageNumber;			// the 0-based index into the BeQuiesce._testPackages array for this TestPackage
-    	this.sections = new Array();				// an array of CodeSections identified by '// using'
+    	this.packageNumber = packageNumber;			// the 0-based index into the Bequiesce._testPackages array for this TestPackage
+    	this.commonSection = new CommonSection('[auto]', packageNumber, 0);	// a single CommonSection identified by @common
+    	this.sections = new Array();				// an array of SituationSections identified by @using
     	this.statsRecorder = new StatsRecoder();	// successes and failures
     	this.lineNumber = 1;						// 1-based line number of the user's test case file currently being parsed 
-    	this.sectionIndex = null;					// 0-based index into the array of CodeSections of the user's test case file currently being parsed 
+    	this.sectionIndex = null;					// 0-based index into the array of SituationSections of the user's test case file currently being parsed 
     	Object.seal(this);
     }
     
@@ -37,7 +43,7 @@ export default class TestPackage {
     	return this.pfile.getFQN();
     }
     
-    //^ read the user specifiied test case file and find the '// using' TestSections and corresponding  '// testing' TestGroups
+    //^ read the user specifiied test case file and find the '@common' CommonSections, the '@using' TestSections and the corresponding '@testing' TestGroups
     parse() {
     	var pf = new ParserFactory(this.packageNumber);		// packageNumber is passed into each object it creeates
     	var tr = new TextReader();
@@ -50,17 +56,23 @@ export default class TestPackage {
 			if (obj == null){
 				// no-op
 			}
-			else if (obj.constructor.name =='CodeSection') {
-	    		this.addCodeSection(obj);
+			else if (obj.constructor.name =='CommonSection') {
+	    		this.addCommonSection(obj);
+	    	}
+ 			else if (obj.constructor.name == 'CommonCode') {
+	    		this.addCommonCode(obj);
+	    	}
+			else if (obj.constructor.name =='SituationSection') {
+	    		this.addSituationSection(obj);
+	    	}
+	    	else if (obj.constructor.name == 'SituationCode') {
+	    		this.addSituationCode(obj);
 	    	}
 	    	else if (obj.constructor.name == 'TestGroup') {
 	    		this.addTestGroup(obj);
 	    	}
 	    	else if (obj.constructor.name == 'TestCase') {
 	    		this.addTestCase(obj);
-	    	}
-	    	else if (obj.constructor.name == 'String') {
-	    		this.addJavascript(obj);
 	    	}
 	    	else {
 	    		log.hopelessHalt(`Encountered ${obj.constructor.name}`);
@@ -70,35 +82,50 @@ export default class TestPackage {
     	return true;
     }
     
-    addCodeSection(cs) {
-    	log.expect(cs, 'CodeSection');
+    addCommonSection(cs) {
+    	log.expect(cs, 'CommonSection');
+    	if (this.commonSection.isValid())
+    		log.trace(`Replacing previous @common section ${this.commonSection.description}`);
+		this.commonSection = cs;
+    }
+    
+    addSituationSection(cs) {
+    	log.expect(cs, 'SituationSection');
 		this.sections.push(cs);
 		this.sectionIndex = this.sections.length-1;
     }
     
-    currentCodeSection() {
+    currentSituationSection() {
     	if (this.sectionIndex == null) {
-    		log.abnormal("Adding a default CodeSection because none found");
-    		this.addCodeSection( new CodeSection("auto", this.packageNumber, this.lineNumber) );
+    		log.abnormal("Adding a default SituationSection because none found");
+    		this.addSituationSection( new SituationSection("[auto]", this.packageNumber, this.lineNumber) );
     	}    		
     	return this.sections[this.sectionIndex];
     }
     
     addTestGroup(tg) {
     	log.expect(tg, 'TestGroup');
-    	this.currentCodeSection().addTestGroup(tg);
+    	this.currentSituationSection().addTestGroup(tg);
     }
     
     addTestCase(tc) {
     	log.expect(tc, 'TestCase');
-    	this.currentCodeSection().addTestCase(tc);
+    	this.currentSituationSection().addTestCase(tc);
     }
 
-    addJavascript(js) {
-    	log.expect(js, 'String');
-    	this.currentCodeSection().addJavascript(js);
+    addCommonCode(cc) {
+    	log.expect(cc, 'CommonCode');
+    	if (this.commonSection == null) {
+    		log.abnormalHalt("No commonSection");
+    	}
+    	this.commonSection.addJavascript(cc.javascript);
     }
-   
+
+    addSituationCode(sc) {
+    	log.expect(sc, 'SituationCode');
+    	this.currentSituationSection().addJavascript(sc.javascript);
+    }
+    
     runTests() {
     	for (let section of this.sections) {
 
@@ -111,6 +138,13 @@ export default class TestPackage {
 	reportResults(prefix, shuntReportsTo) {
 		log.expect(prefix, 'String');
 		log.expect(shuntReportsTo, 'String');
+		
+		if (this.commonSection.isValid()) {
+	    	jot.trace("");
+	    	jot.trace("==== Common =======================");
+	    	jot.trace(this.commonSection, this.commonSection.description);
+	    	jot.trace(this.commonSection.commonJS);
+		}
 		
     	jot.trace("");
     	jot.trace("==== Results ======================");
