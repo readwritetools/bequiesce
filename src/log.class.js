@@ -80,9 +80,21 @@ export default class Log {
     //> type is a string containing a prototype.name to validate against
     //< true if the expectation was met, false if not
     expect(obj, type, message='', args='') {
-    	if (obj == undefined) {
-    		this.stderr(this.tag.expect, `Expected type '${type}', but got 'undefined' ${message}`, args);
-    		return false;
+    	if (obj === undefined) {
+    		if (type == 'undefined')
+    			return true;
+   			else {
+   				this.stderr(this.tag.expect, `Expected type '${type}', but got 'undefined' ${message}`, args);
+   				return false;
+   			}
+    	}
+    	if (obj === null) {
+    		if (type == 'null')
+    			return true;
+    		else {
+    			this.stderr(this.tag.expect, `Expected type '${type}', but got 'null' ${message}`, args);
+    			return false;
+    		}
     	}
     		
     	if (obj.constructor.name != type) {
@@ -151,3 +163,17 @@ export default class Log {
     	process.stderr.write(`${tag}${this.getStack(4)} ${message}${args}\n`);
     }
 }
+
+/*
+//http://toddmotto.com/understanding-javascript-types-and-reliable-type-checking/
+log.expect( [], 'Array');
+log.expect( {}, 'Object');
+log.expect( '', 'String');
+log.expect( new Date(), 'Date');
+log.expect( 1, 'Number');
+log.expect( function () {}, 'Function');
+log.expect( /test/i, 'RegExp');
+log.expect( true, 'Boolean');
+log.expect( null, 'null');
+log.expect( undefined, 'undefined');
+*/

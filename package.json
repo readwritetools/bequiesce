@@ -1,7 +1,7 @@
 {
   "name": "Bequiesce",
   "version": "1.0.0",
-  "description": "Bequiesce: 0.99999 Doesn't Just Happen",
+  "description": "Bequiesce: 99.999 Doesn't Just Happen",
   "author": "Joe Honton",
   "private": true,
   "license": "CC-BY-NC-ND-4.0",
@@ -15,6 +15,7 @@
     "buildlib": "npm run compilelib && npm run runlib",
     "compilelib": "babel --out-dir=lib --source-maps --extensions=\".js\" src",
     "runlib": "node examples/05-spherical-coordinates/test-suite.js",
+    
     "build05": "npm run compilelib && npm run compile05 && npm run run05",
     "compile05": "babel --out-file=examples/05-spherical-coordinates/test-suite.js examples/05-spherical-coordinates/test-suite-es2015.js",
     "run05": "node examples/05-spherical-coordinates/test-suite.js"
