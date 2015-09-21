@@ -1,8 +1,8 @@
 //-------------------------------------
 // @common ABCD
-import A from './examples/05-spherical-coordinates/codebase/sphericoords';
-import B from './examples/05-spherical-coordinates/codebase/remquo';
-import C from './examples/05-spherical-coordinates/codebase/number';
+// import A from './examples/05-spherical-coordinates/codebase/sphericoords';
+// import B from './examples/05-spherical-coordinates/codebase/remquo';
+// import C from './examples/05-spherical-coordinates/codebase/number';
 
 //-------------------------------------
 // @using cc.SpheriCoords

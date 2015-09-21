@@ -9,21 +9,21 @@
 //
 //=============================================================================
 
-import Bequiesce from "./bequiesce.class";
+import FilenameResolver from "./filename-resolver.class";
 
 export default class Jot {
 	
     constructor() {    	
     	Object.seal(this);
     }
-    
+
+    //> if the first argument has the {packageNumber, lineNumber}
+    //  interface use it to prefix the message with the filename and linenumber
     trace(obj, message='') {
     	if (obj.hasOwnProperty('packageNumber') && obj.hasOwnProperty('lineNumber')) {
     		
     		var lineNumber = Jot.rightJustify( obj.lineNumber.toString(), 4);
-    		var packageNumber = obj.packageNumber;
-    		var filename = Bequiesce.getInstance().packageNameFromIndex(packageNumber);
-    			
+    		var filename = FilenameResolver.packageStem(obj.packageNumber);
     		this.stdout(`[${filename} ${lineNumber}] ${message}`);
     	}
     	else

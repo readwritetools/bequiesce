@@ -17,4 +17,4 @@ var _libBequiesceClass = require('../../lib/bequiesce.class');
 
 var _libBequiesceClass2 = _interopRequireDefault(_libBequiesceClass);
 
-_libBequiesceClass2["default"].getInstance().testPackage("./test/case/sphericoords.1.test.js").testPackage("./test/case/sphericoords.2.test.js").shuntReportsTo("./test/case/results/05-results.txt").runTests();
+_libBequiesceClass2["default"].getInstance().testPackage("./test/case/sphericoords.1.test.js").testPackage("./test/case/sphericoords.2.test.js").runTests();

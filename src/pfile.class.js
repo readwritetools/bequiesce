@@ -119,7 +119,7 @@ export default class Pfile {
     //  if relativeTo is not provided by the caller, the current working directory is used
     makeAbsolute(relativeTo) {
     	if (this.isAbsolute())
-    		return;
+    		return this;
     	
     	if (relativeTo == undefined)
     		relativeTo = Pfile.getCwd();
@@ -130,13 +130,13 @@ export default class Pfile {
     	
     	if (this._filename.length == 0) {
     		this._filename = relativeTo;
-    		return;
+    		return this;
     	}
     	
     	var tmp = new Pfile(relativeTo);
     	if (!tmp.isAbsolute()){
     		log.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${relativeTo}" won't work.`);
-    		return;
+    		return this;
     	}
     	
     	this.addPathBefore(relativeTo);
@@ -187,6 +187,20 @@ export default class Pfile {
     		return parts[parts.length-1];
     }
     
+    // add an extension onto the filename, irrespective of whether or not the filename already has dot(s) in it
+    addExtension(ext) {
+    	this._filename = `${this._filename}.${ext}`;
+    	return this;
+    }
+    
+    // replace the existing extension with the given one
+    replaceExtension(ext) {
+    	var path = this.getPath();
+    	var stem = this.getStem();
+    	this._filename = `${path}/${stem}.${ext}`;
+    	return this;
+    }
+
     //^ Does this file or directory exist?
     exists() {
     	try {

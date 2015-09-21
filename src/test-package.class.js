@@ -13,12 +13,10 @@
 import Pfile from './pfile.class';
 import TextReader from './text-reader.class';
 import ParserFactory from './parser-factory.class';
-
 import CommonSection from './common-section.class';
 import CommonCode from './common-code.class';
 import SituationSection from './situation-section.class';
 import SituationCode from './situation-code.class';
-
 import TestGroup from './test-group.class';
 import TestCase from './test-case.class';
 import StatsRecoder from './stats-recorder.class';
@@ -41,6 +39,10 @@ export default class TestPackage {
     
     get filename() {
     	return this.pfile.getFQN();
+    }
+    
+    getCommonSection() {
+    	return this.commonSection;
     }
     
     //^ read the user specifiied test case file and find the '@common' CommonSections, the '@using' TestSections and the corresponding '@testing' TestGroups

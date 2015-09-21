@@ -47,6 +47,7 @@ export default class Bequiesce {
     	this._rootPath = new Pfile(usersScriptFile).getPath();
     }
     
+    //^ A userland function to add a filename to the list of packages to be evaluated
     testPackage(filename) {
     	log.expect(filename, 'String');
     	var pfile = new Pfile(this._rootPath).addPath(filename)
@@ -59,13 +60,29 @@ export default class Bequiesce {
     		log.invalid(`Test package ${pfile.getFQN()} not found, skipping`);
     	return this;
     }
-    
+
+	//^ Get the package object at the given index
+	//> an 0-index into the _testPackages array
+	//< a TestPackage object
+	getPackage(packageNumber) {
+		log.expect(packageNumber, 'Number');
+		
+		if (packageNumber >= this._testPackages.length) {
+			log.invalidHalt(`Invalid packageNumber ${packageNumber}`);
+		}
+		var tp = this._testPackages[packageNumber];
+		log.expect(tp, 'TestPackage');
+		return tp;
+	}
+	
+	//^ Userland command
 	shuntReportsTo(filename) {
     	log.expect(filename, 'String');
 		this._shuntReportsTo = new Pfile(filename).getFQN();
     	return this;
 	}
 
+	//^ Userland function to execute Bequiesce
 	runTests() {
 		for (let pkg of this._testPackages) { 
 			if (pkg.parse()) {
@@ -77,17 +94,6 @@ export default class Bequiesce {
     	jot.trace("==== Done =========================");
 	}
 	
-	//^ Get the filename of the package at the given index
-	packageNameFromIndex(packageNumber) {
-		log.expect(packageNumber, 'Number');
-		
-		if (packageNumber >= this._testPackages.length) {
-			log.invalid(`Invalid packageNumber ${packageNumber}`);
-			return '';
-			}
-		
-		return this._testPackages[packageNumber].pfile.getStem();
-	}
 }
 
 // The only globals
