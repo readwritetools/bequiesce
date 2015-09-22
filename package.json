@@ -12,13 +12,13 @@
     "babel": "^5.8.21"
   },
   "scripts": {
-    "buildlib": "npm run compilelib && npm run runlib",
-    "compilelib": "babel --out-dir=lib --source-maps --extensions=\".js\" src",
-    "runlib": "node examples/05-spherical-coordinates/test-suite.js",
+    "buildlib":    "npm run compilelib && npm run runlib",
+    "compilelib":  "babel --out-dir=lib --source-maps --extensions=\".js\" src",
+    "runlib":      "node examples/05-spherical-coordinates/test-suite.js",
     
-    "build05": "npm run compilelib && npm run compile05 && npm run run05",
-    "compile05": "babel --out-file=examples/05-spherical-coordinates/test-suite.js examples/05-spherical-coordinates/test-suite-es2015.js",
-    "run05": "node examples/05-spherical-coordinates/test-suite.js"
+    "build05":     "npm run compilelib && npm run exim05 && npm run bequiesce05",
+    "exim05":      "./../exim/exim ./examples/05-spherical-coordinates/test/case/05-test-harness.js ./examples/05-spherical-coordinates/test/exim",
+    "bequiesce05": "./bequiesce ./examples/05-spherical-coordinates/test/exim/05-test-harness.js"
   },
   "#": "These are babel command line options",
   "babel": {
