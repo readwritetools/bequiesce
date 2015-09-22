@@ -26,11 +26,13 @@ export default class StatsRecorder {
     	return this.failure;
     }
 
-    incrementSuccess(num=1) {
+    incrementSuccess(num) {
+    	if (num == undefined) num = 1;
     	this.success += num;
     }
     
-    incrementFailure(num=1) {
+    incrementFailure(num) {
+    	if (num == undefined) num = 1;
     	this.failure += num;
     }
     

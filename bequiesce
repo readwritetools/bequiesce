@@ -1,7 +1,13 @@
 #!/bin/bash
 if [ $# -lt 1 ]
 then
-  echo "Usage: bequiese sourcfile"
+  echo "Usage: bequiese sourcefiles"
   exit
 fi
-node --use_strict $1
+
+# where is this bash script?
+THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+echo $THIS_DIR
+
+# execute
+node --use_strict $THIS_DIR/es5/main.js $1

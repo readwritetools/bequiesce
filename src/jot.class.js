@@ -19,7 +19,9 @@ export default class Jot {
 
     //> if the first argument has the {packageNumber, lineNumber}
     //  interface use it to prefix the message with the filename and linenumber
-    trace(obj, message='') {
+    trace(obj, message) {
+    	if (message == undefined) message = '';
+
     	if (obj.hasOwnProperty('packageNumber') && obj.hasOwnProperty('lineNumber')) {
     		
     		var lineNumber = Jot.rightJustify( obj.lineNumber.toString(), 4);
@@ -40,7 +42,9 @@ export default class Jot {
     //> sIn is the string to pad
     //> fixedLen is the desired length
     //> clip anything longer than the fixed length
-    static rightJustify(sIn, fixedLen, clip=true) {
+    static rightJustify(sIn, fixedLen, clip) {
+    	if (clip == undefined) clip = true;
+
     	log.expect(sIn, 'String');
     	log.expect(fixedLen, 'Number');
     	log.expect(clip, 'Boolean');

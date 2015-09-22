@@ -16,26 +16,24 @@ import TestPackage from "./test-package.class";
 
 export default class Bequiesce {
 	
-	static _instance;
-
     constructor() {
-    	if (Bequiesce._instance !== undefined)
-    		return Bequiesce._instance;
+    	if (global._bequiesceInstance != undefined)
+    		return global._bequiesceInstance;
     	
     	this._rootPath = null;						// absolute path to the project; dynamically determined upon initialization
     	this._testPackages = new Array();			// an array of TestPackage(testfilename, success count, fail count, Array(line number of failures))
     	this._shuntReportsTo = "stdout";			// the keyword "stdout" or a Pfile
     	this.initialize();
-    	Bequiesce._instance = this;					// singleton
+    	global._bequiesceInstance = this;			// singleton
     	Object.seal(this);
     }
     
     //^ singleton
     static getInstance() {
-    	if (Bequiesce._instance === undefined) {
+    	if (global._bequiesceInstance == undefined) {
     		return new Bequiesce();
     	}
-   		return Bequiesce._instance;
+   		return global._bequiesceInstance;
     }
 
     //^ capture the path to the user's test suite script file
@@ -48,9 +46,10 @@ export default class Bequiesce {
     }
     
     //^ A userland function to add a filename to the list of packages to be evaluated
+    //> filename is FQN
     testPackage(filename) {
     	log.expect(filename, 'String');
-    	var pfile = new Pfile(this._rootPath).addPath(filename)
+    	var pfile = new Pfile(filename);
     	if (pfile.exists()) {
     		var packageNumber = this._testPackages.length;
     		var pkg = new TestPackage(pfile, packageNumber);

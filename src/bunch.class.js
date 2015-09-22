@@ -62,7 +62,9 @@ export default class Bunch {
 
     //> pfile Pfile containing both path and string
     //> flags Number
-    _pfileConstructor(pfile, flags=Bunch.FILE) {
+    _pfileConstructor(pfile, flags) {
+    	if (flags == undefined) flags = Bunch.FILE;
+    	
     	this._path = new Pfile(pfile.getPath());
         this._pattern = pfile.getFilename();
         this._flags = flags;
@@ -71,7 +73,10 @@ export default class Bunch {
     //> path String
     //> pattern String
     //> flags Number
-    _stringConstructor(path, pattern='*', flags=Bunch.FILE) {
+    _stringConstructor(path, pattern, flags) {
+    	if (pattern == undefined) pattern = '*';
+    	if (flags == undefined) flags = Bunch.FILE;
+
     	this._path = new Pfile(path);
         this._pattern = pattern;
         this._flags = flags;
@@ -112,7 +117,8 @@ export default class Bunch {
     //> returnFullPath is true to prefix each filename returned with the full path, or false to include only the base filename
     //< returns an array of Pfile objects (or an empty array when nothing matches)
     //
-    find(returnFullyQualifiedPath = false) {
+    find(returnFullyQualifiedPath) {
+    	if (returnFullyQualifiedPath == undefined) returnFullyQualifiedPath = false;
     	
     	// if the path is not absolute, inform the user with a log.logic
     	if (this._path.isRelative()) {
