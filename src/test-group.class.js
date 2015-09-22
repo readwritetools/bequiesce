@@ -15,7 +15,7 @@ import Jot from './jot.class';
 
 export default class TestGroup {
 	
-    constructor(description = '', packageNumber, lineNumber) {
+    constructor(description, packageNumber, lineNumber) {
     	log.expect(description, 'String');
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');

@@ -15,7 +15,7 @@ import FS from 'fs';
 
 export default class CommonSection {
 	
-    constructor(description = '', packageNumber, lineNumber) {
+    constructor(description, packageNumber, lineNumber) {
     	log.expect(description, 'String');
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');

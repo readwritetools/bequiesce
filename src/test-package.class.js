@@ -26,7 +26,7 @@ export default class TestPackage {
     constructor(pfile, packageNumber) {
     	log.expect(pfile, 'Pfile');
     	log.expect(packageNumber, 'Number');
-    	
+
     	this.pfile = pfile;							// the user's test case file
     	this.packageNumber = packageNumber;			// the 0-based index into the Bequiesce._testPackages array for this TestPackage
     	this.commonSection = new CommonSection('[auto]', packageNumber, 0);	// a single CommonSection identified by @common

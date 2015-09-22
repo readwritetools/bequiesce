@@ -142,7 +142,10 @@ export default class TestCase {
     	log.expect(enclosingFilename, 'String');
 
     	var jsOut = [];
-    	var regex = /import .*? from (.*)/;
+		// circumvent exim parsing
+    	var regexA = "import .*?";
+    	var regexB = " from (.*)";
+    	var regex = new RegExp(regexA + regexB);
 
     	// read each line of JavaScript code to find all import statements
     	var lines = jsIn.split("\n");

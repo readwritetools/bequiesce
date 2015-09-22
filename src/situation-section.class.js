@@ -17,7 +17,7 @@ import StatsRecoder from './stats-recorder.class';
 
 export default class SituationSection {
 	
-    constructor(description = '', packageNumber, lineNumber) {
+    constructor(description, packageNumber, lineNumber) {
     	log.expect(description, 'String');
     	log.expect(packageNumber, 'Number');
     	log.expect(lineNumber, 'Number');

@@ -20,7 +20,9 @@ export default class Pfile {
 	//^ The only argument is either:
 	//   a) a string representing a filename or a path;
 	//	 b) a Pfile object
-    constructor(path='') {
+    constructor(path) {
+    	if (path == undefined) path = '';
+
     	if (path.constructor.name == 'Pfile')
     		this._copyConstructor(path);
     	else

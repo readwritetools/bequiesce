@@ -20,7 +20,9 @@ export default class FilenameResolver {
 	//^ Get the package object at the given index
 	static getPackage(packageNumber) {
 		log.expect(packageNumber, 'Number');
-		return Bequiesce.getInstance().getPackage(packageNumber);
+		
+		return global._bequiesceInstance.getPackage(packageNumber);
+		//return Bequiesce.getInstance().getPackage(packageNumber);
 	}
 	
 	//^ Get the filename stem of the package at the given index

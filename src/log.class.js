@@ -28,49 +28,49 @@ export default class Log {
     }
     
     //^ Write a note to the log
-    todo(message='', args='') {
+    todo(message, args) {
     	this.stderr(this.tag.todo, message, args);
     }
     
     //^ Write a breadcrumb to the log
-    trace(message='', args='') {
+    trace(message, args) {
     	this.stderr(this.tag.trace, message, args);
     }
 
     //^ Write a normal notice into the log
-    normal(message='', args='') {
+    normal(message, args) {
     	this.stderr(this.tag.normal, message, args);
     }
     
     //^ Write an entry when something eventful and unexpected happens, but which may be recoverable
-    abnormal(message='', args='') {
+    abnormal(message, args) {
     	this.stderr(this.tag.abnormal, message, args);
     }
 
     //^ Write an entry when something eventful and unexpected happens, then terminate
-    abnormalHalt(message='', args='') {
+    abnormalHalt(message, args) {
     	this.stderr(this.tag.abnormal, message, args);
     	this.exit(303,"HALT");
     }
 
     //^ Write an entry when data does not conform to rules, then proceed with fallback value
-    invalid(message='', args='') {
+    invalid(message, args) {
     	this.stderr(this.tag.invalid, message, args);
     }
 
     //^ Write an entry when data does not conform to rules, then terminate
-    invalidHalt(message='', args='') {
+    invalidHalt(message, args) {
     	this.stderr(this.tag.invalid, message, args);
     	this.exit(505,"HALT");
     }
 
     //^ Write an entry when a security breach may have occured, then silently proceed
-    security(message='', args='') {
+    security(message, args) {
     	this.stderr(this.tag.security, message, args);
     }
     
     //^ Write an entry when a security breach may have occured, then terminate
-    securityHalt(message='', args='') {
+    securityHalt(message, args) {
     	this.stderr(this.tag.security, message, args);
     	this.exit(707,"HALT");
     }
@@ -79,7 +79,9 @@ export default class Log {
     //> obj is the object to check
     //> type is a string containing a prototype.name to validate against
     //< true if the expectation was met, false if not
-    expect(obj, type, message='', args='') {
+    expect(obj, type, message, args) {
+    	if (message == undefined) message = '';
+    	
     	if (obj === undefined) {
     		if (type == 'undefined')
     			return true;
@@ -105,24 +107,26 @@ export default class Log {
     }
 
     //^ Write an entry when a logically impossible condition occurs, then proceed with fallback value
-    logic(message='', args='') {
+    logic(message, args) {
     	this.stderr(this.tag.logic, message, args);
     }
 
     //^ Write an entry when a logically impossible condition occurs, then terminate
-    logicHalt(message='', args='') {
+    logicHalt(message, args) {
     	this.stderr(this.tag.logic, message, args);
     	this.exit(808,"HALT");
     }
     
     //^ Write an entry when recovery is impossible or unwise, then terminate
-    hopelessHalt(message='', args='') {
+    hopelessHalt(message, args) {
     	this.stderr(this.tag.hopeless, message, args);
     	this.exit(909,"HALT");
     }
     
     //^ Exit the process with the given return code
-    exit(rc, message='') {
+    exit(rc, message) {
+    	if (message == undefined) message = '';
+    	
     	this.expect(rc, 'Number');
     	this.expect(message, 'String');
     	this.stderr(this.tag.exit, rc, ` ${message}\n`);
@@ -160,6 +164,9 @@ export default class Log {
     
     //^ Send message to stderr
     stderr(tag, message, args) {
+    	if (message == undefined) message = '';
+    	if (args == undefined) args = '';
+    	
     	process.stderr.write(`${tag}${this.getStack(4)} ${message}${args}\n`);
     }
 }
