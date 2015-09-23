@@ -23,15 +23,14 @@ export default class CLI {
     //< returns false on failure
     validateOptions() {
     	if (process.argv.length < 3)
-    		log.invalidHalt("usage: bequiesce testdir");
+    		log.invalidHalt("usage: bequiesce testdir\n  (only *.test.js files will be included)");
     	return true;
     }
 
     //^ Parse the instructions file to get project paths and files, then read the manuscripts
     execute() {
-
     	var bequiesce = Bequiesce.getInstance();
-    	
+
     	// argv[2] is the test directory, and Bunch requires an absolute path
     	var pfile = new Pfile(process.argv[2]).makeAbsolute();
     	
@@ -39,7 +38,6 @@ export default class CLI {
     	var bunch = new Bunch(pfile.getPath(), '*.test.js');    	
     	var testPackages = bunch.find(true);
     	for (let tp of testPackages) {
-    		log.trace(`adding package ${tp.getFQN()}`);
         	bequiesce.testPackage(tp.getFQN());
     	}
     	

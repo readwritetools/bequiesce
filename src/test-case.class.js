@@ -34,6 +34,7 @@ export default class TestCase {
     	this.packageNumber = packageNumber;			// the 0-based index into the Bequiesce._testPackages array for this object's containing TestPackage
     	this.lineNumber = lineNumber;				// current 1-based line number where the "// testing" occurs
     	this.statsRecorder = new StatsRecoder();	// successes and failures
+    	this.visited = [];							// an array of FQN filename that have been expanded, use this to prevent infinite recursion
     	this.initialize();
     	Object.seal(this);
     }
@@ -61,19 +62,17 @@ export default class TestCase {
     runTests() {
     	for (let snippetJS of this.snippetsJS) {
     		
+    		// clear the list of visited requires
+    		this.visited = [];    		
     		var enclosingFilename = FilenameResolver.packageFQN(this.packageNumber);
     		
         	var commonJS = this.getCommonSection().commonJS;
-        	//var expandedCommonJS = this.expandCode(commonJS, enclosingFilename);
-        	var expandedCommonJS = commonJS;
-
+        	var expandedCommonJS = this.expandCode(commonJS, enclosingFilename);
         	var situationJS = this.situationSection.situationJS
-        	//var expandedSituationJS = this.expandCode(situationJS, enclosingFilename);
-        	var expandedSituationJS = situationJS;
+        	var expandedSituationJS = this.expandCode(situationJS, enclosingFilename);
         	
          	var message = this.evaluate(expandedCommonJS, this.propositionJS, expandedSituationJS, snippetJS);
         	/* TODO log.expect(message,'String|Boolean'); */
-         	
           	if (message === true) {
           		this.statsRecorder.incrementSuccess();
           	}
@@ -117,15 +116,9 @@ export default class TestCase {
     	log.expect(proofJS, 'String');
 
     	var code = `${commonJS}\n${propositionJS}\n${situationJS}\nglobal.__b = (${proofJS});`
-//    	log.trace("\n" + code);
-    	
-    	var js1 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/sphericoords.js");
-    	var js2 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/remquo.js");
-    	var js3 = FS.readFileSync("./examples/05-spherical-coordinates/codebase/number.js");
     	
     	try {
-    		eval( js1 + js2 + js3 + code);
-    		//eval(code);
+    		eval(code);
     		return global.__b;
     	} catch (e) {
     		return `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
@@ -142,53 +135,46 @@ export default class TestCase {
     	log.expect(enclosingFilename, 'String');
 
     	var jsOut = [];
-		// circumvent exim parsing
-    	var regexA = "import .*?";
+
+    	var regexA = "import (.*?)";
     	var regexB = " from (.*)";
-    	var regex = new RegExp(regexA + regexB);
+    	var regexC = new RegExp(regexA + regexB);
+
+    	var regexD = "var (.*) = ";
+    	var regexE = "require\\('(.*?)'\\);";
+    	var regexF = new RegExp(regexD + regexE);
 
     	// read each line of JavaScript code to find all import statements
     	var lines = jsIn.split("\n");
     	for (let line of lines) {
     		
-    		var match = regex.exec(line);
+    		var match = regexC.exec(line);
+    		if (match == null)
+        		match = regexF.exec(line);
+
     		if (match == null) {
     			jsOut.push(line);
-    			log.trace(line);
     		}
     		else {
     			// resolve filename
-    			var importFilename = this.resolveFilename(match[1], enclosingFilename);
-    			log.trace('IMPORT ', importFilename);
-    			var importContents = FS.readFileSync(importFilename, 'utf8');
-    			
-    			// recurse
-    			var expandedImport = this.expandCode(importContents, importFilename);
-    			jsOut.push(expandedImport);
+    			var importFilename = this.resolveFilename(match[2], enclosingFilename);
+
+    			// has this filename already been expanded 
+    			if (this.visited.indexOf(importFilename) == -1) {
+    				// since this filename hasn't been visited yet, add it to the list of visited files and recurse
+    				this.visited.push(importFilename);
+
+        			// if the file exists, recurse
+        			var pfile = new Pfile(importFilename);
+        			if (pfile.exists()) {
+        				var importContents = FS.readFileSync(importFilename, 'utf8');
+        				var expandedImport = this.expandCode(importContents, importFilename);
+        				jsOut.push(expandedImport);
+        			}
+    			}
     		}
     	}
-    	
-    	// parse the import statement to find the filename
-    	
-    	// call the loader to find the file and read its contents
-    	
-    	
-    	// import Buddha from './buddha.class';
 
-    	// remove the "export default"
-    	/*
-    	export default class Buddha {
-    		
-    	    constructor(text) {
-    	    	log.expect(text, 'String');
-    	    	
-    	    	this.text = " Hello " + text;
-    	    	Object.seal(this);
-    	    }
-    	}    	*/
-    	
-    	// loader keeps track of which files it has loaded
-    	
     	return jsOut.join("\n");
     }
     
@@ -220,7 +206,6 @@ export default class TestCase {
 			if (dotJS.exists())
 				ppath = dotJS;
 		}
-		//log.trace(`E: [${ppath.getFQN()}]`);
 		return ppath.getFQN();
     }
    
