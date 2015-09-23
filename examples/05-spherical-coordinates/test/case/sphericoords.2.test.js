@@ -1,4 +1,10 @@
 //-------------------------------------
+// @common
+import A from '../../codebase/sphericoords';
+import B from '../../codebase/remquo';
+import C from '../../codebase/number';
+
+//-------------------------------------
 // @using degrees minutes seconds
 var sc = new cc.SpheriCoords();
 sc.fromDegreesMinutesSeconds(degrees, arcminutes, arcseconds);

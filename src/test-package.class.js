@@ -142,10 +142,12 @@ export default class TestPackage {
 		log.expect(shuntReportsTo, 'String');
 		
 		if (this.commonSection.isValid()) {
+			/*
 	    	jot.trace("");
 	    	jot.trace("==== Common =======================");
 	    	jot.trace(this.commonSection, this.commonSection.description);
 	    	jot.trace(this.commonSection.commonJS);
+	    	*/
 		}
 		
     	jot.trace("");

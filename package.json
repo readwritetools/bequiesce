@@ -1,7 +1,7 @@
 {
   "name": "Bequiesce",
   "version": "1.0.0",
-  "description": "Bequiesce: 99.999 Doesn't Just Happen",
+  "description": "Because 99.999 Doesn't Just Happen",
   "author": "Joe Honton",
   "private": true,
   "license": "CC-BY-NC-ND-4.0",
@@ -17,13 +17,14 @@
     "runlib":      	"node examples/05-spherical-coordinates/test-suite.js",
     
     "tuesday": 		"npm run eximA && npm run eximB && npm run eximC && npm run use-es5",
-    "eximA":       	"/codebase/exim/exim ./src/main.js ./es5",
-    "eximB":       	"/codebase/exim/exim ./examples/05-spherical-coordinates/test/case/sphericoords.1.test.js ./examples/05-spherical-coordinates/test/es5",
-    "eximC":       	"/codebase/exim/exim ./examples/05-spherical-coordinates/test/case/sphericoords.2.test.js ./examples/05-spherical-coordinates/test/es5",
-    "use-es5":     	"/codebase/bequiesce/bequiesce ./examples/05-spherical-coordinates/test/es5",
+    "eximA":       	"bash ../exim/exim ./src/main.js ./es5",
+    "eximB":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/case/sphericoords.1.test.js ./examples/05-spherical-coordinates/test/es5",
+    "eximC":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/case/sphericoords.2.test.js ./examples/05-spherical-coordinates/test/es5",
+    "eximD":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/case/tiny.test.js ./examples/05-spherical-coordinates/test/es5",
+    "use-es5":     	"bash ../bequiesce/bequiesce ./examples/05-spherical-coordinates/test/es5",
     
     "build05":     	"npm run compilelib && npm run exim05 && npm run bequiesce05",
-    "exim05":      	"./../exim/exim ./examples/05-spherical-coordinates/test/case/05-test-harness.js ./examples/05-spherical-coordinates/test/exim",
+    "exim05":      	"bash ../exim/exim ./src/main.js ./es5",
     "bequiesce05": 	"./bequiesce ./examples/05-spherical-coordinates/test/exim/05-test-harness.js"
   },
   "#": "These are babel command line options",
