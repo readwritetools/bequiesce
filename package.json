@@ -12,20 +12,15 @@
     "babel": "^5.8.21"
   },
   "scripts": {
-    "buildlib":    	"npm run compilelib && npm run runlib",
-    "compilelib":  	"babel --out-dir=lib --source-maps --extensions=\".js\" src",
-    "runlib":      	"node examples/05-spherical-coordinates/test-suite.js",
-    
-    "tuesday": 		"npm run eximA && npm run eximB && npm run eximC && npm run use-es5",
+    "tuesday": 		"npm run eximA && npm run eximB && npm run eximC && npm run use-tue",
     "eximA":       	"bash ../exim/exim ./src/main.js ./es5",
-    "eximB":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/case/sphericoords.1.test.js ./examples/05-spherical-coordinates/test/es5",
-    "eximC":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/case/sphericoords.2.test.js ./examples/05-spherical-coordinates/test/es5",
-    "eximD":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/case/tiny.test.js ./examples/05-spherical-coordinates/test/es5",
-    "use-es5":     	"bash ../bequiesce/bequiesce ./examples/05-spherical-coordinates/test/es5",
-    
-    "build05":     	"npm run compilelib && npm run exim05 && npm run bequiesce05",
-    "exim05":      	"bash ../exim/exim ./src/main.js ./es5",
-    "bequiesce05": 	"./bequiesce ./examples/05-spherical-coordinates/test/exim/05-test-harness.js"
+    "eximB":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.1.test.js ./examples/05-spherical-coordinates/test/es5",
+    "eximC":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.2.test.js ./examples/05-spherical-coordinates/test/es5",
+    "use-tue":     	"bash ../bequiesce/bequiesce ./examples/05-spherical-coordinates/test/es5",
+
+    "wednesday": 	"npm run eximA && npm run eximD && npm run use-wed",
+    "eximD":       	"bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
+    "use-wed":     	"bash ../bequiesce/bequiesce ./examples/01-hello-world/test/es5"
   },
   "#": "These are babel command line options",
   "babel": {

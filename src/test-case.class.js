@@ -116,6 +116,7 @@ export default class TestCase {
     	log.expect(proofJS, 'String');
 
     	var code = `${commonJS}\n${propositionJS}\n${situationJS}\nglobal.__b = (${proofJS});`
+    	//log.trace("JJJ\n" + code + "\nHHH");
     	
     	try {
     		eval(code);
@@ -125,7 +126,7 @@ export default class TestCase {
     	}
     }
     
-    //^ The given string contains JavaScript that may have import statement.
+    //^ The given string contains JavaScript that may have import and export statements or require and module.exports statements
     //  Use this function to load those imports into the string.
     //> The JavaScript to expand
     //> The fully qualified filename where this JavaScript resides
@@ -144,34 +145,45 @@ export default class TestCase {
     	var regexE = "require\\('(.*?)'\\);";
     	var regexF = new RegExp(regexD + regexE);
 
+    	var regexG = new RegExp("(module.exports = )(.*)");
+    	
     	// read each line of JavaScript code to find all import statements
     	var lines = jsIn.split("\n");
     	for (let line of lines) {
-    		
-    		var match = regexC.exec(line);
-    		if (match == null)
-        		match = regexF.exec(line);
 
-    		if (match == null) {
-    			jsOut.push(line);
+    		// find "module.exports =" and strip out
+    		var match = regexG.exec(line);
+    		if (match != null) {
+    			jsOut.push(match[2]);
     		}
     		else {
-    			// resolve filename
-    			var importFilename = this.resolveFilename(match[2], enclosingFilename);
-
-    			// has this filename already been expanded 
-    			if (this.visited.indexOf(importFilename) == -1) {
-    				// since this filename hasn't been visited yet, add it to the list of visited files and recurse
-    				this.visited.push(importFilename);
-
-        			// if the file exists, recurse
-        			var pfile = new Pfile(importFilename);
-        			if (pfile.exists()) {
-        				var importContents = FS.readFileSync(importFilename, 'utf8');
-        				var expandedImport = this.expandCode(importContents, importFilename);
-        				jsOut.push(expandedImport);
-        			}
-    			}
+	    		// find "import" or "require" lines	
+	    		match = regexC.exec(line);
+	    		if (match == null)
+	        		match = regexF.exec(line);
+	    		if (match == null) {
+	    			jsOut.push(line);
+	    		}
+	    		else {
+	    			// resolve filename
+	    			var importFilename = this.resolveFilename(match[2], enclosingFilename);
+	
+	    			// has this filename already been expanded 
+	    			if (this.visited.indexOf(importFilename) == -1) {
+	    				// since this filename hasn't been visited yet, add it to the list of visited files and recurse
+	    				this.visited.push(importFilename);
+	
+	        			// if the file exists, recurse
+	        			var pfile = new Pfile(importFilename);
+	        			if (pfile.exists()) {
+	        				var importContents = FS.readFileSync(importFilename, 'utf8');
+	        				var expandedImport = this.expandCode(importContents, importFilename);
+	        				jsOut.push(expandedImport);
+	        			}
+	        			else
+	        				log.trace(`Import skipped: ${importFilename}`);
+	    			}
+	    		}
     		}
     	}
 
