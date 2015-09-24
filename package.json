@@ -6,11 +6,6 @@
   "private": true,
   "license": "CC-BY-NC-ND-4.0",
   "main": "main.js",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "babel": "^5.8.21"
-  },
   "scripts": {
     "tuesday": 		"npm run eximA && npm run eximB && npm run eximC && npm run use-tue",
     "eximA":       	"bash ../exim/exim ./src/main.js ./es5",
@@ -21,10 +16,5 @@
     "wednesday": 	"npm run eximA && npm run eximD && npm run use-wed",
     "eximD":       	"bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
     "use-wed":     	"bash ../bequiesce/bequiesce ./examples/01-hello-world/test/es5"
-  },
-  "#": "These are babel command line options",
-  "babel": {
-    "modules": "common",
-    "sourceMaps": true
   }
-}
+  }

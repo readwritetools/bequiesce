@@ -136,7 +136,7 @@ export default class Hello {
 			["om","Oromo","Afaan Oromoo"],
 			["or","Oriya","ଓଡ଼ିଆ"],
 			["os","Ossetian","ирон æвзаг"],
-			["pa","Punjabi","ਪੰਜਾਬੀ, پنجابی‎"],
+			["pa","Punjabi","ਪੰਜਾਬੀ"],
 			["pi","Pāli","पाऴि"],
 			["fas","Farsi","فارسی"],
 			["pl","Polish","język polski"],
@@ -249,34 +249,5 @@ export default class Hello {
 
     isValid() {
     	return this.isValidCode;
-    }
-    
-    isLatin() {
-    	var len = this.native.length;
-    	for (let i=0; i<len; i++) {
-    		var cp = this.native.codePointAt(i);
-    		log.trace(cp);
-    		var ch = String.fromCharCode(cp);
-    		log.trace(ch);
-    	}
-    	return true;
-    }
-    isNordic() {
-    	return false;
-    }
-    isCyrillic() {
-    	return false;
-    }
-    isArabic() {
-    	return false;
-    }
-    isSouthAsian() {
-    	return false;
-    }
-    isEastAsian() {
-    	return false;
-    }
-    isRTL() {
-    	return false;
     }
 }
