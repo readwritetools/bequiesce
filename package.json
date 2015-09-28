@@ -7,8 +7,20 @@
   "license": "CC-BY-NC-ND-4.0",
   "main": "main.js",
   "scripts": {
-    "tuesday": 		"npm run eximA && npm run eximB && npm run eximC && npm run use-tue",
-    "eximA":       	"bash ../exim/exim ./src/main.js ./es5",
+  	"exim":			"bash ../exim/exim ./src/main.js ./es5",
+
+	"test01":		"npm run exim01 && npm run bequiesce01",
+	"exim01":		"bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
+	"bequiesce01":	"bash ../bequiesce/bequiesce ./examples/01-hello-world/test/es5",
+	
+	"test05":		"npm run exim05a && npm run exim05b && npm run bequiesce05",
+    "exim05a":     	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.1.test.js ./examples/05-spherical-coordinates/test/es5",
+    "exim05b":     	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.2.test.js ./examples/05-spherical-coordinates/test/es5",
+	"bequiesce05":	"bash ../bequiesce/bequiesce ./examples/05-spherical-coordinates/test/es5",
+
+
+
+    "tuesday": 		"npm run exim && npm run eximB && npm run eximC && npm run use-tue",
     "eximB":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.1.test.js ./examples/05-spherical-coordinates/test/es5",
     "eximC":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.2.test.js ./examples/05-spherical-coordinates/test/es5",
     "use-tue":     	"bash ../bequiesce/bequiesce ./examples/05-spherical-coordinates/test/es5",

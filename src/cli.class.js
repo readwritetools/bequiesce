@@ -23,7 +23,7 @@ export default class CLI {
     //< returns false on failure
     validateOptions() {
     	if (process.argv.length < 3)
-    		log.invalidHalt("usage: bequiesce testdir\n  (only *.test.js files will be included)");
+    		log.invalidHalt("Usage: bequiesce {testfile | testdir}\n   (only *.test.js files will be included if {testdir} is provided)");
     	return true;
     }
 
@@ -34,14 +34,22 @@ export default class CLI {
     	// argv[2] is the test directory, and Bunch requires an absolute path
     	var pfile = new Pfile(process.argv[2]).makeAbsolute();
     	
+    	// single file provided on the command line
+    	if (pfile.isFile()) {
+    		bequiesce.testPackage(pfile.getFQN());
+    	}
     	// find all *.test.js files in the specified dir and add them as packages
-    	var bunch = new Bunch(pfile.getPath(), '*.test.js');    	
-    	var testPackages = bunch.find(true);
-    	for (let tp of testPackages) {
-        	bequiesce.testPackage(tp.getFQN());
+    	else if (pfile.isDirectory()) {
+	    	var bunch = new Bunch(pfile.getPath(), '*.test.js');    	
+	    	var testPackages = bunch.find(true);
+	    	for (let tp of testPackages) {
+	        	bequiesce.testPackage(tp.getFQN());
+	    	}
     	}
     	
     	// perform the tests
     	bequiesce.runTests();
    	}
+    
+    
 }

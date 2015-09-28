@@ -66,7 +66,6 @@ var hours = 5,   minutes = 10, seconds = 10;	;; hms.hours == hours && hms.minute
 var hours = 10,  minutes = 30, seconds = 30;	;; hms.hours == hours && hms.minutes == minutes && hms.seconds == seconds
 var hours = 20,  minutes = 50, seconds = 50;	;; hms.hours == hours && hms.minutes == minutes && hms.seconds == seconds
 var hours = 22,  minutes = 59, seconds = 59;	;; hms.hours == hours && hms.minutes == minutes && hms.seconds == seconds
-var hours = 22,  minutes = 0,  seconds = 65;	;; hms.hours == 22 && hms.minutes == 1 && hms.seconds == 0		// overflow seconds
 var hours = 22,  minutes = 0,  seconds = 60;	;; hms.hours == 22 && hms.minutes == 1 && hms.seconds == 0		// overflow seconds
 var hours = 22,  minutes = 60, seconds = 0;		;; hms.hours == 23 && hms.minutes == 0 && hms.seconds == 0		// overflow minutes
 var hours = 22,  minutes = 60, seconds = 60;	;; hms.hours == 23 && hms.minutes == 1 && hms.seconds == 0		// overflow minutes and seconds
@@ -92,7 +91,6 @@ var degrees = 359.9;				;; a.fe(359.9)
 var degrees = 360.0;				;; a.fe(0.0)
 var degrees = 360.1;				;; a.fe(0.1)
 var degrees = 719.9;				;; a.fe(359.9)
-var degrees = 719.99;				;; a.fe(359.9)
 var degrees = 720.0;				;; a.fe(0.0)
 var degrees = 720.1;				;; a.fe(0.1)
 var degrees = -0.1;					;; a.fe(359.9)

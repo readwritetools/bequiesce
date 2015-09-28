@@ -20,6 +20,7 @@ import SituationCode from './situation-code.class';
 import TestGroup from './test-group.class';
 import TestCase from './test-case.class';
 import StatsRecoder from './stats-recorder.class';
+import Jot from './jot.class';
 
 export default class TestPackage {
 	
@@ -151,17 +152,23 @@ export default class TestPackage {
 		}
 		
     	jot.trace("");
-    	jot.trace("==== Results ======================");
+    	//jot.trace("==== Results ======================");
 		prefix += " "; 
     	for (let section of this.sections) {
     		section.reportResults(prefix, shuntReportsTo);
     	}
     	
-    	jot.trace("");
-    	jot.trace("==== Summary ======================");
-    	jot.trace(`Package: ${this.pfile.getFQN()}`);
-    	jot.trace(`Pass:    ${this.statsRecorder.passCount}`);
-       	jot.trace(`Fail:    ${this.statsRecorder.failCount}`);
+    	//jot.trace("");
+    	//jot.trace("==== Summary ======================");
+    	//jot.trace(`Package: ${this.pfile.getFQN()}`);
+    	//jot.trace(`Pass:    ${this.statsRecorder.passCount}`);
+       	//jot.trace(`Fail:    ${this.statsRecorder.failCount}`);
+		var passCount = Jot.rightJustify(this.statsRecorder.success.toString(), 3);
+		var failCount = Jot.rightJustify(this.statsRecorder.failure.toString(), 3);
+		//var prefix = Jot.rightJustify(prefix, 45);
+   		var s = ` Pass ${passCount}    Fail ${failCount}`;
+   		jot.trace("                                 --------    --------");
+   		jot.trace(this, s);
 	}
 
 }

@@ -13,6 +13,7 @@ import Pfile from "./pfile.class";
 import Log from "./log.class";
 import Jot from "./jot.class";
 import TestPackage from "./test-package.class";
+import StatsRecoder from './stats-recorder.class';
 
 export default class Bequiesce {
 	
@@ -23,6 +24,7 @@ export default class Bequiesce {
     	this._rootPath = null;						// absolute path to the project; dynamically determined upon initialization
     	this._testPackages = new Array();			// an array of TestPackage(testfilename, success count, fail count, Array(line number of failures))
     	this._shuntReportsTo = "stdout";			// the keyword "stdout" or a Pfile
+    	this.statsRecorder = new StatsRecoder();	// successes and failures
     	this.initialize();
     	global._bequiesceInstance = this;			// singleton
     	Object.seal(this);
@@ -87,10 +89,22 @@ export default class Bequiesce {
 			if (pkg.parse()) {
 				pkg.runTests();
 				pkg.reportResults("", this._shuntReportsTo);
+	    		this.statsRecorder.incrementSuccess( pkg.statsRecorder.passCount );
+	   			this.statsRecorder.incrementFailure( pkg.statsRecorder.failCount );
 			}
 		}
     	jot.trace("");
-    	jot.trace("==== Done =========================");
+    	//jot.trace("==== Done ======================");
+    	//jot.trace(`Packages: ${ this._testPackages.length}`);
+    	//jot.trace(`Pass:     ${this.statsRecorder.passCount}`);
+       	//jot.trace(`Fail:     ${this.statsRecorder.failCount}`);
+		var passCount = Jot.rightJustify(this.statsRecorder.success.toString(), 3);
+		var failCount = Jot.rightJustify(this.statsRecorder.failure.toString(), 3);
+		//var prefix = Jot.rightJustify(prefix, 45);
+   		var s = `Bequiesce                        Pass ${passCount}    Fail ${failCount}`;
+   		jot.trace("                                 ========    ========");
+   		jot.trace(s);
+    	jot.trace("");
 	}
 	
 }

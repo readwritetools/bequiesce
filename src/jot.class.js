@@ -24,9 +24,11 @@ export default class Jot {
 
     	if (obj.hasOwnProperty('packageNumber') && obj.hasOwnProperty('lineNumber')) {
     		
-    		var lineNumber = Jot.rightJustify( obj.lineNumber.toString(), 4);
     		var filename = FilenameResolver.packageStem(obj.packageNumber);
-    		this.stdout(`[${filename} ${lineNumber}] ${message}`);
+    		var lineNumber = obj.lineNumber.toString();
+    		var fl = Jot.leftJustify(`[${filename}:`, 26);
+    		var ln = Jot.rightJustify(`${lineNumber}]`, 5);
+    		this.stdout(`${fl}${ln} ${message}`);
     	}
     	else
     		this.stdout(obj.toString());
@@ -37,6 +39,26 @@ export default class Jot {
     	process.stdout.write(`${s}\n`);
     }
     
+    
+    //^ Left justify the given string, padding with spaces.
+    //> sIn is the string to pad
+    //> fixedLen is the desired length
+    //> clip anything longer than the fixed length
+    static leftJustify(sIn, fixedLen, clip) {
+    	if (clip == undefined) clip = true;
+
+    	log.expect(sIn, 'String');
+    	log.expect(fixedLen, 'Number');
+    	log.expect(clip, 'Boolean');
+    	
+    	if (clip == true)
+    		sIn = sIn.substr(0, fixedLen);
+    	
+    	if (sIn.length >= fixedLen)
+    		return sIn;
+    	else
+    		return sIn + "                                                       ".substr(0, fixedLen - sIn.length);		// s/b " ".repeat(...)
+    }
     
     //^ Right justify the given string, padding with spaces.
     //> sIn is the string to pad
@@ -55,6 +77,6 @@ export default class Jot {
     	if (sIn.length >= fixedLen)
     		return sIn;
     	else
-    		return "                               ".substr(0, fixedLen - sIn.length) + sIn;		// s/b " ".repeat(...)
+    		return "                                                       ".substr(0, fixedLen - sIn.length) + sIn;		// s/b " ".repeat(...)
     }
 }

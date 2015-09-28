@@ -1,7 +1,9 @@
 #!/bin/bash
 if [ $# -lt 1 ]
 then
-  echo "Usage: bequiese sourcefiles"
+  echo ""
+  echo "Usage: bequiesce {testfile | testdir}"
+  echo "   (only *.test.js files will be included if {testdir} is provided)"
   exit
 fi
 

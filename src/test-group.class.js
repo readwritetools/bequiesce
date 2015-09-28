@@ -51,11 +51,11 @@ export default class TestGroup {
 		log.expect(prefix, 'String');
 		log.expect(shuntReportsTo, 'String');
 		
-		var passCount = Jot.rightJustify( this.statsRecorder.success.toString(), 3);
-		var failCount = Jot.rightJustify( this.statsRecorder.failure.toString(), 3);
-		var prefix = Jot.rightJustify( prefix, 45);
+		var passCount = Jot.rightJustify(this.statsRecorder.success.toString(), 3);
+		var failCount = Jot.rightJustify(this.statsRecorder.failure.toString(), 3);
+		//var prefix = Jot.rightJustify(prefix, 45);
 		var description = this.description;
-   		var s = ` Pass ${passCount}    Fail ${failCount} ${prefix} -> ${description}`;
+   		var s = ` Pass ${passCount}    Fail ${failCount} ${prefix} --> ${description}`;
    		jot.trace(this, s);
 	}
 }
