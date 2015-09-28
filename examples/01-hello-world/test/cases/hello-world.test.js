@@ -1,7 +1,7 @@
 // @common
 import Hello from '../../codebase/hello-world.class';
 
-// @using
+// @using simple setup
 var hello = new Hello(iso639);
 var isValid = hello.isValid();
 var lang = hello.englishEquivalent;

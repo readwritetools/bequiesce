@@ -15,6 +15,7 @@ import FS from 'fs';
 import StatsRecoder from './stats-recorder.class';
 import Pfile from './pfile.class';
 import FilenameResolver from './filename-resolver.class';
+import TextWriter from './text-writer.class';
 
 export default class TestCase {
 	
@@ -116,13 +117,20 @@ export default class TestCase {
     	log.expect(proofJS, 'String');
 
     	var code = `${commonJS}\n${propositionJS}\n${situationJS}\nglobal.__b = (${proofJS});`
-    	//log.trace("JJJ\n" + code + "\nHHH");
     	
     	try {
     		eval(code);
     		return global.__b;
     	} catch (e) {
-    		return `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
+    		if (true) { // @verbose
+    			
+    			// dump the code someplace where it can be run directly using "node --use_strict test/test-case-dump.js"
+    			var tw = new TextWriter();
+    			tw.open('test/test-case-dump.js');
+    			tw.putline(code);
+    			tw.close();
+    		}
+   			return `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
     	}
     }
     
@@ -173,13 +181,21 @@ export default class TestCase {
 	    				// since this filename hasn't been visited yet, add it to the list of visited files and recurse
 	    				this.visited.push(importFilename);
 	
-	        			// if the file exists, recurse
 	        			var pfile = new Pfile(importFilename);
-	        			if (pfile.exists()) {
+	        			var fileOnly = pfile.getFilename();
+	    				var bSystemImport = (fileOnly == 'fs' || fileOnly == 'crypto');
+
+	    				// system imports, just echo the original line
+	        			if (bSystemImport == true) {
+	        				jsOut.push(line);
+	        			}
+    					// if the file exists, recurse
+	        			else if (pfile.exists()) {
 	        				var importContents = FS.readFileSync(importFilename, 'utf8');
 	        				var expandedImport = this.expandCode(importContents, importFilename);
 	        				jsOut.push(expandedImport);
 	        			}
+	        			// file not found, report it
 	        			else
 	        				log.trace(`Import skipped: ${importFilename}`);
 	    			}
