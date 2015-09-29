@@ -7,26 +7,17 @@
   "license": "CC-BY-NC-ND-4.0",
   "main": "main.js",
   "scripts": {
-  	"exim":			"bash ../exim/exim ./src/main.js ./es5",
-
+	"build":		 "npm run exim-codebase && npm run exim-testcases && npm run self-test",
+  	"exim-codebase": "bash ../exim/exim ./src/main.js ./es5",
+  	"exim-testcases":"bash ../exim/exim ./self-test/cases/test-cases.exim ./self-test/es5",
+	"self-test":	 "bash ./bequiesce ./self-test/es5",
+	
 	"test01":		"npm run exim01 && npm run bequiesce01",
 	"exim01":		"bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
-	"bequiesce01":	"bash ../bequiesce/bequiesce ./examples/01-hello-world/test/es5",
+	"bequiesce01":	"bash ./bequiesce ./examples/01-hello-world/test/es5",
 	
-	"test05":		"npm run exim05a && npm run exim05b && npm run bequiesce05",
-    "exim05a":     	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.1.test.js ./examples/05-spherical-coordinates/test/es5",
-    "exim05b":     	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.2.test.js ./examples/05-spherical-coordinates/test/es5",
-	"bequiesce05":	"bash ../bequiesce/bequiesce ./examples/05-spherical-coordinates/test/es5",
-
-
-
-    "tuesday": 		"npm run exim && npm run eximB && npm run eximC && npm run use-tue",
-    "eximB":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.1.test.js ./examples/05-spherical-coordinates/test/es5",
-    "eximC":       	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/sphericoords.2.test.js ./examples/05-spherical-coordinates/test/es5",
-    "use-tue":     	"bash ../bequiesce/bequiesce ./examples/05-spherical-coordinates/test/es5",
-
-    "wednesday": 	"npm run eximA && npm run eximD && npm run use-wed",
-    "eximD":       	"bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
-    "use-wed":     	"bash ../bequiesce/bequiesce ./examples/01-hello-world/test/es5"
+	"test05":		"npm run exim05a && npm run bequiesce05",
+    "exim05":     	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/test-cases.exim ./examples/05-spherical-coordinates/test/es5",
+	"bequiesce05":	"bash ./bequiesce ./examples/05-spherical-coordinates/test/es5"
   }
-  }
+}

@@ -10,10 +10,12 @@
 //
 //=============================================================================
 
+import expect from '../../joezone/src/expect.function.js';
+
 export default class CommonCode {
 	
     constructor(javascript) {
-    	log.expect(javascript, 'String');
+    	expect(javascript, 'String');
     	
     	this.javascript = javascript;
     	Object.seal(this);

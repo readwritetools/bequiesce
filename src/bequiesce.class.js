@@ -9,11 +9,12 @@
 //
 //=============================================================================
 
-import Pfile from "./pfile.class";
-import Log from "./log.class";
+import Pfile from "../../joezone/src/pfile.class";
+import Log from "../../joezone/src/log.class";
 import Jot from "./jot.class";
 import TestPackage from "./test-package.class";
 import StatsRecoder from './stats-recorder.class';
+import expect from '../../joezone/src/expect.function.js';
 
 export default class Bequiesce {
 	
@@ -43,14 +44,14 @@ export default class Bequiesce {
     	if (process.argv.length < 1)
     		log.hopelessHalt("Expected argv to contain the path to the script.");
     	var usersScriptFile = process.argv[1];
-    	log.expect(usersScriptFile, 'String');
+    	expect(usersScriptFile, 'String');
     	this._rootPath = new Pfile(usersScriptFile).getPath();
     }
     
     //^ A userland function to add a filename to the list of packages to be evaluated
     //> filename is FQN
     testPackage(filename) {
-    	log.expect(filename, 'String');
+    	expect(filename, 'String');
     	var pfile = new Pfile(filename);
     	if (pfile.exists()) {
     		var packageNumber = this._testPackages.length;
@@ -66,19 +67,19 @@ export default class Bequiesce {
 	//> an 0-index into the _testPackages array
 	//< a TestPackage object
 	getPackage(packageNumber) {
-		log.expect(packageNumber, 'Number');
+		expect(packageNumber, 'Number');
 		
 		if (packageNumber >= this._testPackages.length) {
 			log.invalidHalt(`Invalid packageNumber ${packageNumber}`);
 		}
 		var tp = this._testPackages[packageNumber];
-		log.expect(tp, 'TestPackage');
+		expect(tp, 'TestPackage');
 		return tp;
 	}
 	
 	//^ Userland command
 	shuntReportsTo(filename) {
-    	log.expect(filename, 'String');
+    	expect(filename, 'String');
 		this._shuntReportsTo = new Pfile(filename).getFQN();
     	return this;
 	}

@@ -1,0 +1,15 @@
+//=============================================================================
+//
+// File:         bequiesce/examples/05-spherical-coordinates/test/cases/test-cases.exim
+// Language:     ECMAScript 2015
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 28, 2015
+// Contents:     Use this to compile all test cases
+//
+// Example:      bash ../exim/exim ./self-test/cases/test-cases.exim ./self-test/es5
+//
+//=============================================================================
+
+import T1 from './sphericoords.1.test.js';
+import T2 from './sphericoords.2.test.js';

@@ -10,6 +10,7 @@
 //=============================================================================
 
 import FilenameResolver from "./filename-resolver.class";
+import expect from '../../joezone/src/expect.function.js';
 
 export default class Jot {
 	
@@ -47,9 +48,9 @@ export default class Jot {
     static leftJustify(sIn, fixedLen, clip) {
     	if (clip == undefined) clip = true;
 
-    	log.expect(sIn, 'String');
-    	log.expect(fixedLen, 'Number');
-    	log.expect(clip, 'Boolean');
+    	expect(sIn, 'String');
+    	expect(fixedLen, 'Number');
+    	expect(clip, 'Boolean');
     	
     	if (clip == true)
     		sIn = sIn.substr(0, fixedLen);
@@ -67,9 +68,9 @@ export default class Jot {
     static rightJustify(sIn, fixedLen, clip) {
     	if (clip == undefined) clip = true;
 
-    	log.expect(sIn, 'String');
-    	log.expect(fixedLen, 'Number');
-    	log.expect(clip, 'Boolean');
+    	expect(sIn, 'String');
+    	expect(fixedLen, 'Number');
+    	expect(clip, 'Boolean');
     	
     	if (clip == true)
     		sIn = sIn.substr(0, fixedLen);

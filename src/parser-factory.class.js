@@ -15,11 +15,12 @@ import SituationSection from './situation-section.class';
 import SituationCode from './situation-code.class';
 import TestGroup from './test-group.class';
 import TestCase from './test-case.class';
+import expect from '../../joezone/src/expect.function.js';
 
 export default class ParserFactory {
 	
     constructor(packageNumber) {
-    	log.expect(packageNumber, 'Number');
+    	expect(packageNumber, 'Number');
     	
     	this.packageNumber = packageNumber;		// the 0-based index into the Bequiesce._testPackages array currently being parsed
     	this.currentSituationSection = null;	// the current SituationSection being parsed
@@ -44,8 +45,8 @@ export default class ParserFactory {
     //^ Determine what to do with this line of text from the user's test case file
     //< returns an object of type SituationSection, TestGroup, TestCase, String, or null
     parseLine(sourceline, lineNumber) {
-    	log.expect(sourceline, 'String');
-    	log.expect(lineNumber, 'Number');
+    	expect(sourceline, 'String');
+    	expect(lineNumber, 'Number');
 
     	// strip embedded comments
     	while (sourceline.indexOf("/*") != -1 && sourceline.indexOf("*/") != -1) {

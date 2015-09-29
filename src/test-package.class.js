@@ -10,8 +10,8 @@
 //
 //=============================================================================
 
-import Pfile from './pfile.class';
-import TextReader from './text-reader.class';
+import Pfile from "../../joezone/src/pfile.class";
+import TextReader from '../../joezone/src/text-reader.class';
 import ParserFactory from './parser-factory.class';
 import CommonSection from './common-section.class';
 import CommonCode from './common-code.class';
@@ -21,12 +21,13 @@ import TestGroup from './test-group.class';
 import TestCase from './test-case.class';
 import StatsRecoder from './stats-recorder.class';
 import Jot from './jot.class';
+import expect from '../../joezone/src/expect.function.js';
 
 export default class TestPackage {
 	
     constructor(pfile, packageNumber) {
-    	log.expect(pfile, 'Pfile');
-    	log.expect(packageNumber, 'Number');
+    	expect(pfile, 'Pfile');
+    	expect(packageNumber, 'Number');
 
     	this.pfile = pfile;							// the user's test case file
     	this.packageNumber = packageNumber;			// the 0-based index into the Bequiesce._testPackages array for this TestPackage
@@ -86,14 +87,14 @@ export default class TestPackage {
     }
     
     addCommonSection(cs) {
-    	log.expect(cs, 'CommonSection');
+    	expect(cs, 'CommonSection');
     	if (this.commonSection.isValid())
     		log.trace(`Replacing previous @common section ${this.commonSection.description}`);
 		this.commonSection = cs;
     }
     
     addSituationSection(cs) {
-    	log.expect(cs, 'SituationSection');
+    	expect(cs, 'SituationSection');
 		this.sections.push(cs);
 		this.sectionIndex = this.sections.length-1;
     }
@@ -107,17 +108,17 @@ export default class TestPackage {
     }
     
     addTestGroup(tg) {
-    	log.expect(tg, 'TestGroup');
+    	expect(tg, 'TestGroup');
     	this.currentSituationSection().addTestGroup(tg);
     }
     
     addTestCase(tc) {
-    	log.expect(tc, 'TestCase');
+    	expect(tc, 'TestCase');
     	this.currentSituationSection().addTestCase(tc);
     }
 
     addCommonCode(cc) {
-    	log.expect(cc, 'CommonCode');
+    	expect(cc, 'CommonCode');
     	if (this.commonSection == null) {
     		log.abnormalHalt("No commonSection");
     	}
@@ -125,7 +126,7 @@ export default class TestPackage {
     }
 
     addSituationCode(sc) {
-    	log.expect(sc, 'SituationCode');
+    	expect(sc, 'SituationCode');
     	this.currentSituationSection().addJavascript(sc.javascript);
     }
     
@@ -139,8 +140,8 @@ export default class TestPackage {
     }
     
 	reportResults(prefix, shuntReportsTo) {
-		log.expect(prefix, 'String');
-		log.expect(shuntReportsTo, 'String');
+		expect(prefix, 'String');
+		expect(shuntReportsTo, 'String');
 		
 		if (this.commonSection.isValid()) {
 			/*
