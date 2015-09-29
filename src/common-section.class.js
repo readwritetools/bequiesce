@@ -12,13 +12,14 @@
 //=============================================================================
 
 import FS from 'fs';
+import expect from '../../joezone/src/expect.function.js';
 
 export default class CommonSection {
 	
     constructor(description, packageNumber, lineNumber) {
-    	log.expect(description, 'String');
-    	log.expect(packageNumber, 'Number');
-    	log.expect(lineNumber, 'Number');
+    	expect(description, 'String');
+    	expect(packageNumber, 'Number');
+    	expect(lineNumber, 'Number');
     	
     	this.description = description.trim();		// the text that immediately follows "@common"
     	if (this.description.length == 0)
@@ -35,7 +36,7 @@ export default class CommonSection {
     }
     
     addJavascript(js) {
-    	log.expect(js, 'String');
+    	expect(js, 'String');
     	
     	if (this.commonJS.length == 0)
     		this.commonJS = js;

@@ -1,0 +1,25 @@
+//=============================================================================
+//
+// File:         bequiesce/self-test/cases/test-cases.exim
+// Language:     ECMAScript 2015
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 28, 2015
+// Contents:     Use this to compile all test cases
+//
+// Example:      bash ../exim/exim ./self-test/cases/test-cases.exim ./self-test/es5
+//
+//=============================================================================
+
+import T1 from './bequiesce.test.js';
+import T2 from './common-code.test.js';
+import T3 from './common-section.test.js';
+import T4 from './filename-resolver.test.js';
+import T5 from './jot.test.js';
+import T6 from './parser-factory.js';
+import T7 from './situation-code.test.js';
+import T8 from './situation-section.test.js';
+import T9 from './stats-recorder.test.js';
+import T10 from './test-case.test.js';
+import T11 from './test-group.test.js';
+import T12 from './test-package.test.js';

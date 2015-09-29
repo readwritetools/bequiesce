@@ -10,6 +10,7 @@
 //=============================================================================
 
 import Bequiesce from "./bequiesce.class";
+import expect from '../../joezone/src/expect.function.js';
 
 export default class FilenameResolver {
 
@@ -19,7 +20,7 @@ export default class FilenameResolver {
 	
 	//^ Get the package object at the given index
 	static getPackage(packageNumber) {
-		log.expect(packageNumber, 'Number');
+		expect(packageNumber, 'Number');
 		
 		return global._bequiesceInstance.getPackage(packageNumber);
 		//return Bequiesce.getInstance().getPackage(packageNumber);

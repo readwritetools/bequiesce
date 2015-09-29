@@ -14,13 +14,14 @@
 import TestGroup from "./test-group.class";
 import TestCase from "./test-case.class";
 import StatsRecoder from './stats-recorder.class';
+import expect from '../../joezone/src/expect.function.js';
 
 export default class SituationSection {
 	
     constructor(description, packageNumber, lineNumber) {
-    	log.expect(description, 'String');
-    	log.expect(packageNumber, 'Number');
-    	log.expect(lineNumber, 'Number');
+    	expect(description, 'String');
+    	expect(packageNumber, 'Number');
+    	expect(lineNumber, 'Number');
     	
     	this.description = description.trim();		// the text that immediately follows "@using"
     	if (this.description.length == 0)
@@ -36,7 +37,7 @@ export default class SituationSection {
     }
 
     addTestGroup(tg) {
-    	log.expect(tg, 'TestGroup');
+    	expect(tg, 'TestGroup');
     	this.groups.push(tg);
 		this.groupIndex = this.groups.length-1;
     }
@@ -50,12 +51,12 @@ export default class SituationSection {
     }
 
     addTestCase(tc) {
-    	log.expect(tc, 'TestCase');
+    	expect(tc, 'TestCase');
     	this.currentTestGroup().addTestCase(tc);
     }
 
     addJavascript(js) {
-    	log.expect(js, 'String');
+    	expect(js, 'String');
     	
     	if (this.situationJS.length == 0)
     		this.situationJS = js;
@@ -72,8 +73,8 @@ export default class SituationSection {
     }
     
 	reportResults(prefix, shuntReportsTo) {
-		log.expect(prefix, 'String');
-		log.expect(shuntReportsTo, 'String');
+		expect(prefix, 'String');
+		expect(shuntReportsTo, 'String');
 		
 		prefix += (" " + this.description);
     	for (let group of this.groups) {

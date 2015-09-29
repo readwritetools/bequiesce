@@ -13,19 +13,20 @@
 
 import FS from 'fs';
 import StatsRecoder from './stats-recorder.class';
-import Pfile from './pfile.class';
+import Pfile from '../../joezone/src/pfile.class';
 import FilenameResolver from './filename-resolver.class';
-import TextWriter from './text-writer.class';
+import TextWriter from '../../joezone/src/text-writer.class';
+import expect from '../../joezone/src/expect.function.js';
 
 export default class TestCase {
 	
     constructor(propositionJS, proofJS, situationSection, testGroup, packageNumber, lineNumber) {
-    	log.expect(propositionJS, 'String');
-    	log.expect(proofJS, 'String');
-    	log.expect(situationSection, 'SituationSection');
-    	log.expect(testGroup, 'TestGroup');
-    	log.expect(packageNumber, 'Number');
-    	log.expect(lineNumber, 'Number');
+    	expect(propositionJS, 'String');
+    	expect(proofJS, 'String');
+    	expect(situationSection, 'SituationSection');
+    	expect(testGroup, 'TestGroup');
+    	expect(packageNumber, 'Number');
+    	expect(lineNumber, 'Number');
     	
     	this.propositionJS = propositionJS;			// the first half of the line, that contains context and values
     	this.proofJS = proofJS;						// the second half of the line, that contains assertions about the proposition
@@ -56,7 +57,7 @@ export default class TestCase {
     //< CommonSection
     getCommonSection() {
     	var cs = FilenameResolver.getPackage(this.packageNumber).getCommonSection();
-    	log.expect(cs, 'CommonSection');
+    	expect(cs, 'CommonSection');
     	return cs;
     }
     
@@ -73,7 +74,7 @@ export default class TestCase {
         	var expandedSituationJS = this.expandCode(situationJS, enclosingFilename);
         	
          	var message = this.evaluate(expandedCommonJS, this.propositionJS, expandedSituationJS, snippetJS);
-        	/* TODO log.expect(message,'String|Boolean'); */
+        	/* TODO expect(message,'String|Boolean'); */
           	if (message === true) {
           		this.statsRecorder.incrementSuccess();
           	}
@@ -86,10 +87,10 @@ export default class TestCase {
     
     //^ suitable for failures
     printDetails(propositionJS, situationJS, proofJS, message) {
-    	log.expect(propositionJS, 'String');
-    	log.expect(situationJS, 'String');
-    	log.expect(proofJS, 'String');
-    	/* TODO log.expect(message,'String|Boolean'); */
+    	expect(propositionJS, 'String');
+    	expect(situationJS, 'String');
+    	expect(proofJS, 'String');
+    	/* TODO expect(message,'String|Boolean'); */
 
     	jot.trace("");
     	jot.trace("==== Test Case =====================");
@@ -111,10 +112,10 @@ export default class TestCase {
     //< return true if the proof succeeds, false if the proof fails
     //< returns an exception message on catch()
     evaluate(commonJS, propositionJS, situationJS, proofJS) {
-    	log.expect(commonJS, 'String');
-    	log.expect(propositionJS, 'String');
-    	log.expect(situationJS, 'String');
-    	log.expect(proofJS, 'String');
+    	expect(commonJS, 'String');
+    	expect(propositionJS, 'String');
+    	expect(situationJS, 'String');
+    	expect(proofJS, 'String');
 
     	var code = `${commonJS}\n${propositionJS}\n${situationJS}\nglobal.__b = (${proofJS});`
     	
@@ -140,8 +141,8 @@ export default class TestCase {
     //> The fully qualified filename where this JavaScript resides
     //< returns the expanded JavaScript
     expandCode(jsIn, enclosingFilename) {
-    	log.expect(jsIn, 'String');
-    	log.expect(enclosingFilename, 'String');
+    	expect(jsIn, 'String');
+    	expect(enclosingFilename, 'String');
 
     	var jsOut = [];
 
@@ -211,8 +212,8 @@ export default class TestCase {
     //> The fully qualified filename where this JavaScript resides
     //< something like C:/full/path/to/filename.class.js
     resolveFilename(filename, enclosingFilename) {
-    	log.expect(filename, 'String');
-    	log.expect(enclosingFilename, 'String');
+    	expect(filename, 'String');
+    	expect(enclosingFilename, 'String');
     	
 		// remove any trailing semicolon
 		if (filename.charAt(filename.length-1) == ';')

@@ -10,8 +10,8 @@
 //=============================================================================
 
 import Bequiesce from './bequiesce.class';
-import Pfile from "./pfile.class";
-import Bunch from "./bunch.class";
+import Pfile from "../../joezone/src/pfile.class";
+import Bunch from "../../joezone/src/bunch.class";
 
 export default class CLI {
 	

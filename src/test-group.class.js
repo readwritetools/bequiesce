@@ -12,13 +12,14 @@
 
 import StatsRecoder from './stats-recorder.class';
 import Jot from './jot.class';
+import expect from '../../joezone/src/expect.function.js';
 
 export default class TestGroup {
 	
     constructor(description, packageNumber, lineNumber) {
-    	log.expect(description, 'String');
-    	log.expect(packageNumber, 'Number');
-    	log.expect(lineNumber, 'Number');
+    	expect(description, 'String');
+    	expect(packageNumber, 'Number');
+    	expect(lineNumber, 'Number');
     	
     	this.description = description.trim();		// the text that immediately follows "@testing"
     	if (this.description.length == 0)
@@ -32,7 +33,7 @@ export default class TestGroup {
     }
     
     addTestCase(tc) {
-    	log.expect(tc, 'TestCase');
+    	expect(tc, 'TestCase');
     	this.cases.push(tc);
     }
 
@@ -48,8 +49,8 @@ export default class TestGroup {
     }
 
     reportResults(prefix, shuntReportsTo) {
-		log.expect(prefix, 'String');
-		log.expect(shuntReportsTo, 'String');
+		expect(prefix, 'String');
+		expect(shuntReportsTo, 'String');
 		
 		var passCount = Jot.rightJustify(this.statsRecorder.success.toString(), 3);
 		var failCount = Jot.rightJustify(this.statsRecorder.failure.toString(), 3);
