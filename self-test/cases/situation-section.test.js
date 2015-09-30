@@ -1,7 +1,7 @@
 //@common
 
-//@using
+//@using placeholder
 var a = 1;
 
-//@testing
+//@testing placeholder
 var b = 1;			;; a == b 
