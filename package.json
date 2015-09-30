@@ -16,7 +16,7 @@
 	"exim01":		"bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
 	"bequiesce01":	"bash ./bequiesce ./examples/01-hello-world/test/es5",
 	
-	"test05":		"npm run exim05a && npm run bequiesce05",
+	"test05":		"npm run exim05 && npm run bequiesce05",
     "exim05":     	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/test-cases.exim ./examples/05-spherical-coordinates/test/es5",
 	"bequiesce05":	"bash ./bequiesce ./examples/05-spherical-coordinates/test/es5"
   }
