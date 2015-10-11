@@ -74,7 +74,7 @@ export default class TestCase {
         	var expandedSituationJS = this.expandCode(situationJS, enclosingFilename);
         	
          	var message = this.evaluate(expandedCommonJS, this.propositionJS, expandedSituationJS, snippetJS);
-        	/* TODO expect(message,'String|Boolean'); */
+        	expect(message, ['String','Boolean']);
           	if (message === true) {
           		this.statsRecorder.incrementSuccess();
           	}
@@ -90,7 +90,7 @@ export default class TestCase {
     	expect(propositionJS, 'String');
     	expect(situationJS, 'String');
     	expect(proofJS, 'String');
-    	/* TODO expect(message,'String|Boolean'); */
+    	expect(message, ['String','Boolean']);
 
     	jot.trace("");
     	jot.trace("==== Test Case =====================");
@@ -130,6 +130,8 @@ export default class TestCase {
     			tw.open('test/test-case-dump.js');
     			tw.putline(code);
     			tw.close();
+// TODO
+// https://nodejs.org/api/child_process.html#child_process_child_process_execsync_command_options
     		}
    			return `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
     	}
