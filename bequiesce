@@ -1,4 +1,17 @@
 #!/bin/bash
+#==============================================================================
+#
+# File:         bequiesce/beiquesce
+# Language:     Bash
+# Copyright:    Joe Honton © 2015
+# License:      CC-BY-NC-ND 4.0
+# Initial date: Sep 22, 2015
+# Contents:     Bequiesce, Because 99.999 Doesn't Just Happen
+#
+# Example 1:    bash ../bequiesce/bequeisce test/cases/main.test.js
+# Example 2:    bash ../bequiesce/bequeisce test/cases/test-cases.exim
+#
+#==============================================================================
 if [ $# -lt 1 ]
 then
   echo ""

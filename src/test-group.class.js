@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// File:         src/test-group.class.js
+// File:         bequiesce/src/test-group.class.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
