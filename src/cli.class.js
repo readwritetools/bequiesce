@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// File:         src/cli.js
+// File:         bequiesce/src/cli.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0

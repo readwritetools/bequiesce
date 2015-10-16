@@ -7,17 +7,17 @@
   "license": "CC-BY-NC-ND-4.0",
   "main": "main.js",
   "scripts": {
-	"build":		 "npm run build-codebase && npm run build-testcases && npm run self-test",
-  	"build-codebase": "bash ../exim/exim ./src/main.js ./es5",
-  	"build-testcases":"bash ../exim/exim ./test/cases/test-cases.exim ./test/es5",
-	"self-test":	 "bash ./bequiesce ./test/es5",
+	"build":		   "npm run build-codebase && npm run build-testcases && npm run self-test",
+  	"build-codebase":  "bash ../exim/exim ./src/main.js ./es5",
+  	"build-testcases": "bash ../exim/exim ./test/cases/test-cases.exim ./test/es5",
+	"self-test":	   "bash ./bequiesce ./test/es5",
 	
-	"test01":		"npm run exim01 && npm run bequiesce01",
-	"exim01":		"bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
-	"bequiesce01":	"bash ./bequiesce ./examples/01-hello-world/test/es5",
+	"test01":		  "npm run exim01 && npm run bequiesce01",
+	"exim01":		  "bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
+	"bequiesce01":	  "bash ./bequiesce ./examples/01-hello-world/test/es5",
 	
-	"test05":		"npm run exim05 && npm run bequiesce05",
-    "exim05":     	"bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/test-cases.exim ./examples/05-spherical-coordinates/test/es5",
-	"bequiesce05":	"bash ./bequiesce ./examples/05-spherical-coordinates/test/es5"
+	"test05":		  "npm run exim05 && npm run bequiesce05",
+    "exim05":     	  "bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/test-cases.exim ./examples/05-spherical-coordinates/test/es5",
+	"bequiesce05":	  "bash ./bequiesce ./examples/05-spherical-coordinates/test/es5"
   }
 }

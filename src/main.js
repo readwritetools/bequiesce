@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// File:         src/main.js
+// File:         bequiesce/src/main.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0

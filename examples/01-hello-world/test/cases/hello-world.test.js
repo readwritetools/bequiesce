@@ -1,3 +1,11 @@
+//=============================================================================
+// File:         bequiesce/examples/01-hello-world/test/cases/hello-world.test.js
+// Language:     Bequiesce
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 12, 2015
+//=============================================================================
+
 // @common
 import Hello from '../../codebase/hello-world.class';
 
