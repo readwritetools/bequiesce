@@ -3,7 +3,7 @@
 // Language:     Bequiesce
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
-// Initial date: Sep 12, 2015
+// Initial date: Sep 4, 2015
 //=============================================================================
 
 //@common
