@@ -148,15 +148,15 @@ export default class TestCase {
 
     	var jsOut = [];
 
-    	var regexA = "import (.*?)";
-    	var regexB = " from (.*)";
+    	var regexA = "import\\s+(.*?)";
+    	var regexB = "\\s+from\\s+(.*)";
     	var regexC = new RegExp(regexA + regexB);
 
-    	var regexD = "var (.*) = ";
+    	var regexD = "var\\s+(.*)\\s+=\\s+";
     	var regexE = "require\\('(.*?)'\\);";
     	var regexF = new RegExp(regexD + regexE);
 
-    	var regexG = new RegExp("(module.exports = )(.*)");
+    	var regexG = new RegExp("(module.exports\\s+=\\s+)(.*)");
     	
     	// read each line of JavaScript code to find all import statements
     	var lines = jsIn.split("\n");
@@ -200,7 +200,7 @@ export default class TestCase {
 	        			}
 	        			// file not found, report it
 	        			else
-	        				log.trace(`Import skipped: ${importFilename}`);
+	        				log.invalidHalt(`Import not found, halting: ${importFilename}`);
 	    			}
 	    		}
     		}
