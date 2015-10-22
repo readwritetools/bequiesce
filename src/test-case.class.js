@@ -145,7 +145,7 @@ export default class TestCase {
     expandCode(jsIn, enclosingFilename) {
     	expect(jsIn, 'String');
     	expect(enclosingFilename, 'String');
-
+log.trace('AA '+ enclosingFilename);
     	var jsOut = [];
 
     	var regexA = "import\\s+(.*?)";
@@ -178,7 +178,7 @@ export default class TestCase {
 	    		else {
 	    			// resolve filename
 	    			var importFilename = this.resolveFilename(match[2], enclosingFilename);
-	
+log.trace(' LL ' + importFilename);	
 	    			// has this filename already been expanded 
 	    			if (this.visited.indexOf(importFilename) == -1) {
 	    				// since this filename hasn't been visited yet, add it to the list of visited files and recurse
@@ -195,7 +195,7 @@ export default class TestCase {
     					// if the file exists, recurse
 	        			else if (pfile.exists()) {
 	        				var importContents = FS.readFileSync(importFilename, 'utf8');
-	        				var expandedImport = this.expandCode(importContents, importFilename);
+        					var expandedImport = this.expandCode(importContents, importFilename);
 	        				jsOut.push(expandedImport);
 	        			}
 	        			// file not found, report it
@@ -216,7 +216,8 @@ export default class TestCase {
     resolveFilename(filename, enclosingFilename) {
     	expect(filename, 'String');
     	expect(enclosingFilename, 'String');
-    	
+log.trace("HH " + filename);
+log.trace("HH " + enclosingFilename);
 		// remove any trailing semicolon
 		if (filename.charAt(filename.length-1) == ';')
 			filename = filename.substr(0, filename.length-1);
