@@ -145,7 +145,6 @@ export default class TestCase {
     expandCode(jsIn, enclosingFilename) {
     	expect(jsIn, 'String');
     	expect(enclosingFilename, 'String');
-log.trace('AA '+ enclosingFilename);
     	var jsOut = [];
 
     	var regexA = "import\\s+(.*?)";
@@ -178,7 +177,7 @@ log.trace('AA '+ enclosingFilename);
 	    		else {
 	    			// resolve filename
 	    			var importFilename = this.resolveFilename(match[2], enclosingFilename);
-log.trace(' LL ' + importFilename);	
+	    			
 	    			// has this filename already been expanded 
 	    			if (this.visited.indexOf(importFilename) == -1) {
 	    				// since this filename hasn't been visited yet, add it to the list of visited files and recurse
@@ -216,9 +215,8 @@ log.trace(' LL ' + importFilename);
     resolveFilename(filename, enclosingFilename) {
     	expect(filename, 'String');
     	expect(enclosingFilename, 'String');
-log.trace("HH " + filename);
-log.trace("HH " + enclosingFilename);
-		// remove any trailing semicolon
+
+    	// remove any trailing semicolon
 		if (filename.charAt(filename.length-1) == ';')
 			filename = filename.substr(0, filename.length-1);
 		

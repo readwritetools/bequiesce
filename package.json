@@ -8,16 +8,28 @@
   "main": "main.js",
   "scripts": {
 	"build":		   "npm run build-codebase && npm run build-testcases && npm run self-test",
-  	"build-codebase":  "bash ../exim/exim ./src/main.js ./es5",
-  	"build-testcases": "bash ../exim/exim ./test/cases/test-cases.exim ./test/es5",
-	"self-test":	   "bash ./bequiesce ./test/es5",
+  	"build-codebase":  "bash ../exim/exim ./src ../es5/bequiesce/src main.js",
+  	"build-testcases": "bash ../exim/exim ./test/cases ../es5/bequiesce/test/cases test-cases.exim",
+	"self-test":	   "bash ./bequiesce ../es5/bequiesce/test/cases",
 	
 	"test01":		  "npm run exim01 && npm run bequiesce01",
-	"exim01":		  "bash ../exim/exim ./examples/01-hello-world/test/cases/hello-world.test.js ./examples/01-hello-world/test/es5",
-	"bequiesce01":	  "bash ./bequiesce ./examples/01-hello-world/test/es5",
+	"exim01":		  "bash ../exim/exim ./examples/01-hello-world/test/cases ../es5/bequiesce/examples/01-hello-world/test/cases hello-world.test.js",
+	"bequiesce01":	  "bash ./bequiesce ../es5/bequiesce/examples/01-hello-world/test/cases",
 	
+	"test02":		  "npm run exim02 && npm run bequiesce02",
+	"exim02":		  "bash ../exim/exim ./examples/02-days-of-week/test/cases ../es5/bequiesce/examples/02-days-of-week/test/cases days-of-week.test.js",
+	"bequiesce02":	  "bash ./bequiesce ../es5/bequiesce/examples/02-days-of-week/test/cases",
+
+	"test03":		  "npm run exim03 && npm run bequiesce03",
+	"exim03":		  "bash ../exim/exim ./examples/03-internationalization/test/cases ../es5/bequiesce/examples/03-internationalization/test/cases i18n.test.js",
+	"bequiesce03":	  "bash ./bequiesce ../es5/bequiesce/examples/03-internationalization/test/cases",
+
+	"test04":		  "npm run exim04 && npm run bequiesce04",
+	"exim04":		  "bash ../exim/exim ./examples/04-epochs-and-eras/test/cases ../es5/bequiesce/examples/04-epochs-and-eras/test/cases test-cases.exim",
+	"bequiesce04":	  "bash ./bequiesce ../es5/bequiesce/examples/04-epochs-and-eras/test/cases",
+
 	"test05":		  "npm run exim05 && npm run bequiesce05",
-    "exim05":     	  "bash ../exim/exim ./examples/05-spherical-coordinates/test/cases/test-cases.exim ./examples/05-spherical-coordinates/test/es5",
-	"bequiesce05":	  "bash ./bequiesce ./examples/05-spherical-coordinates/test/es5"
+    "exim05":     	  "bash ../exim/exim ./examples/05-spherical-coordinates/test/cases ../es5/bequiesce/examples/05-spherical-coordinates/test/cases test-cases.exim",
+	"bequiesce05":	  "bash ./bequiesce ../es5/bequiesce/examples/05-spherical-coordinates/test/cases"
   }
 }
