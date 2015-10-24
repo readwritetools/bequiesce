@@ -25,4 +25,4 @@ THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 echo $THIS_DIR
 
 # execute
-node --use_strict $THIS_DIR/es5/main.js $1
+node --use_strict $THIS_DIR/../es5/bequiesce/src/main.js $1

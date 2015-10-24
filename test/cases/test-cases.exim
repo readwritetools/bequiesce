@@ -7,7 +7,7 @@
 // Initial date: Sep 28, 2015
 // Contents:     Use this to compile all test cases
 //
-// Example:      bash ../exim/exim ./self-test/cases/test-cases.exim ./self-test/es5
+// Example:      bash ../exim/exim ./test/cases ../es5/bequiesce/test/cases test-cases.exim
 //
 //=============================================================================
 
@@ -16,7 +16,7 @@ import T from './common-code.test.js';
 import T from './common-section.test.js';
 import T from './filename-resolver.test.js';
 import T from './jot.test.js';
-import T from './parser-factory.js';
+import T from './parser-factory.test.js';
 import T from './situation-code.test.js';
 import T from './situation-section.test.js';
 import T from './stats-recorder.test.js';
