@@ -199,7 +199,7 @@ export default class TestCase {
 	        			}
 	        			// file not found, report it
 	        			else
-	        				log.invalidHalt(`Import not found, halting: ${importFilename}`);
+	        				log.invalidHalt(`Import not found '${importFilename}' while parsing ${enclosingFilename}`);
 	    			}
 	    		}
     		}
