@@ -77,6 +77,9 @@ export default class ParserFactory {
     	}
     	
     	var doubleSolidus = sourceline.indexOf("//");
+    	while (doubleSolidus >= 4 && sourceline.charAt(doubleSolidus-1) == ':')		// be careful not to treat http:// or https:// as a comment
+    		doubleSolidus = sourceline.indexOf("//", doubleSolidus+1);
+    	
     	var atCommon = sourceline.indexOf("@common", doubleSolidus);
     	var atUsing = sourceline.indexOf("@using", doubleSolidus);
     	var atTesting = sourceline.indexOf("@testing", doubleSolidus);
@@ -101,21 +104,22 @@ export default class ParserFactory {
     		this.currentTestGroup = cg;
     		return cg;
     	}
-    	else if (sourceline.indexOf("//") == 0 || sourceline.length == 0) {
+    	else if (doubleSolidus == 0 || sourceline.length == 0) {
         	// skip C++ style comment lines and blank lines
     		return null;
     	}
-    	else if (this.inCommonSection()) {
+    	else if (doubleSolidus > 0 ) {
+        	// Strip trailing C++ style comment
+    		sourceline = sourceline.substr(0, doubleSolidus);
+    	}
+    	
+    	if (this.inCommonSection()) {
     		return new CommonCode(sourceline);
     	}
     	else if (this.inSituationSection()) {
     		return new SituationCode(sourceline);
     	}
     	else if (this.inTestSection()) {
-    		var commentAt = sourceline.lastIndexOf("//");
-    		if (commentAt != -1) {
-    			sourceline = sourceline.substr(0, commentAt);
-    		}
     		// split the JavaScript into a proposition and a proof
     		var parts = sourceline.split(';;');
     		var propositionJS = parts[0].trim();
