@@ -1,0 +1,17 @@
+[sphericoords.1.test:       25]  Pass  99    Fail   0   cc.SpheriCoords --> [unnamed test group]
+[sphericoords.1.test:       42]  Pass  19    Fail   0   decimal degrees --> [unnamed test group]
+[sphericoords.1.test:       69]  Pass  38    Fail   0   celestial units --> [unnamed test group]
+                                 --------    --------
+[sphericoords.1.test:       90]  Pass 156    Fail   0
+
+[sphericoords.2.test:       21]  Pass  39    Fail   0   degrees minutes seconds --> [unnamed test group]
+[sphericoords.2.test:       43]  Pass  18    Fail   0   decimal hours --> [unnamed test group]
+[sphericoords.2.test:       70]  Pass  54    Fail   0   hours minutes seconds --> fromHoursMinutesSeconds() and asHoursMinutesSeconds() equivalency
+[sphericoords.2.test:       96]  Pass  14    Fail   0   normalize to Aries (0.0 ... 359.99) --> [unnamed test group]
+[sphericoords.2.test:      118]  Pass  25    Fail   0   normalize to Greenwich (-179.99 ... 180.0) --> normalizeToGreenwich()
+[sphericoords.2.test:      151]  Pass  27    Fail   0   normalize to Equator (-90.00 ... 90.00) --> Equator and poles
+                                 --------    --------
+[sphericoords.2.test:      179]  Pass 177    Fail   0
+
+                                 ========    ========
+Bequiesce                        Pass 333    Fail   0

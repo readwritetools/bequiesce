@@ -1,3 +1,6 @@
+00-z=x+y
+Step by step tutorial explaining @using, @testing, @common
+
 01-hello-world
 A single function is called with two arguments.
 This examples demonstrates the basics of writing a test case and running it through bequiesce.
