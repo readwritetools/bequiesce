@@ -1,0 +1,8 @@
+[hello-world.test:          18]  Pass   6    Fail   0   simple setup --> explicitly providing invalid iso639 code
+[hello-world.test:          22]  Pass  12    Fail   0   simple setup --> explicitly providing invalid variable type
+[hello-world.test:          28]  Pass 552    Fail   0   simple setup --> checking all known languages
+                                 --------    --------
+[hello-world.test:         213]  Pass 570    Fail   0
+
+                                 ========    ========
+Bequiesce                        Pass 570    Fail   0

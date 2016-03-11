@@ -27,9 +27,9 @@ var iso639 = {};				;; isValid == false	&& lang == "unknown" 			&& native == "un
 
 // @testing checking all known languages
 var iso639 = "ab";				;; isValid == true	&& lang == "Abkhaz" 			&& native == "бызшәа"
-var iso639 = "aa";				;; isValid == true	&& lang == "Afar" 				&& native == "Afaraf"
+var iso639 = "aa";				;; isValid == true	&& lang == "Afar"				&& native == "Afaraf"
 var iso639 = "af";				;; isValid == true	&& lang == "Afrikaans" 			&& native == "Afrikaans"
-var iso639 = "ak";				;; isValid == true	&& lang == "Akan" 				&& native == "Akan"
+var iso639 = "ak";				;; isValid == true	&& lang == "Akan"				&& native == "Akan"
 var iso639 = "sq";				;; isValid == true	&& lang == "Albanian" 			&& native == "Shqip"
 var iso639 = "am";				;; isValid == true	&& lang == "Amharic" 			&& native == "አማርኛ"
 var iso639 = "ar";				;; isValid == true	&& lang == "Arabic" 			&& native == "العربية"
