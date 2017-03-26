@@ -24,5 +24,12 @@ fi
 THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 echo $THIS_DIR
 
-# execute
-node --use_strict $THIS_DIR/../es5/bequiesce/src/main.js $1
+# all files in directory
+if [ -d "$1" ] ; then
+	for i in $1/*.test.js; do
+	    node --use_strict --harmony-async-await $THIS_DIR/../es5/bequiesce/src/main.js "$i"
+	done
+# one file
+else
+	node --use_strict --harmony-async-await $THIS_DIR/../es5/bequiesce/src/main.js $1
+fi
