@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-export default class EraDesignator {
+module.exports = class EraDesignator {
 	
     constructor() {
     }

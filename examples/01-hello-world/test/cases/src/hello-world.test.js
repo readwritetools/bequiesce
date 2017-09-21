@@ -7,7 +7,7 @@
 //=============================================================================
 
 // @common
-import Hello from '../../codebase/hello-world.class';
+import Hello from '../../../codebase/hello-world.class';
 
 // @using simple setup
 var hello = new Hello(iso639);

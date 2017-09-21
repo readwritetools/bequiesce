@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-export default class Epoch {
+module.exports = class Epoch {
 	
     constructor() {
     }

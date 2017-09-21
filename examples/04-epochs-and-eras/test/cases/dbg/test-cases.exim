@@ -1,0 +1,15 @@
+//=============================================================================
+//
+// File:         bequiesce/examples/04-epochs-and-eras/test/cases/test-cases.exim
+// Language:     ECMAScript 2015
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Oct 24, 2015
+// Contents:     Use this to compile all test cases
+//
+// Example:      bash ../exim/exim ./examples/04-epochs-and-eras/test/cases ../es5/bequiesce/examples/04-epochs-and-eras/test/cases i18n.test.js
+//
+//=============================================================================
+
+var T = require('./epoch.test.js');
+var T = require('./era-designator.test.js');

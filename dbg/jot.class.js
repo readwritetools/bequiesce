@@ -9,10 +9,10 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import FilenameResolver from "./filename-resolver.class";
+var expect = require('joezone').expect;
+var FilenameResolver = require('./filename-resolver.class.js');
 
-export default class Jot {
+module.exports = class Jot {
 	
     constructor() {    	
     	Object.seal(this);

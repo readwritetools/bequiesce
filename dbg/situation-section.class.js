@@ -11,12 +11,12 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import TestGroup from "./test-group.class";
-import TestCase from "./test-case.class";
-import StatsRecoder from './stats-recorder.class';
+var expect = require('joezone').expect;
+var TestGroup = require('./test-group.class.js');
+var TestCase = require('./test-case.class.js');
+var StatsRecoder = require('./stats-recorder.class.js');
 
-export default class SituationSection {
+module.exports = class SituationSection {
 	
     constructor(description, packageNumber, lineNumber) {
     	expect(description, 'String');

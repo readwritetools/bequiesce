@@ -1,0 +1,25 @@
+//=============================================================================
+//
+// File:         bequiesce/self-test/cases/test-cases.exim
+// Language:     ECMAScript 2015
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 28, 2015
+// Contents:     Use this to compile all test cases
+//
+// Example:      bash ../exim/exim ./test/cases ../es5/bequiesce/test/cases test-cases.exim
+//
+//=============================================================================
+
+var T = require('./bequiesce.test.js');
+var T = require('./common-code.test.js');
+var T = require('./common-section.test.js');
+var T = require('./filename-resolver.test.js');
+var T = require('./jot.test.js');
+var T = require('./parser-factory.test.js');
+var T = require('./situation-code.test.js');
+var T = require('./situation-section.test.js');
+var T = require('./stats-recorder.test.js');
+var T = require('./test-case.test.js');
+var T = require('./test-group.test.js');
+var T = require('./test-package.test.js');

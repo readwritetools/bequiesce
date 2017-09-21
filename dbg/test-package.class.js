@@ -10,20 +10,20 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import {TextReader} from 'joezone';
-import {Pfile} from 'joezone';
-import ParserFactory from './parser-factory.class';
-import CommonSection from './common-section.class';
-import CommonCode from './common-code.class';
-import SituationSection from './situation-section.class';
-import SituationCode from './situation-code.class';
-import TestGroup from './test-group.class';
-import TestCase from './test-case.class';
-import StatsRecoder from './stats-recorder.class';
-import Jot from './jot.class';
+var expect = require('joezone').expect;
+var TextReader = require('joezone').TextReader;
+var Pfile = require('joezone').Pfile;
+var ParserFactory = require('./parser-factory.class.js');
+var CommonSection = require('./common-section.class.js');
+var CommonCode = require('./common-code.class.js');
+var SituationSection = require('./situation-section.class.js');
+var SituationCode = require('./situation-code.class.js');
+var TestGroup = require('./test-group.class.js');
+var TestCase = require('./test-case.class.js');
+var StatsRecoder = require('./stats-recorder.class.js');
+var Jot = require('./jot.class.js');
 
-export default class TestPackage {
+module.exports = class TestPackage {
 	
     constructor(pfile, packageNumber) {
     	expect(pfile, 'Pfile');

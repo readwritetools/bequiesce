@@ -11,10 +11,10 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import FS from 'fs';
+var expect = require('joezone').expect;
+var FS = require('fs');
 
-export default class CommonSection {
+module.exports = class CommonSection {
 	
     constructor(description, packageNumber, lineNumber) {
     	expect(description, 'String');

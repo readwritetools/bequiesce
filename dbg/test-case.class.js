@@ -11,14 +11,14 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import {TextWriter} from 'joezone';
-import {Pfile} from 'joezone';
-import FS from 'fs';
-import StatsRecoder from './stats-recorder.class';
-import FilenameResolver from './filename-resolver.class';
+var expect = require('joezone').expect;
+var TextWriter = require('joezone').TextWriter;
+var Pfile = require('joezone').Pfile;
+var FS = require('fs');
+var StatsRecoder = require('./stats-recorder.class.js');
+var FilenameResolver = require('./filename-resolver.class.js');
 
-export default class TestCase {
+module.exports = class TestCase {
 	
     constructor(propositionJS, proofJS, situationSection, testGroup, packageNumber, lineNumber) {
     	expect(propositionJS, 'String');

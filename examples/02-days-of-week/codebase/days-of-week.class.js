@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-export default class DaysOfWeek {
+module.exports = class DaysOfWeek {
 	
     constructor() {
     }

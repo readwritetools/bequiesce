@@ -9,10 +9,10 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import Bequiesce from "./bequiesce.class";
+var expect = require('joezone').expect;
+var Bequiesce = require('./bequiesce.class.js');
 
-export default class FilenameResolver {
+module.exports = class FilenameResolver {
 
     constructor() {
     	Object.seal(this);

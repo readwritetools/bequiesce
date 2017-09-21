@@ -9,15 +9,15 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import CommonSection from './common-section.class';
-import CommonCode from './common-code.class';
-import SituationSection from './situation-section.class';
-import SituationCode from './situation-code.class';
-import TestGroup from './test-group.class';
-import TestCase from './test-case.class';
+var expect = require('joezone').expect;
+var CommonSection = require('./common-section.class.js');
+var CommonCode = require('./common-code.class.js');
+var SituationSection = require('./situation-section.class.js');
+var SituationCode = require('./situation-code.class.js');
+var TestGroup = require('./test-group.class.js');
+var TestCase = require('./test-case.class.js');
 
-export default class ParserFactory {
+module.exports = class ParserFactory {
 	
     constructor(packageNumber) {
     	expect(packageNumber, 'Number');

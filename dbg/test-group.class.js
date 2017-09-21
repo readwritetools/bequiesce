@@ -10,11 +10,11 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import StatsRecoder from './stats-recorder.class';
-import Jot from './jot.class';
+var expect = require('joezone').expect;
+var StatsRecoder = require('./stats-recorder.class.js');
+var Jot = require('./jot.class.js');
 
-export default class TestGroup {
+module.exports = class TestGroup {
 	
     constructor(description, packageNumber, lineNumber) {
     	expect(description, 'String');

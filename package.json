@@ -8,28 +8,33 @@
   "main": "main.js",
   "scripts": {
 	"build":		   "npm run build-codebase && npm run build-testcases && npm run self-test",
-  	"build-codebase":  "bash ../exim/exim ./src ../es5/bequiesce/src main.js",
-  	"build-testcases": "bash ../exim/exim ./test/cases ../es5/bequiesce/test/cases test-cases.exim",
-	"self-test":	   "bash ./bequiesce ../es5/bequiesce/test/cases",
+  	"build-codebase":  "bash /musings/exim/exim ./src ./dbg main.js",
+  	"build-testcases": "bash /musings/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim",
+	"self-test":	   "bash ./bequiesce ./test/cases/dbg",
 	
 	"test01":		  "npm run exim01 && npm run bequiesce01",
-	"exim01":		  "bash ../exim/exim ./examples/01-hello-world/test/cases ../es5/bequiesce/examples/01-hello-world/test/cases hello-world.test.js",
-	"bequiesce01":	  "bash ./bequiesce ../es5/bequiesce/examples/01-hello-world/test/cases",
+	"exim01":		  "bash /musings/exim/exim ./examples/01-hello-world/test/cases/src ./examples/01-hello-world/test/cases/dbg hello-world.test.js",
+	"bequiesce01":	  "bash ./bequiesce ./examples/01-hello-world/test/cases/dbg",
 	
 	"test02":		  "npm run exim02 && npm run bequiesce02",
-	"exim02":		  "bash ../exim/exim ./examples/02-days-of-week/test/cases ../es5/bequiesce/examples/02-days-of-week/test/cases days-of-week.test.js",
-	"bequiesce02":	  "bash ./bequiesce ../es5/bequiesce/examples/02-days-of-week/test/cases",
+	"exim02":		  "bash /musings/exim/exim ./examples/02-days-of-week/test/cases/src ./examples/02-days-of-week/test/cases/dbg days-of-week.test.js",
+	"bequiesce02":	  "bash ./bequiesce ./examples/02-days-of-week/test/cases/dbg",
 
 	"test03":		  "npm run exim03 && npm run bequiesce03",
-	"exim03":		  "bash ../exim/exim ./examples/03-internationalization/test/cases ../es5/bequiesce/examples/03-internationalization/test/cases i18n.test.js",
-	"bequiesce03":	  "bash ./bequiesce ../es5/bequiesce/examples/03-internationalization/test/cases",
+	"exim03":		  "bash /musings/exim/exim ./examples/03-internationalization/test/cases/src ./examples/03-internationalization/test/cases/dbg i18n.test.js",
+	"bequiesce03":	  "bash ./bequiesce ./examples/03-internationalization/test/cases/dbg",
 
 	"test04":		  "npm run exim04 && npm run bequiesce04",
-	"exim04":		  "bash ../exim/exim ./examples/04-epochs-and-eras/test/cases ../es5/bequiesce/examples/04-epochs-and-eras/test/cases test-cases.exim",
-	"bequiesce04":	  "bash ./bequiesce ../es5/bequiesce/examples/04-epochs-and-eras/test/cases",
+	"exim04":		  "bash /musings/exim/exim ./examples/04-epochs-and-eras/test/cases/src ./examples/04-epochs-and-eras/test/cases/dbg test-cases.exim",
+	"bequiesce04":	  "bash ./bequiesce ./examples/04-epochs-and-eras/test/cases/dbg",
 
 	"test05":		  "npm run exim05 && npm run bequiesce05",
-    "exim05":     	  "bash ../exim/exim ./examples/05-spherical-coordinates/test/cases ../es5/bequiesce/examples/05-spherical-coordinates/test/cases test-cases.exim",
-	"bequiesce05":	  "bash ./bequiesce ../es5/bequiesce/examples/05-spherical-coordinates/test/cases"
-  }
+    "exim05":     	  "bash /musings/exim/exim ./examples/05-spherical-coordinates/test/cases/src ./examples/05-spherical-coordinates/test/cases/dbg test-cases.exim",
+	"bequiesce05":	  "bash ./bequiesce ./examples/05-spherical-coordinates/test/cases/dbg"
+  },
+  "dependencies": {
+    "joezone": "git+ssh://root@nk021:/keep/joezone#v1.1.1"
+  },
+  "version": ""
+  "postversion": "git push --tags"
 }

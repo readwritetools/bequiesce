@@ -1,16 +1,16 @@
 //=============================================================================
-// File:         bequiesce/examples/02-days-of-week/test/cases/days-of-week.test.js
+// File:         bequiesce/examples/04-epochs-and-eras/test/cases/era-designator.test.js
 // Language:     Bequiesce
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
-// Initial date: Oc 24, 2015
+// Initial date: Oct 24, 2015
 //=============================================================================
 
 // @common
-import DaysOfWeek from '../../codebase/days-of-week.class';
+var EraDesignator = require('../../../codebase/era-designator.class.js');
 
 // @using
-var daysOfWeek = new DaysOfWeek();
+var eraDesignator = new EraDesignator();
 
 // @testing
 

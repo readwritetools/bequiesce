@@ -9,11 +9,11 @@
 //
 //=============================================================================
 
-import {Pfile} from 'joezone';
-import {Bunch} from 'joezone';
-import Bequiesce from './bequiesce.class';
+var Pfile = require('joezone').Pfile;
+var Bunch = require('joezone').Bunch;
+var Bequiesce = require('./bequiesce.class.js');
 
-export default class CLI {
+module.exports = class CLI {
 	
     constructor() {
     	Object.seal(this);

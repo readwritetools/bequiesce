@@ -7,7 +7,7 @@
 //=============================================================================
 
 // @common
-import Epoch from '../../codebase/epoch.class';
+import Epoch from '../../../codebase/epoch.class';
 
 // @using
 var epoch = new Epoch();

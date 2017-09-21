@@ -10,9 +10,9 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
+var expect = require('joezone').expect;
 
-export default class CommonCode {
+module.exports = class CommonCode {
 	
     constructor(javascript) {
     	expect(javascript, 'String');

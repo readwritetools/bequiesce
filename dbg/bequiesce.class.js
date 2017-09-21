@@ -9,14 +9,14 @@
 //
 //=============================================================================
 
-import {expect} from 'joezone';
-import {Pfile} from 'joezone';
-import {Log} from 'joezone';
-import Jot from "./jot.class";
-import TestPackage from "./test-package.class";
-import StatsRecoder from './stats-recorder.class';
+var expect = require('joezone').expect;
+var Pfile = require('joezone').Pfile;
+var Log = require('joezone').Log;
+var Jot = require('./jot.class.js');
+var TestPackage = require('./test-package.class.js');
+var StatsRecoder = require('./stats-recorder.class.js');
 
-export default class Bequiesce {
+module.exports = class Bequiesce {
 	
     constructor() {
     	if (global._bequiesceInstance != undefined)

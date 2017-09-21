@@ -7,7 +7,7 @@
 //=============================================================================
 
 // @common
-import Internationalization from '../../codebase/i18n.class';
+var Internationalization = require('../../../codebase/i18n.class.js');
 
 // @using
 var i18n = new Internationalization();
