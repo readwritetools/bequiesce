@@ -30,11 +30,12 @@
 
 	"test05":		  "npm run exim05 && npm run bequiesce05",
     "exim05":     	  "bash /musings/exim/exim ./examples/05-spherical-coordinates/test/cases/src ./examples/05-spherical-coordinates/test/cases/dbg test-cases.exim",
-	"bequiesce05":	  "bash ./bequiesce ./examples/05-spherical-coordinates/test/cases/dbg"
+	"bequiesce05":	  "bash ./bequiesce ./examples/05-spherical-coordinates/test/cases/dbg",
+	
+  "version": "",
+  "postversion": "git push --tags"
   },
   "dependencies": {
     "joezone": "git+ssh://root@nk021:/keep/joezone#v1.1.1"
-  },
-  "version": ""
-  "postversion": "git push --tags"
+  }
 }
