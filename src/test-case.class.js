@@ -177,7 +177,7 @@ export default class TestCase {
 	    		else {
 	    			// resolve filename
 	    			var importFilename = this.resolveFilename(match[2], enclosingFilename);
-	    			
+
 	    			// has this filename already been expanded 
 	    			if (this.visited.indexOf(importFilename) == -1) {
 	    				// since this filename hasn't been visited yet, add it to the list of visited files and recurse
