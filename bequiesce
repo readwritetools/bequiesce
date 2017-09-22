@@ -27,9 +27,9 @@ echo $THIS_DIR
 # all files in directory
 if [ -d "$1" ] ; then
 	for i in $1/*.test.js; do
-	    node --use_strict --harmony-async-await $THIS_DIR/dbg/main.js "$i"
+	    node --use_strict $THIS_DIR/dbg/main.js "$i"
 	done
 # one file
 else
-	node --use_strict --harmony-async-await $THIS_DIR/dbg/main.js $1
+	node --use_strict $THIS_DIR/dbg/main.js $1
 fi
