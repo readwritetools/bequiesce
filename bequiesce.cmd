@@ -1,0 +1,1 @@
+node --use_strict C:/neonave/lib/bequiesce/dbg/main.js %*
