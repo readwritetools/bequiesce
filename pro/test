@@ -65,7 +65,7 @@ exim {
 	//overwrite older					// this will only become effective when exim becomes eximf
 }
 //
-// ---------- rewrite export/import (examples/04) ---------- 
+// ---------- rewrite export/import (examples/05) ---------- 
 exim {
 	source    '../examples/05-spherical-coordinates/test/cases/src'
 	dest      '../examples/05-spherical-coordinates/test/cases/dbg'
@@ -76,9 +76,8 @@ exim {
 // ---------- run test cases (examples) ---------- 
 recurse {
 	source    '../examples'
-	dest      '../null'		// TODO: must specify a 'dest' for prorenata at this time
+	dest      '../null'					// TODO: must specify a 'dest' for prorenata at this time
 	exclude   src						// only include the 'dbg' version
 	include   '*.test.js'
 	exec      bequiesce
 }
-
