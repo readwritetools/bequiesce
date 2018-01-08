@@ -9,7 +9,7 @@ Existing tools for testing JavaScript suffer from three problems: 1) they emphas
 
 ## The Bequiesce Approach
 
-The Bequiesce test harness begins with a solid basis as a straightfowrard library regression test tool, while following the guideline that test cases must be easy to read and maintain. Bequiesce does this by using JavaScript's ability to evaluate strings that contain JavaScript code. With this simple approach, the full power of JavaScript remains within the hands of the test developer.
+The Bequiesce test harness begins with a solid basis as a straightforward library regression test tool, while following the guideline that test cases must be easy to read and maintain. Bequiesce does this by using JavaScript's ability to evaluate strings that contain JavaScript code. With this simple approach, the full power of JavaScript remains within the hands of the test developer.
 
 ## Bequiesce.com
 
@@ -19,7 +19,7 @@ Bequiesce is documented at [bequiesce.com](http://bequiesce.com).
 
 Bequiesce is open-sourced under the
 ![](http://bequiesce.com/img/CC-BY-NC-ND.png)
-[CC-BY-NC-ND](http://htmlpreview.github.com/?https://github.com/joehonton/bequiesce/blob/master/src/LICENSE.html)
+[CC-BY-NC-ND](http://htmlpreview.github.com/?https://github.com/joehonton/bequiesce/blob/master/LICENSE.html)
 License.
 
 
