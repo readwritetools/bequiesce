@@ -17,14 +17,16 @@ template {
 //
 // ---------- remove comments and whitespace ---------- 
 recurse {
-	source    dbg
-	dest      dist
+	source    '../dbg'
+	dest      '../dist'
 	overwrite older
 	exec      minify
 }
 
 // ---------- bump version and push repo to origin ---------- 
 run {
+	sh git add ../dist/.
+	sh git commit -m "minify"
 	sh npm version patch
 	sh git push
 	sh git push --tags
