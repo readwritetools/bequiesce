@@ -29,7 +29,6 @@ recurse {
 // ---------- run self test cases ---------- 
 recurse {
 	source    '../test/cases/dbg'
-	dest      '../test/cases/null'		// TODO: must specify a 'dest' for prorenata at this time
 	include   '*.test.js'
 	exec      bequiesce
 }
