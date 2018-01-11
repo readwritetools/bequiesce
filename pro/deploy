@@ -34,11 +34,10 @@ compare {
 	dest      '../src'
 }
 
-
 // ---------- bump version and push repo to origin ---------- 
 run {
 	sh git add ../dist/.
-	sh git commit -m minify
+	sh true && git commit -m minify
 	sh npm version patch
 	sh git push
 	sh git push --tags
