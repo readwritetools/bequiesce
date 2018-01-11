@@ -6,7 +6,7 @@ var x = 1;   var y = NaN;     ;;   isNaN(z)
 var x = NaN; var y;           ;;   isNaN(z)
 var x = 1;   var y;           ;;   isNaN(z)
 var x;       var y = 1;       ;;   isNaN(z)
-var x = 1;   var y = [];      ;;   isNaN(z)
+var x = 1;   var y = [];      ;;   !isNaN(z)
 var x = 1;   var y = {};      ;;   isNaN(z)
 
 //@testing integers

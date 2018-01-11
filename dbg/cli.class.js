@@ -135,8 +135,6 @@ module.exports = class CLI {
 		s.push("var radians = 5.0;           ;;  dms.degrees == 286 && dms.arcminutes == 28 && dms.arcseconds == 44");
 		s.push("var radians = 6.0;           ;;  dms.degrees == 343 && dms.arcminutes == 46 && dms.arcseconds == 29");
 		s.push("var radians = 2*Math.PI;     ;;  dms.degrees == 360 && dms.arcminutes == 0  && dms.arcseconds == 0");
-
-		
 		return s.join("\n")
     }
 
@@ -184,7 +182,8 @@ module.exports = class CLI {
     	}
     	
     	// perform the tests
-    	bequiesce.runTests();
+    	var rc = bequiesce.runTests();
+		process.exit(rc);
    	}
         
 }

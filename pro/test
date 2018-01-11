@@ -12,17 +12,17 @@
 //=============================================================================
 
 template {
-	exim 		 node /musings/lib/exim/src/rewrite.js <source> <dest> <rootfile>
+	eximjs 		 eximjs <source> <dest>
 	// local bequiesce, not global
 	bequiesce    node ../dbg/main.js <source>
 }
 
 // ---------- rewrite export/import (test) ---------- 
-exim {
+recurse {
 	source    '../test/cases/src'
 	dest      '../test/cases/dbg'
-	rootfile  test-cases.exim
-	//overwrite older					// this will only become effective when exim becomes eximf
+	overwrite older
+	exec      eximjs
 }
 
 //
@@ -35,49 +35,48 @@ recurse {
 }
 
 // ---------- rewrite export/import (examples/01) ---------- 
-exim {
+recurse {
 	source    '../examples/01-hello-world/test/cases/src'
 	dest      '../examples/01-hello-world/test/cases/dbg'
-	rootfile  hello-world.test.js
-	//overwrite older					// this will only become effective when exim becomes eximf
+	overwrite older
+	exec      eximjs
 }
 //
 // ---------- rewrite export/import (examples/02) ---------- 
-exim {
+recurse {
 	source    '../examples/02-days-of-week/test/cases/src'
 	dest      '../examples/02-days-of-week/test/cases/dbg'
-	rootfile  days-of-week.test.js
-	//overwrite older					// this will only become effective when exim becomes eximf
+	overwrite older
+	exec      eximjs
 }
 //
 // ---------- rewrite export/import (examples/03) ---------- 
-exim {
+recurse {
 	source    '../examples/03-internationalization/test/cases/src'
 	dest      '../examples/03-internationalization/test/cases/dbg'
-	rootfile  i18n.test.js
-	//overwrite older					// this will only become effective when exim becomes eximf
+	overwrite older
+	exec      eximjs
 }
 //
 // ---------- rewrite export/import (examples/04) ---------- 
-exim {
+recurse {
 	source    '../examples/04-epochs-and-eras/test/cases/src'
 	dest      '../examples/04-epochs-and-eras/test/cases/dbg'
-	rootfile  test-cases.exim
-	//overwrite older					// this will only become effective when exim becomes eximf
+	overwrite older
+	exec      eximjs
 }
 //
 // ---------- rewrite export/import (examples/05) ---------- 
-exim {
+recurse {
 	source    '../examples/05-spherical-coordinates/test/cases/src'
 	dest      '../examples/05-spherical-coordinates/test/cases/dbg'
-	rootfile  test-cases.exim
-	//overwrite older					// this will only become effective when exim becomes eximf
+	overwrite older
+	exec      eximjs
 }
 //
 // ---------- run test cases (examples) ---------- 
 recurse {
 	source    '../examples'
-	dest      '../null'					// TODO: must specify a 'dest' for prorenata at this time
 	exclude   src						// only include the 'dbg' version
 	include   '*.test.js'
 	exec      bequiesce

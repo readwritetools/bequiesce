@@ -106,6 +106,8 @@ module.exports = class Bequiesce {
    		jot.trace("                                 ========    ========");
    		jot.trace(s);
     	jot.trace("");
+    	
+    	return (failCount > 0) ? 1 : 0;    		
 	}
 	
 }

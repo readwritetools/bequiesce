@@ -182,7 +182,8 @@ export default class CLI {
     	}
     	
     	// perform the tests
-    	bequiesce.runTests();
+    	var rc = bequiesce.runTests();
+		process.exit(rc);
    	}
         
 }
