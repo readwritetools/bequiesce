@@ -127,7 +127,7 @@ module.exports = class TestCase {
     			
     			// dump the code someplace where it can be run directly using "node --use_strict test/test-case-dump.js"
     			var tw = new TextWriter();
-    			tw.open('test/test-case-dump.js');
+    			tw.open('../test/test-case-dump.js');
     			tw.putline(code);
     			tw.close();
 // TODO
