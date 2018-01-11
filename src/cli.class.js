@@ -21,16 +21,6 @@ export default class CLI {
     	Object.seal(this);
     }
     
-    /*
-    //^ Check to see if all the necessary command line arguments are present and valid
-    //< returns false on failure
-    validateOptions() {
-    	if (process.argv.length < 3)
-    		log.invalidHalt("Usage: bequiesce {testfile | testdir}\n   (only *.test.js files will be included if {testdir} is provided)");
-    	return true;
-    }
-    */
-    
     //^ Check to see if all the necessary command line arguments are present and valid
 	// argv[0] node
 	// argv[1] main.js
@@ -123,7 +113,7 @@ export default class CLI {
 		s.push("x = 1.0; y = 2.0              ;;   z == 3.0");
 		s.push("");
 		s.push("// @using");
-		s.push("var sc = new SpheriCoords( radians );");
+		s.push("var sc = new SpheriCoords(radians);");
 		s.push("var dms = sc.asDegreesMinutesSeconds();");
 		s.push("");
 		s.push("// @testing");
