@@ -40,7 +40,7 @@ module.exports = class TestCase {
             return eval(code), global.__b;
         } catch (e) {
             var tw = new TextWriter();
-            return tw.open('test/test-case-dump.js'), tw.putline(code), tw.close(), `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
+            return tw.open('../test/test-case-dump.js'), tw.putline(code), tw.close(), `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
         }
     }
     expandCode(e, t) {
