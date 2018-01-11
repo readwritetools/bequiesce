@@ -38,7 +38,7 @@ compare {
 // ---------- bump version and push repo to origin ---------- 
 run {
 	sh git add ../dist/.
-	sh git commit -m minify
+	sh git commit -m minify | true
 	sh npm version patch
 	sh git push
 	sh git push --tags
