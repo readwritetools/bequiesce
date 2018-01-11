@@ -57,7 +57,7 @@ module.exports = class CLI {
         e.push('x = \'1\'; y = \'2\'              ;;   (typeof x == \'string\') && (typeof y == \'string\') && (typeof z == \'string\') && z == \'12\''), 
         e.push(''), e.push('// @testing numbers'), e.push('x = 1; y = 2                  ;;   Number.isInteger(x) && Number.isInteger(y) && Number.isInteger(z) && z == 3'), 
         e.push('x = 1.0; y = 2.0              ;;   z == 3.0'), e.push(''), e.push('// @using'), 
-        e.push('var sc = new SpheriCoords( radians );'), e.push('var dms = sc.asDegreesMinutesSeconds();'), 
+        e.push('var sc = new SpheriCoords(radians);'), e.push('var dms = sc.asDegreesMinutesSeconds();'), 
         e.push(''), e.push('// @testing'), e.push('var radians = 1.0;           ;;  dms.degrees == 57  && dms.arcminutes == 17 && dms.arcseconds == 45'), 
         e.push('var radians = 2.0;           ;;  dms.degrees == 114 && dms.arcminutes == 35 && dms.arcseconds == 30'), 
         e.push('var radians = 3.0;           ;;  dms.degrees == 171 && dms.arcminutes == 53 && dms.arcseconds == 14'), 
