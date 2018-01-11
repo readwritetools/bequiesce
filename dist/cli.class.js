@@ -84,7 +84,8 @@ module.exports = class CLI {
                 var t = new Bunch(s.getPath(), '*.test.js'), r = t.find(!0);
                 for (let s of r) e.testPackage(s.getFQN());
             }
-            e.runTests();
+            var i = e.runTests();
+            process.exit(i);
         } else terminal.writeToConsoleOrStderr(`${s.name} not found`);
     }
 };

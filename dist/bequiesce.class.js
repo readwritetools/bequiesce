@@ -37,7 +37,7 @@ module.exports = class Bequiesce {
         this.statsRecorder.incrementSuccess(e.statsRecorder.passCount), this.statsRecorder.incrementFailure(e.statsRecorder.failCount));
         jot.trace('');
         var e = Jot.rightJustify(this.statsRecorder.success.toString(), 3), t = Jot.rightJustify(this.statsRecorder.failure.toString(), 3), s = `Bequiesce                        Pass ${e}    Fail ${t}`;
-        jot.trace('                                 ========    ========'), jot.trace(s), 
-        jot.trace('');
+        return jot.trace('                                 ========    ========'), jot.trace(s), 
+        jot.trace(''), t > 0 ? 1 : 0;
     }
 }, global.log = new Log(), global.jot = new Jot();
