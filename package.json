@@ -37,7 +37,6 @@
   },
   "files": [
     "bin",
-    "dbg",
     "dist",
     "examples"
   ]
