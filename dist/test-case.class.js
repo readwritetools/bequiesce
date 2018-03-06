@@ -41,7 +41,7 @@ module.exports = class TestCase {
         } catch (e) {
             var tw = new TextWriter(), pFile = new Pfile('../test');
             return pFile.makeAbsolute(), pFile.exists() || (jot.trace(`Creating test case dump directory ${pFile.name}`), 
-            pFile.mkdir()), pFile.append('test-case-dump.js'), tw.open(pFile.name), tw.putline(code), 
+            pFile.mkDir()), pFile.append('test-case-dump.js'), tw.open(pFile.name), tw.putline(code), 
             tw.close(), `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
         }
     }
