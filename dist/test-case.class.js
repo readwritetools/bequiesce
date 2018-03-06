@@ -39,25 +39,27 @@ module.exports = class TestCase {
         try {
             return eval(code), global.__b;
         } catch (e) {
-            var tw = new TextWriter();
-            return tw.open('../test/test-case-dump.js'), tw.putline(code), tw.close(), `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
+            var tw = new TextWriter(), pFile = new Pfile('../test');
+            return pFile.makeAbsolute(), pFile.exists() || (jot.trace(`Creating test case dump directory ${pFile.name}`), 
+            pFile.mkdir()), pFile.append('test-case-dump.js'), tw.open(pFile.name), tw.putline(code), 
+            tw.close(), `${e.constructor.name}: ${e.message} (Exact line number is not available, be sure to check both @common and @using code sections)`;
         }
     }
     expandCode(e, t) {
         expect(e, 'String'), expect(t, 'String');
         var i = [], s = 'import\\s+(.*?)', o = '\\s+from\\s+(.*)', r = new RegExp(s + o), n = 'var\\s+(.*)\\s+=\\s+', a = 'require\\(\'(.*?)\'\\);', c = new RegExp(n + a), p = new RegExp('(module.exports\\s+=\\s+)(.*)'), l = e.split('\n');
         for (let e of l) {
-            var h = p.exec(e);
-            if (null != h) i.push(h[2]); else if (null == (h = r.exec(e)) && (h = c.exec(e)), 
-            null == h) i.push(e); else {
-                var u = this.resolveFilename(h[2], t);
-                if (-1 == this.visited.indexOf(u)) {
-                    this.visited.push(u);
-                    var S = new Pfile(u), x = S.getFilename(), g = 'fs' == x || 'path' == x || 'crypto' == x || 'http' == x || 'https' == x || 'http2' == x || 'url' == x;
-                    if (1 == g) i.push(e); else if (S.exists()) {
-                        var m = FS.readFileSync(u, 'utf8'), d = this.expandCode(m, u);
+            var u = p.exec(e);
+            if (null != u) i.push(u[2]); else if (null == (u = r.exec(e)) && (u = c.exec(e)), 
+            null == u) i.push(e); else {
+                var h = this.resolveFilename(u[2], t);
+                if (-1 == this.visited.indexOf(h)) {
+                    this.visited.push(h);
+                    var S = new Pfile(h), m = S.getFilename(), x = 'fs' == m || 'path' == m || 'crypto' == m || 'http' == m || 'https' == m || 'http2' == m || 'url' == m;
+                    if (1 == x) i.push(e); else if (S.exists()) {
+                        var g = FS.readFileSync(h, 'utf8'), d = this.expandCode(g, h);
                         i.push(d);
-                    } else log.invalidHalt(`Import not found '${u}' while parsing ${t}`);
+                    } else log.invalidHalt(`Import not found '${h}' while parsing ${t}`);
                 }
             }
         }
