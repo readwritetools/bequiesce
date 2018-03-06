@@ -55,7 +55,7 @@ module.exports = class TestCase {
                 var u = this.resolveFilename(h[2], t);
                 if (-1 == this.visited.indexOf(u)) {
                     this.visited.push(u);
-                    var S = new Pfile(u), m = S.getFilename(), x = 'fs' == m || 'path' == m || 'crypto' == m || 'http' == m || 'https' == m || 'http2' == m || 'url' == m;
+                    var S = new Pfile(u), m = S.getFilename(), x = 'fs' == m || 'path' == m || 'crypto' == m || 'http' == m || 'https' == m || 'http2' == m || 'url' == m || 'child_process' == m;
                     if (1 == x) i.push(e); else if (S.exists()) {
                         var g = FS.readFileSync(u, 'utf8'), d = this.expandCode(g, u);
                         i.push(d);
