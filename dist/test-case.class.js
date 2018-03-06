@@ -47,17 +47,17 @@ module.exports = class TestCase {
         expect(e, 'String'), expect(t, 'String');
         var i = [], s = 'import\\s+(.*?)', o = '\\s+from\\s+(.*)', r = new RegExp(s + o), n = 'var\\s+(.*)\\s+=\\s+', a = 'require\\(\'(.*?)\'\\);', c = new RegExp(n + a), p = new RegExp('(module.exports\\s+=\\s+)(.*)'), l = e.split('\n');
         for (let e of l) {
-            var u = p.exec(e);
-            if (null != u) i.push(u[2]); else if (null == (u = r.exec(e)) && (u = c.exec(e)), 
-            null == u) i.push(e); else {
-                var h = this.resolveFilename(u[2], t);
-                if (-1 == this.visited.indexOf(h)) {
-                    this.visited.push(h);
-                    var S = new Pfile(h), x = S.getFilename(), g = 'fs' == x || 'crypto' == x || 'http' == x || 'https' == x || 'url' == x;
+            var h = p.exec(e);
+            if (null != h) i.push(h[2]); else if (null == (h = r.exec(e)) && (h = c.exec(e)), 
+            null == h) i.push(e); else {
+                var u = this.resolveFilename(h[2], t);
+                if (-1 == this.visited.indexOf(u)) {
+                    this.visited.push(u);
+                    var S = new Pfile(u), x = S.getFilename(), g = 'fs' == x || 'path' == x || 'crypto' == x || 'http' == x || 'https' == x || 'http2' == x || 'url' == x;
                     if (1 == g) i.push(e); else if (S.exists()) {
-                        var m = FS.readFileSync(h, 'utf8'), d = this.expandCode(m, h);
+                        var m = FS.readFileSync(u, 'utf8'), d = this.expandCode(m, u);
                         i.push(d);
-                    } else log.invalidHalt(`Import not found '${h}' while parsing ${t}`);
+                    } else log.invalidHalt(`Import not found '${u}' while parsing ${t}`);
                 }
             }
         }
