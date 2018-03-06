@@ -185,7 +185,7 @@ export default class TestCase {
 	
 	        			var pfile = new Pfile(importFilename);
 	        			var fileOnly = pfile.getFilename();
-	    				var bSystemImport = (fileOnly == 'fs' || fileOnly == 'crypto' || fileOnly == 'http' || fileOnly == 'https' || fileOnly == 'url');
+	    				var bSystemImport = (fileOnly == 'fs' || fileOnly == 'path' || fileOnly == 'crypto' || fileOnly == 'http' || fileOnly == 'https' ||fileOnly == 'http2' || fileOnly == 'url');
 
 	    				// system imports, just echo the original line
 	        			if (bSystemImport == true) {
