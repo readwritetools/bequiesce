@@ -132,7 +132,7 @@ export default class TestCase {
     			pFile.makeAbsolute();
     			if (!pFile.exists() ) {
     				jot.trace(`Creating test case dump directory ${pFile.name}`);
-    				pFile.mkdir();
+    				pFile.mkDir();
     			}
     			pFile.append('test-case-dump.js');
     			
