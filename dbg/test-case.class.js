@@ -127,7 +127,16 @@ module.exports = class TestCase {
     			
     			// dump the code someplace where it can be run directly using "node --use_strict test/test-case-dump.js"
     			var tw = new TextWriter();
-    			tw.open('../test/test-case-dump.js');
+    			
+    			var pFile = new Pfile('../test');
+    			pFile.makeAbsolute();
+    			if (!pFile.exists() ) {
+    				jot.trace(`Creating test case dump directory ${pFile.name}`);
+    				pFile.mkdir();
+    			}
+    			pFile.append('test-case-dump.js');
+    			
+    			tw.open(pFile.name);
     			tw.putline(code);
     			tw.close();
 // TODO
