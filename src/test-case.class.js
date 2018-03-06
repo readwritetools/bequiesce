@@ -134,7 +134,7 @@ export default class TestCase {
     				jot.trace(`Creating test case dump directory ${pFile.name}`);
     				pFile.mkDir();
     			}
-    			pFile.append('test-case-dump.js');
+    			pFile.addPath('test-case-dump.js');
     			
     			tw.open(pFile.name);
     			tw.putline(code);
