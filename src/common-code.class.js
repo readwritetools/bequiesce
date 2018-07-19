@@ -10,7 +10,7 @@
 //
 //=============================================================================
 
-import expect from '../../joezone/src/expect.function.js';
+import {expect} from 'joezone';
 
 export default class CommonCode {
 	

@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-export default class Internationalization {
+module.exports = class Internationalization {
 	
     constructor() {
     }

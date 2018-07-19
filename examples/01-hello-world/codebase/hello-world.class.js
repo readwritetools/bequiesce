@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-export default class Hello {
+module.exports = class Hello {
 	
     constructor(iso639) {
     	this.table = [

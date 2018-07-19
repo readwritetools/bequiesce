@@ -11,10 +11,10 @@
 //
 //=============================================================================
 
+import {expect} from 'joezone';
 import TestGroup from "./test-group.class";
 import TestCase from "./test-case.class";
 import StatsRecoder from './stats-recorder.class';
-import expect from '../../joezone/src/expect.function.js';
 
 export default class SituationSection {
 	

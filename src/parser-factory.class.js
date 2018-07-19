@@ -9,13 +9,13 @@
 //
 //=============================================================================
 
+import {expect} from 'joezone';
 import CommonSection from './common-section.class';
 import CommonCode from './common-code.class';
 import SituationSection from './situation-section.class';
 import SituationCode from './situation-code.class';
 import TestGroup from './test-group.class';
 import TestCase from './test-case.class';
-import expect from '../../joezone/src/expect.function.js';
 
 export default class ParserFactory {
 	
@@ -77,8 +77,28 @@ export default class ParserFactory {
     	}
     	
     	var doubleSolidus = sourceline.indexOf("//");
-    	while (doubleSolidus >= 4 && sourceline.charAt(doubleSolidus-1) == ':')		// be careful not to treat http:// or https:// as a comment
-    		doubleSolidus = sourceline.indexOf("//", doubleSolidus+1);
+    	while (doubleSolidus != -1) {
+    		// be careful of false positives with http[s]://
+        	if (doubleSolidus > 0 && sourceline.charAt(doubleSolidus-1) == ':') {		
+        		doubleSolidus = sourceline.indexOf("//", doubleSolidus+2);
+        		continue;
+        	}
+			// look for an odd number of single quotes to the left and right of the double solidus
+			var leftS  = sourceline.substr(0, doubleSolidus).match(/'/g);
+			var rightS = sourceline.substr(doubleSolidus+2).match(/'/g);
+			if ((leftS != null) && (rightS != null) && ((leftS.length % 2 == 1) && (rightS.length % 2 == 1))) {
+        		doubleSolidus = sourceline.indexOf("//", doubleSolidus+2);
+				continue;
+    		}
+			// look for an odd number of double quotes to the left and right of the double solidus
+			var leftD  = sourceline.substr(0, doubleSolidus).match(/"/g);
+			var rightD = sourceline.substr(doubleSolidus+2).match(/"/g);
+			if ((leftD != null) && (rightD != null) && ((leftD.length % 2 == 1) && (rightD.length % 2 == 1))) {
+        		doubleSolidus = sourceline.indexOf("//", doubleSolidus+2);
+				continue;
+    		}
+			break;
+    	}
     	
     	var atCommon = sourceline.indexOf("@common", doubleSolidus);
     	var atUsing = sourceline.indexOf("@using", doubleSolidus);

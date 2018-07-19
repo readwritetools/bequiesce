@@ -11,8 +11,8 @@
 //
 //=============================================================================
 
+import {expect} from 'joezone';
 import FS from 'fs';
-import expect from '../../joezone/src/expect.function.js';
 
 export default class CommonSection {
 	

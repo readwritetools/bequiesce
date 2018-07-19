@@ -9,12 +9,12 @@
 //
 //=============================================================================
 
-import Pfile from "../../joezone/src/pfile.class";
-import Log from "../../joezone/src/log.class";
+import {expect} from 'joezone';
+import {Pfile} from 'joezone';
+import {Log} from 'joezone';
 import Jot from "./jot.class";
 import TestPackage from "./test-package.class";
 import StatsRecoder from './stats-recorder.class';
-import expect from '../../joezone/src/expect.function.js';
 
 export default class Bequiesce {
 	
@@ -106,6 +106,8 @@ export default class Bequiesce {
    		jot.trace("                                 ========    ========");
    		jot.trace(s);
     	jot.trace("");
+    	
+    	return (failCount > 0) ? 1 : 0;    		
 	}
 	
 }

@@ -2,4 +2,4 @@
 var z = x + y;
 
 //@testing
-x = 1; y = 2;     ;;     z == 3
+var x = 1; var y = 2;     ;;     z == 3

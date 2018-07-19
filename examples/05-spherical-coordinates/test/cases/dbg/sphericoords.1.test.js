@@ -8,9 +8,9 @@
 
 //-------------------------------------
 // @common
-import A from '../../codebase/sphericoords';
-import B from '../../codebase/remquo';
-import C from '../../codebase/number';
+var A = require('../../../codebase/sphericoords.js');
+var B = require('../../../codebase/remquo.js');
+var C = require('../../../codebase/number.js');
 
 //-------------------------------------
 // @using cc.SpheriCoords

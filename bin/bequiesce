@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+//=============================================================================
+//
+// File:         bequiesce/bin/bequiesce
+// Language:     ECMAScript 2015
+// Copyright:    Joe Honton © 2018
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 22, 2015
+// Contents:     Bequiesce, Because 99.999 Doesn't Just Happen
+// Install:      Run CLI as shell script installed with "npm install -g bequiesce"
+// Example 1:    bash ../bequiesce/bequeisce test/cases/main.test.js
+// Example 2:    bash ../bequiesce/bequeisce test/cases/test-cases.exim
+// 
+//=============================================================================
+
+var CLI = require('../dist/cli.class.js');
+var cli = new CLI();
+
+// Read the command line and execute
+if (cli.validateOptions())
+	cli.execute();

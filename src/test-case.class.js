@@ -11,12 +11,12 @@
 //
 //=============================================================================
 
+import {expect} from 'joezone';
+import {TextWriter} from 'joezone';
+import {Pfile} from 'joezone';
 import FS from 'fs';
 import StatsRecoder from './stats-recorder.class';
-import Pfile from '../../joezone/src/pfile.class';
 import FilenameResolver from './filename-resolver.class';
-import TextWriter from '../../joezone/src/text-writer.class';
-import expect from '../../joezone/src/expect.function.js';
 
 export default class TestCase {
 	
@@ -127,7 +127,16 @@ export default class TestCase {
     			
     			// dump the code someplace where it can be run directly using "node --use_strict test/test-case-dump.js"
     			var tw = new TextWriter();
-    			tw.open('test/test-case-dump.js');
+    			
+    			var pFile = new Pfile('../test');
+    			pFile.makeAbsolute();
+    			if (!pFile.exists() ) {
+    				jot.trace(`Creating test case dump directory ${pFile.name}`);
+    				pFile.mkDir();
+    			}
+    			pFile.addPath('test-case-dump.js');
+    			
+    			tw.open(pFile.name);
     			tw.putline(code);
     			tw.close();
 // TODO
@@ -177,7 +186,7 @@ export default class TestCase {
 	    		else {
 	    			// resolve filename
 	    			var importFilename = this.resolveFilename(match[2], enclosingFilename);
-	    			
+
 	    			// has this filename already been expanded 
 	    			if (this.visited.indexOf(importFilename) == -1) {
 	    				// since this filename hasn't been visited yet, add it to the list of visited files and recurse
@@ -185,7 +194,7 @@ export default class TestCase {
 	
 	        			var pfile = new Pfile(importFilename);
 	        			var fileOnly = pfile.getFilename();
-	    				var bSystemImport = (fileOnly == 'fs' || fileOnly == 'crypto');
+	    				var bSystemImport = (fileOnly == 'fs' || fileOnly == 'path' || fileOnly == 'crypto' || fileOnly == 'http' || fileOnly == 'https' ||fileOnly == 'http2' || fileOnly == 'url' || fileOnly == 'child_process');
 
 	    				// system imports, just echo the original line
 	        			if (bSystemImport == true) {

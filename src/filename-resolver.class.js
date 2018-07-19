@@ -9,8 +9,8 @@
 //
 //=============================================================================
 
+import {expect} from 'joezone';
 import Bequiesce from "./bequiesce.class";
-import expect from '../../joezone/src/expect.function.js';
 
 export default class FilenameResolver {
 

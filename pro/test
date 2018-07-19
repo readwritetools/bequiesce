@@ -1,0 +1,82 @@
+!blue 2.0
+//=============================================================================
+//
+// File:         bequiesce/pro/test
+// Language:     prorenata script
+// Copyright:    Joe Honton © 2018
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Jan 8, 2018
+// Contents:     Convert ES6 import/export syntax to require/module syntax (test cases)
+//               then run bequiesce test cases
+//
+//=============================================================================
+
+template {
+	eximjs 		 eximjs <source> <dest>
+	// local bequiesce, not global
+	bequiesce    node ../dbg/main.js <source>
+}
+
+// ---------- rewrite export/import (test) ---------- 
+recurse {
+	source    '../test/cases/src'
+	dest      '../test/cases/dbg'
+	overwrite older
+	exec      eximjs
+}
+
+//
+// ---------- run self test cases ---------- 
+recurse {
+	source    '../test/cases/dbg'
+	include   '*.test.js'
+	exec      bequiesce
+}
+
+// ---------- rewrite export/import (examples/01) ---------- 
+recurse {
+	source    '../examples/01-hello-world/test/cases/src'
+	dest      '../examples/01-hello-world/test/cases/dbg'
+	overwrite older
+	exec      eximjs
+}
+//
+// ---------- rewrite export/import (examples/02) ---------- 
+recurse {
+	source    '../examples/02-days-of-week/test/cases/src'
+	dest      '../examples/02-days-of-week/test/cases/dbg'
+	overwrite older
+	exec      eximjs
+}
+//
+// ---------- rewrite export/import (examples/03) ---------- 
+recurse {
+	source    '../examples/03-internationalization/test/cases/src'
+	dest      '../examples/03-internationalization/test/cases/dbg'
+	overwrite older
+	exec      eximjs
+}
+//
+// ---------- rewrite export/import (examples/04) ---------- 
+recurse {
+	source    '../examples/04-epochs-and-eras/test/cases/src'
+	dest      '../examples/04-epochs-and-eras/test/cases/dbg'
+	overwrite older
+	exec      eximjs
+}
+//
+// ---------- rewrite export/import (examples/05) ---------- 
+recurse {
+	source    '../examples/05-spherical-coordinates/test/cases/src'
+	dest      '../examples/05-spherical-coordinates/test/cases/dbg'
+	overwrite older
+	exec      eximjs
+}
+//
+// ---------- run test cases (examples) ---------- 
+recurse {
+	source    '../examples'
+	exclude   src						// only include the 'dbg' version
+	include   '*.test.js'
+	exec      bequiesce
+}

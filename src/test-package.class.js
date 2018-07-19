@@ -10,8 +10,9 @@
 //
 //=============================================================================
 
-import Pfile from "../../joezone/src/pfile.class";
-import TextReader from '../../joezone/src/text-reader.class';
+import {expect} from 'joezone';
+import {TextReader} from 'joezone';
+import {Pfile} from 'joezone';
 import ParserFactory from './parser-factory.class';
 import CommonSection from './common-section.class';
 import CommonCode from './common-code.class';
@@ -21,7 +22,6 @@ import TestGroup from './test-group.class';
 import TestCase from './test-case.class';
 import StatsRecoder from './stats-recorder.class';
 import Jot from './jot.class';
-import expect from '../../joezone/src/expect.function.js';
 
 export default class TestPackage {
 	

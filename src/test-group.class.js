@@ -10,9 +10,9 @@
 //
 //=============================================================================
 
+import {expect} from 'joezone';
 import StatsRecoder from './stats-recorder.class';
 import Jot from './jot.class';
-import expect from '../../joezone/src/expect.function.js';
 
 export default class TestGroup {
 	
