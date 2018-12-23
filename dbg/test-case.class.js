@@ -127,7 +127,16 @@ module.exports = class TestCase {
     			
     			// dump the code someplace where it can be run directly using "node --use_strict test/test-case-dump.js"
     			var tw = new TextWriter();
-    			tw.open('../test/test-case-dump.js');
+    			
+    			var pFile = new Pfile('../test');
+    			pFile.makeAbsolute();
+    			if (!pFile.exists() ) {
+    				jot.trace(`Creating test case dump directory ${pFile.name}`);
+    				pFile.mkDir();
+    			}
+    			pFile.addPath('test-case-dump.js');
+    			
+    			tw.open(pFile.name);
     			tw.putline(code);
     			tw.close();
 // TODO
@@ -185,7 +194,7 @@ module.exports = class TestCase {
 	
 	        			var pfile = new Pfile(importFilename);
 	        			var fileOnly = pfile.getFilename();
-	    				var bSystemImport = (fileOnly == 'fs' || fileOnly == 'crypto' || fileOnly == 'http' || fileOnly == 'https' || fileOnly == 'url');
+	    				var bSystemImport = (fileOnly == 'fs' || fileOnly == 'path' || fileOnly == 'crypto' || fileOnly == 'http' || fileOnly == 'https' ||fileOnly == 'http2' || fileOnly == 'url' || fileOnly == 'child_process');
 
 	    				// system imports, just echo the original line
 	        			if (bSystemImport == true) {

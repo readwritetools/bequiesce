@@ -1,7 +1,7 @@
 {
   "name": "bequiesce",
   "description": "Because 99.999 Doesn't Just Happen",
-  "version": "1.1.7",
+  "version": "1.1.17",
   "author": "Joe Honton",
   "license": "CC-BY-NC-ND-4.0",
   "private": true,
@@ -33,11 +33,10 @@
     "failed": "node test/test-case-dump.js"
   },
   "dependencies": {
-    "joezone": "git+ssh://root@nk021:/keep/joezone#*"
+    "joezone": "git+ssh://root@nk024:/keep/joezone#"
   },
   "files": [
     "bin",
-    "dbg",
     "dist",
     "examples"
   ]
