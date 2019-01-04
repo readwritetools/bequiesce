@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var expect = require('joezone').expect, TestGroup = require('./test-group.class.js'), TestCase = require('./test-case.class.js'), StatsRecoder = require('./stats-recorder.class.js');
 
 module.exports = class SituationSection {

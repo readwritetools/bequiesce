@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var expect = require('joezone').expect, TextReader = require('joezone').TextReader, Pfile = require('joezone').Pfile, ParserFactory = require('./parser-factory.class.js'), CommonSection = require('./common-section.class.js'), CommonCode = require('./common-code.class.js'), SituationSection = require('./situation-section.class.js'), SituationCode = require('./situation-code.class.js'), TestGroup = require('./test-group.class.js'), TestCase = require('./test-case.class.js'), StatsRecoder = require('./stats-recorder.class.js'), Jot = require('./jot.class.js');
 
 module.exports = class TestPackage {

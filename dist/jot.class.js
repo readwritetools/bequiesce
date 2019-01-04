@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var expect = require('joezone').expect, FilenameResolver = require('./filename-resolver.class.js');
 
 module.exports = class Jot {

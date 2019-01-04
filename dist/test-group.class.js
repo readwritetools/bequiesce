@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var expect = require('joezone').expect, StatsRecoder = require('./stats-recorder.class.js'), Jot = require('./jot.class.js');
 
 module.exports = class TestGroup {

@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var expect = require('joezone').expect, TextWriter = require('joezone').TextWriter, Pfile = require('joezone').Pfile, FS = require('fs'), StatsRecoder = require('./stats-recorder.class.js'), FilenameResolver = require('./filename-resolver.class.js');
 
 module.exports = class TestCase {

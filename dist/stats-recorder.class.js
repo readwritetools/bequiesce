@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 module.exports = class StatsRecorder {
     constructor() {
         this.success = 0, this.failure = 0, this.failedObjects = new Array(), Object.seal(this);

@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var terminal = require('joezone').terminal, Pfile = require('joezone').Pfile, Bunch = require('joezone').Bunch, Bequiesce = require('./bequiesce.class.js'), fs = require('fs');
 
 module.exports = class CLI {
