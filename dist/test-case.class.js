@@ -48,19 +48,19 @@ module.exports = class TestCase {
     }
     expandCode(e, t) {
         expect(e, 'String'), expect(t, 'String');
-        var i = [], s = 'import\\s+(.*?)', o = '\\s+from\\s+(.*)', r = new RegExp(s + o), n = 'var\\s+(.*)\\s+=\\s+', a = 'require\\(\'(.*?)\'\\);', c = new RegExp(n + a), p = new RegExp('(module.exports\\s+=\\s+)(.*)'), l = e.split('\n');
-        for (let e of l) {
-            var h = p.exec(e);
-            if (null != h) i.push(h[2]); else if (null == (h = r.exec(e)) && (h = c.exec(e)), 
-            null == h) i.push(e); else {
-                var u = this.resolveFilename(h[2], t);
-                if (-1 == this.visited.indexOf(u)) {
-                    this.visited.push(u);
-                    var S = new Pfile(u), m = S.getFilename(), x = 'fs' == m || 'path' == m || 'crypto' == m || 'http' == m || 'https' == m || 'http2' == m || 'url' == m || 'child_process' == m;
-                    if (1 == x) i.push(e); else if (S.exists()) {
-                        var g = FS.readFileSync(u, 'utf8'), d = this.expandCode(g, u);
-                        i.push(d);
-                    } else log.invalidHalt(`Import not found '${u}' while parsing ${t}`);
+        var i = [], s = new RegExp('import\\s+(.*?)\\s+from\\s+(.*)'), o = new RegExp('var\\s+(.*)\\s+=\\s+require\\(\'(.*?)\'\\);'), r = new RegExp('(module.exports\\s+=\\s+)(.*)'), n = e.split('\n');
+        for (let e of n) {
+            var a = r.exec(e);
+            if (null != a) i.push(a[2]); else if (null == (a = s.exec(e)) && (a = o.exec(e)), 
+            null == a) i.push(e); else {
+                var c = this.resolveFilename(a[2], t);
+                if (-1 == this.visited.indexOf(c)) {
+                    this.visited.push(c);
+                    var p = new Pfile(c), l = p.getFilename();
+                    if (1 == ('fs' == l || 'path' == l || 'crypto' == l || 'http' == l || 'https' == l || 'http2' == l || 'url' == l || 'child_process' == l)) i.push(e); else if (p.exists()) {
+                        var h = FS.readFileSync(c, 'utf8'), u = this.expandCode(h, c);
+                        i.push(u);
+                    } else log.invalidHalt(`Import not found '${c}' while parsing ${t}`);
                 }
             }
         }
@@ -68,13 +68,13 @@ module.exports = class TestCase {
     }
     resolveFilename(e, t) {
         expect(e, 'String'), expect(t, 'String'), ';' == e.charAt(e.length - 1) && (e = e.substr(0, e.length - 1));
-        var i = e.charAt(0), s = e.charAt(e.length - 1);
-        i != s || '"' != i && '\'' != i || (e = e.substr(1, e.length - 2));
-        var o = new Pfile(t).getPath(), r = new Pfile(o).addPath(e);
-        if (!r.exists()) {
-            var n = new Pfile(r).addExtension('js');
-            n.exists() && (r = n);
+        var i = e.charAt(0);
+        i != e.charAt(e.length - 1) || '"' != i && '\'' != i || (e = e.substr(1, e.length - 2));
+        var s = new Pfile(t).getPath(), o = new Pfile(s).addPath(e);
+        if (!o.exists()) {
+            var r = new Pfile(o).addExtension('js');
+            r.exists() && (o = r);
         }
-        return r.getFQN();
+        return o.getFQN();
     }
 };
