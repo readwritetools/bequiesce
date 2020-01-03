@@ -2,8 +2,8 @@
 //
 // File:         bequiesce/src/code-section.class.js
 // Language:     ECMAScript 2015
-// Copyright:    Joe Honton © 2015
-// License:      CC-BY-NC-ND 4.0
+// Copyright:    Read Write Tools © 2018
+// License:      MIT
 // Initial date: Sep 13, 2015
 // Contents:     A section of a test package that begins with the annotation
 //               "@using" and which contains lines of JavaScript to be

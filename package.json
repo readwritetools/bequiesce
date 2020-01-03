@@ -1,40 +1,31 @@
 {
   "name": "bequiesce",
-  "description": "Because 99.999 Doesn't Just Happen",
   "version": "1.1.20",
-  "author": "Joe Honton",
-  "license": "CC-BY-NC-ND-4.0",
-  "private": true,
+  "description": "Because 99.999 Doesn't Just Happen",
+  "author": "Read Write Tools",
+  "license": "MIT",
   "main": "dist/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/readwritetools/bequiesce.git"
+  },
   "bin": {
-    "bequiesce": "bin/bequiesce"
+    "bequiesce": "./bin/bequiesce"
   },
   "scripts": {
-    "build": "npm run exim && npm run exim-tests && npm run self-test",
-    "exim": "bash /musings/lib/exim/exim ./src ./dbg main.js",
-    "exim-tests": "bash /musings/lib/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim",
-    "self-test": "node ./dbg/main.js ./test/cases/dbg",
-    "test01": "npm run exim01 && npm run bequiesce01",
-    "exim01": "bash /musings/lib/exim/exim ./examples/01-hello-world/test/cases/src ./examples/01-hello-world/test/cases/dbg hello-world.test.js",
-    "bequiesce01": "node ./dbg/main.js ./examples/01-hello-world/test/cases/dbg",
-    "test02": "npm run exim02 && npm run bequiesce02",
-    "exim02": "bash /musings/lib/exim/exim ./examples/02-days-of-week/test/cases/src ./examples/02-days-of-week/test/cases/dbg days-of-week.test.js",
-    "bequiesce02": "node ./dbg/main.js ./examples/02-days-of-week/test/cases/dbg",
-    "test03": "npm run exim03 && npm run bequiesce03",
-    "exim03": "bash /musings/lib/exim/exim ./examples/03-internationalization/test/cases/src ./examples/03-internationalization/test/cases/dbg i18n.test.js",
-    "bequiesce03": "node ./dbg/main.js ./examples/03-internationalization/test/cases/dbg",
-    "test04": "npm run exim04 && npm run bequiesce04",
-    "exim04": "bash /musings/lib/exim/exim ./examples/04-epochs-and-eras/test/cases/src ./examples/04-epochs-and-eras/test/cases/dbg test-cases.exim",
-    "bequiesce04": "node ./dbg/main.js ./examples/04-epochs-and-eras/test/cases/dbg",
-    "test05": "npm run exim05 && npm run bequiesce05",
-    "exim05": "bash /musings/lib/exim/exim ./examples/05-spherical-coordinates/test/cases/src ./examples/05-spherical-coordinates/test/cases/dbg test-cases.exim",
-    "bequiesce05": "node ./dbg/main.js ./examples/05-spherical-coordinates/test/cases/dbg",
-    "bump-version": "npm version patch && git push && git push --tags",
-    "failed": "node test/test-case-dump.js"
+    "bump-version": "npm version patch && git push && git push --tags"
   },
   "dependencies": {
     "joezone": "git+ssh://root@nk024:/keep/joezone#"
   },
+  "keywords": [
+    "cli",
+    "testing"
+  ],
+  "bugs": {
+    "url": "https://github.com/readwritetools/bequiesce/issues"
+  },
+  "homepage": "https://hub.readwritetools.com/tasks/bequiesce.blue",
   "files": [
     "bin",
     "dist",

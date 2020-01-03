@@ -1,4 +1,4 @@
-/* Copyright (c) 2019 Read Write Tools */
+/* Copyright (c) 2018 Read Write Tools */
 var expect = require('joezone').expect, StatsRecoder = require('./stats-recorder.class.js'), Jot = require('./jot.class.js');
 
 module.exports = class TestGroup {
@@ -19,7 +19,7 @@ module.exports = class TestGroup {
     }
     reportResults(e, t) {
         expect(e, 'String'), expect(t, 'String');
-        var s = Jot.rightJustify(this.statsRecorder.success.toString(), 3), r = Jot.rightJustify(this.statsRecorder.failure.toString(), 3), i = this.description, c = ` Pass ${s}    Fail ${r} ${e} --\x3e ${i}`;
-        jot.trace(this, c);
+        var s = ` Pass ${Jot.rightJustify(this.statsRecorder.success.toString(), 3)}    Fail ${Jot.rightJustify(this.statsRecorder.failure.toString(), 3)} ${e} --\x3e ${this.description}`;
+        jot.trace(this, s);
     }
 };

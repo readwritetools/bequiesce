@@ -1,4 +1,4 @@
-/* Copyright (c) 2019 Read Write Tools */
+/* Copyright (c) 2018 Read Write Tools */
 var expect = require('joezone').expect, FS = require('fs');
 
 module.exports = class CommonSection {

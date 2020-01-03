@@ -1,4 +1,4 @@
-/* Copyright (c) 2019 Read Write Tools */
+/* Copyright (c) 2018 Read Write Tools */
 var expect = require('joezone').expect, Pfile = require('joezone').Pfile, Log = require('joezone').Log, Jot = require('./jot.class.js'), TestPackage = require('./test-package.class.js'), StatsRecoder = require('./stats-recorder.class.js');
 
 module.exports = class Bequiesce {

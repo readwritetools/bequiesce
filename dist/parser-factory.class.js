@@ -1,4 +1,4 @@
-/* Copyright (c) 2019 Read Write Tools */
+/* Copyright (c) 2018 Read Write Tools */
 var expect = require('joezone').expect, CommonSection = require('./common-section.class.js'), CommonCode = require('./common-code.class.js'), SituationSection = require('./situation-section.class.js'), SituationCode = require('./situation-code.class.js'), TestGroup = require('./test-group.class.js'), TestCase = require('./test-case.class.js');
 
 module.exports = class ParserFactory {
@@ -18,8 +18,8 @@ module.exports = class ParserFactory {
     }
     parseLine(t, e) {
         for (expect(t, 'String'), expect(e, 'Number'); -1 != t.indexOf('/*') && -1 != t.indexOf('*/'); ) {
-            var i = t.indexOf('/*'), n = t.indexOf('*/', i + 2), r = t.substr(0, i), s = t.substr(n + 2);
-            t = r + s;
+            var i = t.indexOf('/*'), n = t.indexOf('*/', i + 2);
+            t = t.substr(0, i) + t.substr(n + 2);
         }
         if (-1 != t.indexOf('*/')) {
             n = t.indexOf('*/');
@@ -30,38 +30,38 @@ module.exports = class ParserFactory {
             i = t.indexOf('/*');
             t = t.substr(0, i), this.multiLineComment = 1;
         }
-        for (var u = t.indexOf('//'); -1 != u; ) if (u > 0 && ':' == t.charAt(u - 1)) u = t.indexOf('//', u + 2); else {
-            var o = t.substr(0, u).match(/'/g), a = t.substr(u + 2).match(/'/g);
-            if (null == o || null == a || o.length % 2 != 1 || a.length % 2 != 1) {
-                var c = t.substr(0, u).match(/"/g), m = t.substr(u + 2).match(/"/g);
-                if (null == c || null == m || c.length % 2 != 1 || m.length % 2 != 1) break;
-                u = t.indexOf('//', u + 2);
-            } else u = t.indexOf('//', u + 2);
+        for (var r = t.indexOf('//'); -1 != r; ) if (r > 0 && ':' == t.charAt(r - 1)) r = t.indexOf('//', r + 2); else {
+            var s = t.substr(0, r).match(/'/g), u = t.substr(r + 2).match(/'/g);
+            if (null == s || null == u || s.length % 2 != 1 || u.length % 2 != 1) {
+                var o = t.substr(0, r).match(/"/g), a = t.substr(r + 2).match(/"/g);
+                if (null == o || null == a || o.length % 2 != 1 || a.length % 2 != 1) break;
+                r = t.indexOf('//', r + 2);
+            } else r = t.indexOf('//', r + 2);
         }
-        var l = t.indexOf('@common', u), h = t.indexOf('@using', u), g = t.indexOf('@testing', u);
-        if (-1 != u && -1 != l) {
+        var c = t.indexOf('@common', r), m = t.indexOf('@using', r), l = t.indexOf('@testing', r);
+        if (-1 != r && -1 != c) {
             this.parsingState = 1;
-            var f = t.substr(l + '@common'.length).trim();
-            return S = new CommonSection(f, this.packageNumber, e);
+            var h = t.substr(c + '@common'.length).trim();
+            return g = new CommonSection(h, this.packageNumber, e);
         }
-        if (-1 != u && -1 != h) {
+        if (-1 != r && -1 != m) {
             this.parsingState = 2;
-            f = t.substr(h + '@using'.length).trim();
-            var S = new SituationSection(f, this.packageNumber, e);
-            return this.currentSituationSection = S, S;
+            h = t.substr(m + '@using'.length).trim();
+            var g = new SituationSection(h, this.packageNumber, e);
+            return this.currentSituationSection = g, g;
         }
-        if (-1 != u && -1 != g) {
+        if (-1 != r && -1 != l) {
             this.parsingState = 3;
-            f = t.substr(g + '@testing'.length).trim();
-            var p = new TestGroup(f, this.packageNumber, e);
-            return this.currentTestGroup = p, p;
+            h = t.substr(l + '@testing'.length).trim();
+            var f = new TestGroup(h, this.packageNumber, e);
+            return this.currentTestGroup = f, f;
         }
-        if (0 == u || 0 == t.length) return null;
-        if (u > 0 && (t = t.substr(0, u)), this.inCommonSection()) return new CommonCode(t);
+        if (0 == r || 0 == t.length) return null;
+        if (r > 0 && (t = t.substr(0, r)), this.inCommonSection()) return new CommonCode(t);
         if (this.inSituationSection()) return new SituationCode(t);
         if (this.inTestSection()) {
-            var d = t.split(';;'), b = d[0].trim(), x = d.length < 2 ? '' : d[1].trim();
-            return new TestCase(b, x, this.currentSituationSection, this.currentTestGroup, this.packageNumber, e);
+            var S = t.split(';;'), p = S[0].trim(), d = S.length < 2 ? '' : S[1].trim();
+            return new TestCase(p, d, this.currentSituationSection, this.currentTestGroup, this.packageNumber, e);
         }
         return log.abnormal(`Is this code or test? "${t}"`), null;
     }

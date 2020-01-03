@@ -3,15 +3,16 @@
 //
 // File:         bequiesce/pro/compile
 // Language:     prorenata script
-// Copyright:    Joe Honton © 2018
-// License:      CC-BY-NC-ND 4.0
+// Copyright:    Read Write Tools © 2018
+// License:      MIT
 // Initial date: Jan 8, 2018
 // Contents:     Convert ES6 import/export syntax to require/module syntax
 //
 //=============================================================================
 
 template {
-	eximjs 		 eximjs <source> <dest>
+	eximjs		eximjs <source> <dest>
+	ghfm		blue compile <source> <dest> --emit=ghfm
 }
 
 // ---------- rewrite export/import (src) ---------- 
@@ -21,4 +22,12 @@ recurse {
 	include   '*.js'
 	overwrite older
 	exec      eximjs
+}
+
+// ---------- Convert blue document into Github Flavored readme.md ---------- 
+recurse {
+	source '/palau/www/hub.readwritetools.com/tasks/ghfm/bequiesce.blue'
+	dest   '../readme.md' 
+	overwrite always
+	exec ghfm
 }

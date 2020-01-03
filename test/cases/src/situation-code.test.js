@@ -1,8 +1,8 @@
 //=============================================================================
 // File:         bequiesce/test/cases/situation-code.test.js
 // Language:     Bequiesce
-// Copyright:    Joe Honton © 2015
-// License:      CC-BY-NC-ND 4.0
+// Copyright:    Read Write Tools © 2018
+// License:      MIT
 // Initial date: Sep 12, 2015
 //=============================================================================
 

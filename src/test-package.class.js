@@ -2,8 +2,8 @@
 //
 // File:         bequiesce/src/test-package.class.js
 // Language:     ECMAScript 2015
-// Copyright:    Joe Honton © 2015
-// License:      CC-BY-NC-ND 4.0
+// Copyright:    Read Write Tools © 2018
+// License:      MIT
 // Initial date: Sep 12, 2015
 // Contents:     A TestPackage object corresponds to a single user test case
 //               file containing several "using" sections, each with one or more "testing" groups

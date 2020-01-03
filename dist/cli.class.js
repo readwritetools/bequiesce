@@ -1,4 +1,4 @@
-/* Copyright (c) 2019 Read Write Tools */
+/* Copyright (c) 2018 Read Write Tools */
 var terminal = require('joezone').terminal, Pfile = require('joezone').Pfile, Bunch = require('joezone').Bunch, Bequiesce = require('./bequiesce.class.js'), fs = require('fs');
 
 module.exports = class CLI {
@@ -32,8 +32,8 @@ module.exports = class CLI {
     }
     showVersion() {
         try {
-            var e = new Pfile(__dirname).addPath('../package.json').name, s = fs.readFileSync(e, 'utf-8'), t = JSON.parse(s);
-            return `version v${t.version}`;
+            var e = new Pfile(__dirname).addPath('../package.json').name, s = fs.readFileSync(e, 'utf-8');
+            return `version v${JSON.parse(s).version}`;
         } catch (e) {
             return `version unknown ${e.message}`;
         }
@@ -82,11 +82,11 @@ module.exports = class CLI {
         var e = Bequiesce.getInstance(), s = new Pfile(process.argv[2]).makeAbsolute();
         if (s.exists()) {
             if (s.isFile()) e.testPackage(s.getFQN()); else if (s.isDirectory()) {
-                var t = new Bunch(s.getPath(), '*.test.js'), r = t.find(!0);
-                for (let s of r) e.testPackage(s.getFQN());
+                var t = new Bunch(s.getPath(), '*.test.js').find(!0);
+                for (let s of t) e.testPackage(s.getFQN());
             }
-            var i = e.runTests();
-            process.exit(i);
+            var r = e.runTests();
+            process.exit(r);
         } else terminal.writeToConsoleOrStderr(`${s.name} not found`);
     }
 };

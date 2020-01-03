@@ -1,4 +1,4 @@
-/* Copyright (c) 2019 Read Write Tools */
+/* Copyright (c) 2018 Read Write Tools */
 var expect = require('joezone').expect, TextReader = require('joezone').TextReader, Pfile = require('joezone').Pfile, ParserFactory = require('./parser-factory.class.js'), CommonSection = require('./common-section.class.js'), CommonCode = require('./common-code.class.js'), SituationSection = require('./situation-section.class.js'), SituationCode = require('./situation-code.class.js'), TestGroup = require('./test-group.class.js'), TestCase = require('./test-case.class.js'), StatsRecoder = require('./stats-recorder.class.js'), Jot = require('./jot.class.js');
 
 module.exports = class TestPackage {
@@ -56,7 +56,7 @@ module.exports = class TestPackage {
         expect(e, 'String'), expect(t, 'String'), this.commonSection.isValid(), jot.trace(''), 
         e += ' ';
         for (let o of this.sections) o.reportResults(e, t);
-        var o = Jot.rightJustify(this.statsRecorder.success.toString(), 3), s = Jot.rightJustify(this.statsRecorder.failure.toString(), 3), i = ` Pass ${o}    Fail ${s}`;
-        jot.trace('                                 --------    --------'), jot.trace(this, i);
+        var o = ` Pass ${Jot.rightJustify(this.statsRecorder.success.toString(), 3)}    Fail ${Jot.rightJustify(this.statsRecorder.failure.toString(), 3)}`;
+        jot.trace('                                 --------    --------'), jot.trace(this, o);
     }
 };
