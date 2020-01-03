@@ -28,15 +28,29 @@
 
 ### Motivation
 
-Existing tools for testing JavaScript suffer from three problems: 1) they
-emphasize DOM testing over module testing, 2) they are verbose to the point of
-being hard to maintain, and 3) they mask the true expressiveness of JavaScript.
+Existing tools for testing JavaScript suffer from three problems:
+
+   1. They emphasize DOM testing over module testing.
+   2. They are verbose to the point of being hard to maintain.
+   3. They mask the true expressiveness of JavaScript.
 
 The Bequiesce test harness begins with a solid basis as a straightforward
 library regression test tool, while following the guideline that test cases must
 be easy to read and maintain. Bequiesce does this by using JavaScript's ability
 to evaluate strings that contain JavaScript code. With this simple approach, the
 full power of JavaScript remains within the hands of the test developer.
+
+### Prerequisites and installation
+
+The <span>Bequiesce</span> utility uses Node.js. Package installation is
+done via NPM. These are the only two prerequisites.
+
+To install the utility and make it available to your Bash shell, use this
+command.
+
+```bash
+[user@host]# npm install -g bequiesce
+```
 
 ### Usage
 
@@ -51,10 +65,15 @@ The software is invoked from the command line with:
 Bequiesce test packages are composed entirely of JavaScript which are parsed by
 the test harness. JavaScript statements within a test package are parsed
 line-by-line and shunted to one of four collections for subsequent evaluation:
-1) common sections, 2) situation sections, 3) propositions, or 4) proofs. Test
-authors develop their test cases in a single source file, organized into groups
-separated by pragmas. The destination for each parsed line is determined by the
-presence of these three pragmas: @common, @using, and @testing.
+
+   1. common sections
+   2. situation sections
+   3. propositions
+   4. proofs
+
+Test authors develop their test cases in a single source file, organized into
+groups separated by pragmas. The destination for each parsed line is determined
+by the presence of these three pragmas: @common, @using, and @testing.
 
 Parsed lines that occur immediately after the `common` pragma are shunted to the *common
 section*: these JavaScript statements become part of the evaluation stream for
@@ -87,7 +106,9 @@ x = 1; y = 2;     ;;     z == 3
 The <span>Bequiesce</span> command line utility is licensed under the MIT
 License. It may be cloned from <a href='https://github.com/readwritetools/bequiesce'>Github</a>
 , or installed via <a href='https://www.npmjs.com/package/bequiesce'>NPM</a>
-. Complete documentation is available online at <a href='bequiesce.com'>https://bequiesce.com</a>
+.
+
+Complete documentation is available online at <a href='bequiesce.com'>https://bequiesce.com</a>
 
 <img src='/img/blue-seal-mit.png' width=80 align=right />
 
