@@ -108,7 +108,7 @@ License. It may be cloned from <a href='https://github.com/readwritetools/bequie
 , or installed via <a href='https://www.npmjs.com/package/bequiesce'>NPM</a>
 .
 
-Complete documentation is available online at <a href='bequiesce.com'>https://bequiesce.com</a>
+Complete documentation is available online at <a href='https://bequiesce.com'>https://bequiesce.com</a>
 
 <img src='/img/blue-seal-mit.png' width=80 align=right />
 
