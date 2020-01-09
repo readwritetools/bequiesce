@@ -21,7 +21,8 @@
   "keywords": [
     "cli",
     "test cases",
-    "test harness"
+    "test harness",
+    "readwritetools"
   ],
   "bugs": {
     "url": "https://github.com/readwritetools/bequiesce/issues"
