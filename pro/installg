@@ -13,11 +13,11 @@
 // ---------- install app to user's path ---------- 
 run {
 	sh npm -g bin   // show target destination
-	sh npm update -g bequiesce
+	sh npm install -g bequiesce@latest
 	sh bequiesce --version
 
-	sh ssh nk024 npm update -g bequiesce
-	sh ssh nk025 npm update -g bequiesce
-	sh ssh nk026 npm update -g bequiesce
-	sh ssh nk027 npm update -g bequiesce
+	sh ssh nk024 npm install -g bequiesce@latest
+	sh ssh nk025 npm install -g bequiesce@latest
+	sh ssh nk026 npm install -g bequiesce@latest
+	sh ssh nk027 npm install -g bequiesce@latest
 }
